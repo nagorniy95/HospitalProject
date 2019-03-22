@@ -26,11 +26,11 @@ namespace DRHC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DrhcCMSContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DrhcCMS")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<DrhcCMSContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.

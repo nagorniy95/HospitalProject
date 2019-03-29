@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190329170318_intial_migration_2")]
+    partial class intial_migration_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -25,6 +25,7 @@ namespace DRHC.Data
 
 
         public DbSet<Admin> admin { get; set; }
+        public DbSet<Feedback> feedback { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,8 @@ namespace DRHC.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Admin>().ToTable("Admins");
+            modelBuilder.Entity<Feedback>().ToTable("Feedback");
+            
 
         }
     }

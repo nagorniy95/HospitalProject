@@ -78,18 +78,17 @@ namespace DRHC.Controllers
 
         public ActionResult Edit(int? id)
         {
-            /*
-            if ((id == null) || (db.Feedback.Find(id) == null))
+
+            if ((id == null) || (db.feedback.Find(id) == null))
             {
                 return NotFound();
             }
 
-        */
+
             string query = "select * from Feedback where FeedbackID=@id";
             SqlParameter param = new SqlParameter("@id", id);
-            //Feedback mytag = db.Feedback.FromSql(query, param).FirstOrDefault();
-            //return View(mytag);
-            return View();
+            Feedback mytag = db.feedback.FromSql(query, param).FirstOrDefault();
+            return View(mytag);
         }
 
 
@@ -97,12 +96,12 @@ namespace DRHC.Controllers
         public ActionResult Edit(int? id, string AuthorFName, string AuthorLName, string AuthorEmail, string AuthorPhone, string AuthorMessage)
         {
 
-            /*
-             * if ((id == null) || (db.Feedback.Find(id) == null))
+
+            if ((id == null) || (db.feedback.Find(id) == null))
             {
                 return NotFound();
             }
-            */
+
             string query = "update Feedback set AuthorFName=@fname, AuthorLName=@lname, AuthorEmail = @email, AuthorPhone = @phone, AuthorMessage = @message" +
                 " where FeedbackID=@id";
             SqlParameter[] myparams = new SqlParameter[6];
@@ -119,16 +118,15 @@ namespace DRHC.Controllers
         }
         //================================================================================= Delete
 
-
         public ActionResult Delete(int? id)
         {
-            /*
-            if ((id == null) || (db.Feedback.Find(id) == null))
+
+            if ((id == null) || (db.feedback.Find(id) == null))
             {
                 return NotFound();
 
             }
-            */
+
             string query = "delete from Feedback where FeedbackID=@id";
             SqlParameter param = new SqlParameter("@id", id);
             db.Database.ExecuteSqlCommand(query, param);

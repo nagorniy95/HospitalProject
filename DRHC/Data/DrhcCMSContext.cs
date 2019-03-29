@@ -26,6 +26,8 @@ namespace DRHC.Data
 
         public DbSet<Admin> admin { get; set; }
         public DbSet<Feedback> feedback { get; set; }
+        public DbSet<SearchCategory> searchCategory { get; set; }
+        public DbSet<Alerts> alerts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,7 +40,9 @@ namespace DRHC.Data
 
             modelBuilder.Entity<Admin>().ToTable("Admins");
             modelBuilder.Entity<Feedback>().ToTable("Feedback");
-            
+            modelBuilder.Entity<SearchCategory>().ToTable("SearchCAtegory");
+            modelBuilder.Entity<Alerts>().ToTable("Alerts");
+
 
         }
     }

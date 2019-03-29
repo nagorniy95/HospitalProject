@@ -18,11 +18,11 @@ using DRHC.Data;
 
 namespace DRHC.Controllers
 {
-    public class SearchCategoryController : Controller
+    public class AlertsController : Controller
     {
         private readonly DrhcCMSContext db;
-        
-        public SearchCategoryController(DrhcCMSContext context)
+
+        public AlertsController(DrhcCMSContext context)
         {
             db = context;
         }
@@ -36,12 +36,12 @@ namespace DRHC.Controllers
 
         public ActionResult List()
         {
-            string query = "select * from SearchCategory";
-            
-            IEnumerable<SearchCategory> searchCategories;
-            searchCategories = db.searchCategory.FromSql(query);
+            string query = "select * from Alerts";
 
-            return View(searchCategories);
+            IEnumerable<Alerts> alerts;
+            alerts = db.alerts.FromSql(query);
+
+            return View(alerts);
         }
         //================================================================================= Create
 
@@ -57,13 +57,13 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string SearchCategoryTitle, string SearchCategoryDescription)
+        public ActionResult Create(string AlertTitle, string AlertMessage)
         {
-            string query = "insert into SearchCategory (SearchCategoryTitle, SearchCategoryDescription)" +
-                " values (@fname, @lname, @email, @phone, @message)";
+            string query = "insert into Alerts (AlertTitle, AlertMessage)" +
+                " values (@title, @message)";
             SqlParameter[] myparams = new SqlParameter[2];
-            myparams[0] = new SqlParameter("@title", SearchCategoryTitle);
-            myparams[1] = new SqlParameter("@description", SearchCategoryDescription);
+            myparams[0] = new SqlParameter("@title", AlertTitle);
+            myparams[1] = new SqlParameter("@message", AlertMessage);
 
             db.Database.ExecuteSqlCommand(query, myparams);
 
@@ -73,29 +73,29 @@ namespace DRHC.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if ((id == null) || (db.searchCategory.Find(id) == null))
+            if ((id == null) || (db.alerts.Find(id) == null))
             {
                 return NotFound();
             }
-            string query = "select * from SearchCategory where SearchCategoryID=@id";
+            string query = "select * from Alerts where AlertID=@id";
             SqlParameter param = new SqlParameter("@id", id);
-            SearchCategory mytag = db.searchCategory.FromSql(query, param).FirstOrDefault();
+            Alerts mytag = db.alerts.FromSql(query, param).FirstOrDefault();
             return View(mytag);
         }
 
 
         [HttpPost]
-        public ActionResult Edit(int? id, string SearchCategoryTitle, string SearchCategoryDescription)
+        public ActionResult Edit(int? id, string AlertTitle, string AlertMessage)
         {
-            if ((id == null) || (db.searchCategory.Find(id) == null))
+            if ((id == null) || (db.alerts.Find(id) == null))
             {
                 return NotFound();
             }
-            string query = "update SearchCategory set SearchCategoryTitle=@title,SearchCategoryDescription=@desc" +
-                " where SearchCategoryID=@id";
+            string query = "update Alerts set AlertTitle=@title,AlertMessage=@mess" +
+                " where AlertID=@id";
             SqlParameter[] myparams = new SqlParameter[3];
-            myparams[0] = new SqlParameter("@title", SearchCategoryTitle);
-            myparams[1] = new SqlParameter("@desc", SearchCategoryDescription);
+            myparams[0] = new SqlParameter("@title", AlertTitle);
+            myparams[1] = new SqlParameter("@mess", AlertMessage);
             myparams[2] = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, myparams);
@@ -107,18 +107,16 @@ namespace DRHC.Controllers
 
         public ActionResult Delete(int? id)
         {
-            if ((id == null) || (db.searchCategory.Find(id) == null))
+            if ((id == null) || (db.alerts.Find(id) == null))
             {
                 return NotFound();
 
             }
-            string query = "delete from SearchCategory where SearchCategoryID=@id";
+            string query = "delete from Alerts where AlertID=@id";
             SqlParameter param = new SqlParameter("@id", id);
             db.Database.ExecuteSqlCommand(query, param);
             return RedirectToAction("List");
 
         }
-
-    } // end class
-
+    }
 }

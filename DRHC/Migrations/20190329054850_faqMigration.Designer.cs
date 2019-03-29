@@ -11,8 +11,8 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    [Migration("20190322190911_initial")]
-    partial class initial
+    [Migration("20190329054850_faqMigration")]
+    partial class faqMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,6 +88,90 @@ namespace DRHC.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Faq", b =>
+                {
+                    b.Property<int>("FaqID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answers")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Questions")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.HasKey("FaqID");
+
+                    b.ToTable("Faqs");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Registration", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("UserFName")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("UserLName")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Testimonial", b =>
+                {
+                    b.Property<int>("TestimonialID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Story")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<int>("TestimonialStatusID");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserFName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserLName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("TestimonialID");
+
+                    b.HasIndex("TestimonialStatusID");
+
+                    b.ToTable("Testimonials");
+                });
+
+            modelBuilder.Entity("DRHC.Models.TestimonialStatus", b =>
+                {
+                    b.Property<int>("TestimonialStatusID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("TestimonialStatusName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("TestimonialStatusID");
+
+                    b.ToTable("TestimonialStatuss");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -203,6 +287,14 @@ namespace DRHC.Migrations
                     b.HasOne("DRHC.Models.Admin", "admin")
                         .WithOne("user")
                         .HasForeignKey("DRHC.Models.ApplicationUser", "AdminID");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Testimonial", b =>
+                {
+                    b.HasOne("DRHC.Models.TestimonialStatus", "TestimonialStatus")
+                        .WithMany("Testimonials")
+                        .HasForeignKey("TestimonialStatusID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

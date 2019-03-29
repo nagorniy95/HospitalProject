@@ -1,0 +1,13 @@
+﻿@model IEnumerable<DRHC.Models.Testimonial>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+@foreach (var status in Model)
+{
+    @status.UserFName;
+    @status.UserLName;
+}
+

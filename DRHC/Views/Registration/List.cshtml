@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DRHC.Models.Registration>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Registration User List</h2>
+
+<h4>Registration</h4>
+<hr />
+@foreach(var user in Model)
+{
+<div> @user.UserFName</div>
+}
+
+<!--
+
+</div>
+<!--
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}-->

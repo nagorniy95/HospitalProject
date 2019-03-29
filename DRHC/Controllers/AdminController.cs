@@ -59,7 +59,7 @@ namespace DRHC.Controllers
         }
 
 
-
+        // For delete... in example make sure to change : var admin = db.Admins.FindAsync(id) ... ADD await before db....
        /* public IActionResult Index()
         {
             return View();

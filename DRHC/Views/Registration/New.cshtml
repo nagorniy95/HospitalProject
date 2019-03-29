@@ -1,0 +1,36 @@
+﻿@model DRHC.Models.Registration
+
+@{
+    ViewData["Title"] = "New";
+}
+
+<h2>create</h2>
+
+<h4>Registration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="/Registration/Create">
+            <div class="inprow">
+                <label class="inplabel">First Name</label>
+                <input id="Fname_New" name="Fname_New" />
+            </div>
+            <div class="inprow">
+                <label class="inplabel">Last Name</label>
+                <input id="lname_New" name="lname_New" />
+            </div>
+            <div class="inprow">
+                <label class="inplabel">Email</label>
+                <input id="Email_New" name="Email_New" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

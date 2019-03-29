@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DRHC.Migrations
 {
-    public partial class initial : Migration
+    public partial class faqMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,6 +34,48 @@ namespace DRHC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Faqs",
+                columns: table => new
+                {
+                    FaqID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Answers = table.Column<string>(maxLength: 1000, nullable: false),
+                    Questions = table.Column<string>(maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Faqs", x => x.FaqID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Registrations",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserEmail = table.Column<string>(maxLength: 500, nullable: false),
+                    UserFName = table.Column<string>(maxLength: 500, nullable: false),
+                    UserLName = table.Column<string>(maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Registrations", x => x.UserID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestimonialStatuss",
+                columns: table => new
+                {
+                    TestimonialStatusID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TestimonialStatusName = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestimonialStatuss", x => x.TestimonialStatusID);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +128,29 @@ namespace DRHC.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Testimonials",
+                columns: table => new
+                {
+                    TestimonialID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Story = table.Column<string>(maxLength: 1000, nullable: false),
+                    TestimonialStatusID = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(maxLength: 255, nullable: false),
+                    UserFName = table.Column<string>(maxLength: 255, nullable: false),
+                    UserLName = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Testimonials", x => x.TestimonialID);
+                    table.ForeignKey(
+                        name: "FK_Testimonials_TestimonialStatuss_TestimonialStatusID",
+                        column: x => x.TestimonialStatusID,
+                        principalTable: "TestimonialStatuss",
+                        principalColumn: "TestimonialStatusID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -219,6 +284,11 @@ namespace DRHC.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Testimonials_TestimonialStatusID",
+                table: "Testimonials",
+                column: "TestimonialStatusID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -239,10 +309,22 @@ namespace DRHC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Faqs");
+
+            migrationBuilder.DropTable(
+                name: "Registrations");
+
+            migrationBuilder.DropTable(
+                name: "Testimonials");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TestimonialStatuss");
 
             migrationBuilder.DropTable(
                 name: "Admins");

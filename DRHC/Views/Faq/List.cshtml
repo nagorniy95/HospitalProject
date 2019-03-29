@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>FAQ List</h2>
+
+@foreach (var faq in Model)
+{
+    <div> @faq.Questions</div>
+    <div> @faq.Answers</div>
+}
+

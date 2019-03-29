@@ -1,0 +1,41 @@
+﻿@model DRHC.Models.JobApplication
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Job Application</h2>
+
+<form method="POST" action="/JobApplication/Create">
+    <div class="inprow">
+        <label class="inplabel">Title</label>
+        <input id="FirstName_New" name="FirstName_New" />
+    </div>
+    <div class="inptrow">
+        @{
+            //new functionality
+        }
+
+        <input type="hidden" name="Position_New" value="@ViewData["UserHasAuthor"]" />
+
+        @{/*
+             * OLD FUNCTIONALITY
+          <label class="inplabel">Author</label>
+          <select id="BlogAuthor_New" name="BlogAuthor_New">
+              @foreach (var author in Model.Authors)
+              {
+                  <option value="@author.AuthorID">@author.AuthorFName @author.AuthorLName aka @author.AuthorPenName</option>
+              }
+          </select>
+          */}
+    </div>
+    <div class="inprow">
+        <div class="inplabel">Email</div>
+        <textarea id="Email_New" name="Email_New"></textarea>
+    </div>
+    <div class="inprow">
+        <input type="submit" value="Submit" />
+    </div>
+
+
+</form>
+

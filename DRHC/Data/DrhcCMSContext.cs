@@ -25,6 +25,12 @@ namespace DRHC.Data
 
 
         public DbSet<Admin> admin { get; set; }
+        public DbSet<JobPosting> JobPostings { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
+        public DbSet<Donor> Donors { get; set; }
+        public DbSet<Donation> Donations { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

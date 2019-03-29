@@ -21,14 +21,15 @@ namespace DRHC.Models
         public string Department { get; set; }
 
         public static DateTime Now { get; }
-        [Display(Name = "Deadline to Apply")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime DealineToApply { get; set; }
+
         public string Description { get; set; }
+
         public string AboutOrg { get; set; }
+
         public string AboutPosition { get; set; }
+
         public string Experience { get; set; }
+
         public string Education {get; set;}
     }
 }

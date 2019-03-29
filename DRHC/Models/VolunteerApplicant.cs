@@ -37,10 +37,9 @@ namespace DRHC.Models
 
         [Required, StringLength(255)]
         public string Email { get; set; }
-        
-        public string Resume { get; set; }
 
-        public string CoverLetter { get; set; }
+        [Required, StringLength(500)]
+        public string Experience { get; set; }
 
         [Required, StringLength(255)]
         public DateTime ApplicationDate { get; set; }

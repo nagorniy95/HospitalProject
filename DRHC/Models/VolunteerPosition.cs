@@ -22,12 +22,12 @@ namespace DRHC.Models
 
         public static DateTime Now { get; }
 
+        [Required, StringLength(500)]
         public string Description { get; set; }
 
         public string AboutOrg { get; set; }
 
-        public string AboutPosition { get; set; }
-
+        [Required, StringLength(500)]
         public string Experience { get; set; }
 
         public string Education {get; set;}

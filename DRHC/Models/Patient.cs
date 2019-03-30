@@ -21,6 +21,14 @@ namespace DRHC.Models
         [Required, StringLength(255)]
         public string Lname { get; set; }
 
+        [Required, StringLength(255)]
+        public DateTime DateAdmitted { get; set; }
+
+        [Required, StringLength(255)]
+        public string RoomNumber { get; set; }
+
+        [ForeignKey("DietaryRestrictionsID")]
+        public int DietaryRestrictionsID { get; set; }
 
     }
 }

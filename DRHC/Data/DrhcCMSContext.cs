@@ -25,6 +25,9 @@ namespace DRHC.Data
 
 
         public DbSet<Admin> admin { get; set; }
+        public DbSet<Feedback> feedback { get; set; }
+        public DbSet<SearchCategory> searchCategory { get; set; }
+        public DbSet<Alerts> alerts { get; set; }
 
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<TestimonialStatus> TestimonialStatuss { get; set; }
@@ -71,6 +74,10 @@ namespace DRHC.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Admin>().ToTable("Admins");
+            modelBuilder.Entity<Feedback>().ToTable("Feedback");
+            modelBuilder.Entity<SearchCategory>().ToTable("SearchCAtegory");
+            modelBuilder.Entity<Alerts>().ToTable("Alerts");
+
 
             modelBuilder.Entity<Registration>().ToTable("Registrations");
 

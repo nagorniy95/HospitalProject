@@ -12,7 +12,7 @@ namespace Myfeatures.Controllers
 {
     /*
     public class DonorController : Controller
-    {
+    { /*
         private readonly ApplicationDbContext _context;
 
         public DonorController(ApplicationDbContext context)
@@ -65,7 +65,7 @@ namespace Myfeatures.Controllers
             return View(donor);
         }
 
-        
+        */
     }
     */
 }

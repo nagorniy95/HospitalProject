@@ -12,7 +12,7 @@ namespace Myfeatures.Controllers
 {
     /*
     public class JobApplicationController : Controller
-    {
+    {   /*
         private readonly ApplicationDbContext _context;
 
         public JobApplicationController(ApplicationDbContext context)
@@ -67,7 +67,7 @@ namespace Myfeatures.Controllers
             }
             ViewData["JobPostingId"] = new SelectList(_context.JobPosting, "JobPostingID", "JobTitle", jobApplication.JobPostingId);
             return View(jobApplication);
-        }
+        }*/
     }
     */
 }

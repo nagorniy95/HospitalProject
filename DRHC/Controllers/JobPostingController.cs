@@ -10,7 +10,7 @@ namespace DRHC.Controllers
 {
     /*
     public class JobPostingController : Controller
-    {
+    {/*
         private readonly ApplicationDbContext _context;
 
         
@@ -64,6 +64,7 @@ namespace DRHC.Controllers
             }
             return View(jobPosting);
         }
+        */
     }
     */
 }

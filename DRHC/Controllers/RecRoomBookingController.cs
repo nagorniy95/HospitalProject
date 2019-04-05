@@ -44,11 +44,11 @@ namespace DRHC.Controllers
         }
         //CMSContext does not contain a definition for RecRoomBooking, probably the others too, find out how to do that
 
-       /* public ActionResult New()
+        public ActionResult New()
         {
             //ViewModel? Do I need this ActionResult if there's no relationship for the rec room booking
-        }*/
-        /*
+        }
+        
         [HttpPost]
         public ActionResult Create(string Fname_New, string Lname_New, DateTime Checkedtime_New, string Email_New, string Phone_New)
         {
@@ -99,11 +99,11 @@ namespace DRHC.Controllers
 
             return RedirectToAction("Show/" + id);//do I want show or list?
         }
-        /*public ActionResult Show(int? id)
+        public ActionResult Show(int? id)
         {
 
-        }*/
-        /*
+        }
+        
         public ActionResult Delete(int? id)
         {
             if ((id == null) || (db.RecRoomBookings.Find(id) == null))
@@ -127,11 +127,11 @@ namespace DRHC.Controllers
     }
 
 
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
             return View();
-        }*/
+        }
 
-    /**/
+    */
     }
 }

@@ -28,13 +28,16 @@ namespace DRHC.Models
 
         //what is the difference between Ilist and Icollection
 
-
-        public ICollection<JobApplication> JobApplications{ get; set; }
         //public IList<JobApplication> JobApplications { get; set; }
 
 
+        //[InverseProperty("JobPosting")]
+        //public List<JobApplication> JobApplications { get; set; }
+        public ICollection<JobApplication> JobApplication{ get; set; }
+
+
 
     }
-    }
+}
 
 

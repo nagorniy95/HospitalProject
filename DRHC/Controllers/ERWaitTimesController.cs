@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using DRHC.Data;
 using DRHC.Models;
 
-namespace Myfeatures.Controllers
+namespace DRHC.Controllers
 {
-    public class DonorController : Controller
+    public class ERWaitTimeController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DonorController(ApplicationDbContext context)
+        public ERWaitTimeController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Donors
+        // GET: ERWaitTimes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Donor.ToListAsync());
+            return View(await _context.ERWaitTime.ToListAsync());
         }
 
-        // GET: Donors/Details/5
+        // GET: ERWaitTimes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,37 +33,37 @@ namespace Myfeatures.Controllers
                 return NotFound();
             }
 
-            var donor = await _context.Donor
-                .FirstOrDefaultAsync(m => m.DonorId == id);
-            if (donor == null)
+            var eRWaitTime = await _context.ERWaitTime
+                .FirstOrDefaultAsync(m => m.ERWaitTimeId == id);
+            if (eRWaitTime == null)
             {
                 return NotFound();
             }
 
-            return View(donor);
+            return View(eRWaitTime);
         }
 
-        // GET: Donors/Create
+        // GET: ERWaitTimes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Donors/Create
-       
+        // POST: ERWaitTimes/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DonorId,Title,FirstName,LastName,Address,City,Province,PostalCode,Email,Phone")] Donor donor)
+        public async Task<IActionResult> Create([Bind("ERWaitTimeId,WaitTime,Description")] ERWaitTime eRWaitTime)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(donor);
+                _context.Add(eRWaitTime);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(donor);
+            return View(eRWaitTime);
         }
 
-        
+       
     }
 }

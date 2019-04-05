@@ -9,7 +9,7 @@ namespace DRHC.Models
 {
     public class Donation
     {
-        [Key, ScaffoldColumn(false)]
+        [Key]
         public int DonationId { get; set; }
 
         [DataType(DataType.Date)]
@@ -24,6 +24,8 @@ namespace DRHC.Models
         public int DonorId { get; set; }
         //One donor to many donations
         public virtual Donor Donors { get; set; }
+
+       
 
     }
 }

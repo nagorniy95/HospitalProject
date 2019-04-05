@@ -25,10 +25,13 @@ namespace DRHC.Data
 
 
         public DbSet<Admin> admin { get; set; }
+
         public DbSet<JobPosting> JobPostings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Donor> Donors { get; set; }
         public DbSet<Donation> Donations { get; set; }
+        public DbSet<ERWaitTime> ERWaitTimes { get; set; }
+
 
 
 
@@ -70,6 +73,18 @@ namespace DRHC.Data
                 .HasForeignKey(p => p.TipStatusID);
 
 
+            //JobPosting has many JobApplications, each JobApplication has one JobPosting
+              modelBuilder.Entity<JobApplication>()
+                .HasOne(b => b.JobPostings)
+                .WithMany(a => a.JobApplications)
+                .HasForeignKey(b => b.JobPostingId);
+            //Donor can have many donations, each donation has one donor
+              modelBuilder.Entity<Donation>()
+                .HasOne(b => b.Donors)
+                .WithMany(a => a.Donations)
+                .HasForeignKey(b => b.DonorId);
+
+
 
 
 
@@ -89,8 +104,16 @@ namespace DRHC.Data
 
             modelBuilder.Entity<Faq>().ToTable("Faqs");
 
+            
+            modelBuilder.Entity<JobPosting>().ToTable("JobPostings");
+            modelBuilder.Entity<JobApplication>().ToTable("JobApplications");
+            modelBuilder.Entity<Donor>().ToTable("Donors");
+            modelBuilder.Entity<Donation>().ToTable("Donations");
+            modelBuilder.Entity<ERWaitTime>().ToTable("ERWaitTimes");
 
-        }
+             
+
+    }
 
         public DbSet<DRHC.Models.Registration> Registrations { get; set; }
     }

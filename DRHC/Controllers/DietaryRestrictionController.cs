@@ -21,6 +21,7 @@ namespace DRHC.Controllers
 {
     public class DietaryRestrictionController : Controller
     {
+        /*
         private readonly DrhcCMSContext db;
 
         public DietaryRestrictionController(DrhcCMSContext context)
@@ -72,10 +73,12 @@ namespace DRHC.Controllers
 
 
 
-        /*
+        
         public IActionResult Index()
         {
             return View();
         }*/
+
+        
     }
 }

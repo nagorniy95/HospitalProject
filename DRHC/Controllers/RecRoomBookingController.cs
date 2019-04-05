@@ -19,10 +19,10 @@ using DRHC.Models.ViewModels;
 using DRHC.Data;
 
 namespace DRHC.Controllers
-{   /*
+{   
     public class RecRoomBookingController : Controller
     {
-        
+        /*
         private readonly DrhcCMSContext db;
 
         public RecRoomBookingController(DrhcCMSContext context)

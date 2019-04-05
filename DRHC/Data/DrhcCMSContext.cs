@@ -58,35 +58,40 @@ namespace DRHC.Data
 
             //status has many testimonials, each testimonial has one status
             modelBuilder.Entity<Testimonial>()
-                .HasOne(p => p.TestimonialStatus)
-                .WithMany(b => b.Testimonials)
-                .HasForeignKey(p => p.TestimonialStatusID);
+                .HasOne(testimonial => testimonial.TestimonialStatus)
+                .WithMany(testimonialstatus => testimonialstatus.Testimonials)
+                .HasForeignKey(testimonial => testimonial.TestimonialStatusID);
 
 
             //Tag has many TipAndLetters, each TipAndLetter has one Tag
             modelBuilder.Entity<TipAndLetter>()
-                .HasOne(p => p.Tag)
-                .WithMany(b => b.TipAndLetters)
-                .HasForeignKey(p => p.TagID);
+                .HasOne(tipandletter => tipandletter.Tag)
+                .WithMany(tag => tag.TipAndLetters)
+                .HasForeignKey(tipandletter => tipandletter.TagID);
 
 
             //TipStatus has many TipAndLetters, each TipAndLetter has one TipStatus
             modelBuilder.Entity<TipAndLetter>()
-                .HasOne(p => p.TipStatus)
-                .WithMany(b => b.TipAndLetters)
-                .HasForeignKey(p => p.TipStatusID);
+                .HasOne(tipandletter => tipandletter.TipStatus)
+                .WithMany(tipStatus => tipStatus.TipAndLetters)
+                .HasForeignKey(tipandletter => tipandletter.TipStatusID);
 
 
             //JobPosting has many JobApplications, each JobApplication has one JobPosting
               modelBuilder.Entity<JobApplication>()
-                .HasOne(b => b.JobPostings)
-                .WithMany(a => a.JobApplications)
-                .HasForeignKey(b => b.JobPostingId);
+                .HasOne(JobApplication => JobApplication.JobPostings)
+                .WithMany(JobPosting=> JobPosting.JobApplication)
+                .HasForeignKey(JobApplication => JobApplication.JobPostingId);
+
+
+
+
+
             //Donor can have many donations, each donation has one donor
               modelBuilder.Entity<Donation>()
-                .HasOne(b => b.Donors)
-                .WithMany(a => a.Donations)
-                .HasForeignKey(b => b.DonorId);
+                .HasOne(donation => donation.Donor)
+                .WithMany(donor => donor.Donations)
+                .HasForeignKey(donation => donation.DonorId);
 
 
 

@@ -9,7 +9,8 @@ using DRHC.Data;
 using DRHC.Models;
 
 namespace DRHC.Controllers
-{
+{   
+    /*
     public class DonationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -70,4 +71,5 @@ namespace DRHC.Controllers
 
        
     }
+    */
 }

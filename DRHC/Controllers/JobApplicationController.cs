@@ -10,6 +10,7 @@ using DRHC.Models;
 
 namespace Myfeatures.Controllers
 {
+    /*
     public class JobApplicationController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -68,4 +69,5 @@ namespace Myfeatures.Controllers
             return View(jobApplication);
         }
     }
+    */
 }

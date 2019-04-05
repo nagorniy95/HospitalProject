@@ -23,7 +23,7 @@ namespace DRHC.Models
         [ForeignKey("DonorId")]
         public int DonorId { get; set; }
         //One donor to many donations
-        public virtual Donor Donors { get; set; }
+        public virtual Donor Donor { get; set; }
 
        
 

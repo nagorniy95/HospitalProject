@@ -19,6 +19,7 @@ using DRHC.Data;
 
 namespace DRHC.Controllers
 {
+    /*
     public class PatientDietController : Controller
     {
         private readonly DrhcCMSContext db;
@@ -32,7 +33,7 @@ namespace DRHC.Controllers
         public IActionResult Index()
         {
             return View();
-        }*/
+        }
         public ActionResult Index()
         {
             return RedirectToAction("");//which list, do this twice?
@@ -69,4 +70,5 @@ namespace DRHC.Controllers
 
         }
     }
+    */
 }

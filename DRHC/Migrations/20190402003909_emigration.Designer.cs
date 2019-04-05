@@ -11,8 +11,8 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    [Migration("20190329054850_faqMigration")]
-    partial class faqMigration
+    [Migration("20190402003909_emigration")]
+    partial class emigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,28 @@ namespace DRHC.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("DRHC.Models.Ecard", b =>
+                {
+                    b.Property<int>("EcardID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Department");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("PatientName");
+
+                    b.Property<int>("RoomNo");
+
+                    b.Property<string>("SenderEmail");
+
+                    b.Property<string>("SenderName");
+
+                    b.HasKey("EcardID");
+
+                    b.ToTable("Ecards");
+                });
+
             modelBuilder.Entity("DRHC.Models.Faq", b =>
                 {
                     b.Property<int>("FaqID")
@@ -128,6 +150,20 @@ namespace DRHC.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Tag", b =>
+                {
+                    b.Property<int>("TagID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("TagName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("TagID");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("DRHC.Models.Testimonial", b =>
@@ -172,6 +208,46 @@ namespace DRHC.Migrations
                     b.HasKey("TestimonialStatusID");
 
                     b.ToTable("TestimonialStatuss");
+                });
+
+            modelBuilder.Entity("DRHC.Models.TipAndLetter", b =>
+                {
+                    b.Property<int>("TipAndLetterID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<int>("TagID");
+
+                    b.Property<int>("TipStatusID");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("TipAndLetterID");
+
+                    b.HasIndex("TagID");
+
+                    b.HasIndex("TipStatusID");
+
+                    b.ToTable("TipAndLetters");
+                });
+
+            modelBuilder.Entity("DRHC.Models.TipStatus", b =>
+                {
+                    b.Property<int>("TipStatusID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("TipStatusName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("TipStatusID");
+
+                    b.ToTable("TipStatuss");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -294,6 +370,19 @@ namespace DRHC.Migrations
                     b.HasOne("DRHC.Models.TestimonialStatus", "TestimonialStatus")
                         .WithMany("Testimonials")
                         .HasForeignKey("TestimonialStatusID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DRHC.Models.TipAndLetter", b =>
+                {
+                    b.HasOne("DRHC.Models.Tag", "Tag")
+                        .WithMany("TipAndLetters")
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DRHC.Models.TipStatus", "TipStatus")
+                        .WithMany("TipAndLetters")
+                        .HasForeignKey("TipStatusID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

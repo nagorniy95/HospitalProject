@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DRHC.Migrations
 {
-    public partial class faqMigration : Migration
+    public partial class emigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,6 +34,24 @@ namespace DRHC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ecards",
+                columns: table => new
+                {
+                    EcardID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Department = table.Column<string>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    PatientName = table.Column<string>(nullable: true),
+                    RoomNo = table.Column<int>(nullable: false),
+                    SenderEmail = table.Column<string>(nullable: true),
+                    SenderName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ecards", x => x.EcardID);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,6 +84,19 @@ namespace DRHC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    TagID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TagName = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.TagID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TestimonialStatuss",
                 columns: table => new
                 {
@@ -76,6 +107,19 @@ namespace DRHC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TestimonialStatuss", x => x.TestimonialStatusID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipStatuss",
+                columns: table => new
+                {
+                    TipStatusID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TipStatusName = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipStatuss", x => x.TipStatusID);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,6 +195,34 @@ namespace DRHC.Migrations
                         column: x => x.TestimonialStatusID,
                         principalTable: "TestimonialStatuss",
                         principalColumn: "TestimonialStatusID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipAndLetters",
+                columns: table => new
+                {
+                    TipAndLetterID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Message = table.Column<string>(maxLength: 1000, nullable: false),
+                    TagID = table.Column<int>(nullable: false),
+                    TipStatusID = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipAndLetters", x => x.TipAndLetterID);
+                    table.ForeignKey(
+                        name: "FK_TipAndLetters_Tags_TagID",
+                        column: x => x.TagID,
+                        principalTable: "Tags",
+                        principalColumn: "TagID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TipAndLetters_TipStatuss_TipStatusID",
+                        column: x => x.TipStatusID,
+                        principalTable: "TipStatuss",
+                        principalColumn: "TipStatusID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -289,6 +361,16 @@ namespace DRHC.Migrations
                 name: "IX_Testimonials_TestimonialStatusID",
                 table: "Testimonials",
                 column: "TestimonialStatusID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipAndLetters_TagID",
+                table: "TipAndLetters",
+                column: "TagID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipAndLetters_TipStatusID",
+                table: "TipAndLetters",
+                column: "TipStatusID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -309,6 +391,9 @@ namespace DRHC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Ecards");
+
+            migrationBuilder.DropTable(
                 name: "Faqs");
 
             migrationBuilder.DropTable(
@@ -318,6 +403,9 @@ namespace DRHC.Migrations
                 name: "Testimonials");
 
             migrationBuilder.DropTable(
+                name: "TipAndLetters");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -325,6 +413,12 @@ namespace DRHC.Migrations
 
             migrationBuilder.DropTable(
                 name: "TestimonialStatuss");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "TipStatuss");
 
             migrationBuilder.DropTable(
                 name: "Admins");

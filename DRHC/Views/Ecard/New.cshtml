@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "New";
+}
+
+<h2>Ecard New</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="/Ecard/Create">
+            <div class="inprow">
+                <label class="inplabel">Patient Name</label>
+                <input id="PatientName_New" name="PatientName_New" />
+            </div>
+
+            <div class="inprow">
+                <label class="inplabel">Department</label>
+                <input id="Department_New" name="Department_New" />
+            </div>
+
+            <div class="inprow">
+                <label class="inplabel">Room#</label>
+                <input id="RoomNo_New" name="RoomNo_New" />
+            </div>
+
+            <div class="inprow">
+                <label class="inplabel">Sender Name</label>
+                <input id="SenderName_new" name="SenderName_new" />
+            </div>
+
+            <div class="inprow">
+                <label class="inplabel">Sender Email</label>
+                <input id="SenderEmail_New" name="SenderEmail_New" />
+            </div>
+
+            <div class="inprow">
+                <label class="inplabel">Message</label>
+                <input id="Message_New" name="Message_New" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

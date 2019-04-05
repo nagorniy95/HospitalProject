@@ -89,6 +89,28 @@ namespace DRHC.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("DRHC.Models.Ecard", b =>
+                {
+                    b.Property<int>("EcardID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Department");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("PatientName");
+
+                    b.Property<int>("RoomNo");
+
+                    b.Property<string>("SenderEmail");
+
+                    b.Property<string>("SenderName");
+
+                    b.HasKey("EcardID");
+
+                    b.ToTable("Ecards");
+                });
+
             modelBuilder.Entity("DRHC.Models.Faq", b =>
                 {
                     b.Property<int>("FaqID")

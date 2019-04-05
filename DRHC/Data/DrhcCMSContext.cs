@@ -34,6 +34,7 @@ namespace DRHC.Data
         public DbSet<TipStatus> TipStatuss { get; set; }
         /* public DbSet<Registration> Registrations { get; set; }*/
         public DbSet<Faq> Faqs { get; set; }
+        public DbSet<Ecard> Ecards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,6 +83,9 @@ namespace DRHC.Data
             modelBuilder.Entity<TipStatus>().ToTable("TipStatuss");
 
             modelBuilder.Entity<Faq>().ToTable("Faqs");
+
+            modelBuilder.Entity<Ecard>().ToTable("Ecards");
+
 
 
         }

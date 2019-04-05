@@ -64,10 +64,6 @@ namespace DRHC.Data
                 .HasForeignKey(p => p.TipStatusID);
 
 
-
-
-
-
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Admin>().ToTable("Admins");

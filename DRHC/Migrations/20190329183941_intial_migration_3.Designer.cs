@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190329183941_intial_migration_3")]
+    partial class intial_migration_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,24 +31,6 @@ namespace DRHC.Migrations
                     b.HasKey("AdminID");
 
                     b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("DRHC.Models.Alerts", b =>
-                {
-                    b.Property<int>("AlertID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AlertMessage")
-                        .IsRequired()
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("AlertTitle")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("AlertID");
-
-                    b.ToTable("Alerts");
                 });
 
             modelBuilder.Entity("DRHC.Models.ApplicationUser", b =>

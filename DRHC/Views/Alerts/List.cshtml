@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DRHC.Models.Alerts>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div>
+    <h2>Alert message</h2>
+</div>
+<div>
+    @foreach (var alerts in Model)
+    {
+        <div class="group_container">
+            <h3 class="title">
+                @alerts.AlertTitle
+            </h3>
+            <p>@alerts.AlertMessage</p>
+            @*<p class="options edd">
+                @Html.ActionLink("Edit", "Edit", new { id = muscleGroup.MuscleGroupID }) |
+                @Html.ActionLink("Details", "Details", new { id = muscleGroup.MuscleGroupID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = muscleGroup.MuscleGroupID })
+            </p>*@
+            @*<div class="clear"></div>*@
+        </div>
+    }
+</div>

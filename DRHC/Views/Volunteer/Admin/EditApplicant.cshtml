@@ -1,0 +1,76 @@
+﻿@model DRHC.Models.VolunteerApplicant
+@{
+    ViewData["Title"] = "EditVolunteerApplicatant";
+}
+
+<h2>Edit Volunteer Application</h2>
+
+
+<form method="POST" action="/Volunteer/AddVolunteerApplicant">
+
+    <div class="inputrow">
+        <label class="input-label">First Name:</label>
+        <input id="Fname_Edit" name="Fname_Edit" value="@Model.Fname" />
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">Last Name:</label>
+        <input id="Lname_Edit" name="Lname_Edit" value="@Model.Lname" />
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">Address:</label>
+        <input id="Address_Edit" name="Address_Edit" value="@Model.Address" />
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">City:</label>
+        <input id="City_Edit" name="City_Edit" value="@Model.City" />
+
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">Postal Code:</label>
+        <input id="Postal_Edit" name="Postal_Edit" value="@Model.Postal" />
+
+    </div>
+    <!--<div class="inputrow">
+        <label class="input-label">Province/Territory:</label>
+        <select id="Province_Edit" name="Province_Edit">
+           @foreach(var Applicant in Model.VolunteerApplicant)
+           {
+
+           }
+        </select>
+    </div>-->
+
+    <div class="inputrow">
+        <label class="input-label">Phone Number:</label>
+        <input id="Phone_Edit" name="Phone_Edit" value="@Model.Phone" />
+
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">Email:</label>
+        <input id="Email_Edit" name="Email_Edit" value="@Model.Email" />
+
+    </div>
+
+    <div class="inputrow">
+        <label class="input-label">Experience:</label>
+        <input id="Experience_Edit" name="Experience_Edit" value="@Model.Experience" />
+
+    </div>
+    <div class="inputrow">
+        <input type="hidden" id="ApplicationDate_Edit" name="ApplicationDate_Edit" /><!--Make visibile?-->
+
+    </div>
+    <div class="inputrow">
+        <input type="hidden" id="Approval_Edit" name="Approval_Edit" value="@Model.Approval" />
+    </div>
+        <div class="inputrow">
+            <input type="submit" value="Submit" />
+        </div>
+</form>
+
+

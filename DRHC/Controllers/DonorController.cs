@@ -10,7 +10,7 @@ using DRHC.Models;
 
 namespace Myfeatures.Controllers
 {
-    /*
+    
     public class DonorController : Controller
     { /*
         private readonly ApplicationDbContext _context;
@@ -67,5 +67,5 @@ namespace Myfeatures.Controllers
 
         */
     }
-    */
+    
 }

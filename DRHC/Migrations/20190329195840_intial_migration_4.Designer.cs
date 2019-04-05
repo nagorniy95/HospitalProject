@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190329195840_intial_migration_4")]
+    partial class intial_migration_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +108,7 @@ namespace DRHC.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DRHC.Models.Faq", b =>
+            modelBuilder.Entity("DRHC.Models.Feedback", b =>
                 {
                     b.Property<int>("FeedbackID")
                         .ValueGeneratedOnAdd();

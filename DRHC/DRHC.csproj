@@ -18,4 +18,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Donor\" />
+    <Folder Include="Views\Donation\" />
+    <Folder Include="Views\ERWaitTime\" />
+  </ItemGroup>
+
 </Project>

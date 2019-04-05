@@ -11,7 +11,7 @@ using DRHC.Models;
 namespace DRHC.Controllers
 {
     public class ERWaitTimeController : Controller
-    {
+    {/*
         private readonly ApplicationDbContext _context;
 
         public ERWaitTimeController(ApplicationDbContext context)
@@ -63,7 +63,7 @@ namespace DRHC.Controllers
             }
             return View(eRWaitTime);
         }
-
+        */
        
     }
 }

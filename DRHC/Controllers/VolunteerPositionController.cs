@@ -19,9 +19,10 @@ using DRHC.Data;
 
 namespace DRHC.Controllers
 {
-    /*
+    
     public class VolunteerPositionController : Controller
     {
+        /*
         private readonly DrhcCMSContext db;
 
         public VolunteerPositionController(DrhcCMSContext context)
@@ -135,5 +136,5 @@ namespace DRHC.Controllers
     {
         return View();
     }*/
-}
+    }
 }

@@ -80,7 +80,7 @@ namespace DRHC.Data
             //JobPosting has many JobApplications, each JobApplication has one JobPosting
               modelBuilder.Entity<JobApplication>()
                 .HasOne(b => b.JobPostings)
-                .WithMany(a => a.JobApplications)
+                .WithMany(a => a.JobApplication)
                 .HasForeignKey(b => b.JobPostingId);
             //Donor can have many donations, each donation has one donor
               modelBuilder.Entity<Donation>()

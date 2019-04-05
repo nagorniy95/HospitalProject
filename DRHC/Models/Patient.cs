@@ -13,7 +13,7 @@ namespace DRHC.Models
     public class Patient
     {
         [Key]
-        public string PatientID { get; set; }
+        public int PatientID { get; set; }
 
         [Required, StringLength(255)]
         public string Fname { get; set; }

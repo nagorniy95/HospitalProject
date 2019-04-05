@@ -123,5 +123,9 @@ namespace DRHC.Data
     }
 
         public DbSet<DRHC.Models.Registration> Registrations { get; set; }
+
+        public DbSet<DRHC.Models.VolunteerPosition> VolunteerPosition { get; set; }
+
+        public DbSet<DRHC.Models.VolunteerApplicant> VolunteerApplicant { get; set; }
     }
 }

@@ -22,12 +22,18 @@ namespace DRHC.Models
         [Required, StringLength(255)]
         public string Lname { get; set; }
 
-        public DateTime Checkedtime { get; set; }
+        [Required, StringLength(255)]
+        public string Day { get; set; }
+
+        [Required, StringLength(255)]
+        public string Week { get; set; }
+
+        [Required, StringLength(255)]
+        public string Month { get; set; }
 
         [Required, StringLength(255)]
         public string Email { get; set; }
 
-        [Required, StringLength(255)]
         public string Phone { get; set; }
 
     }

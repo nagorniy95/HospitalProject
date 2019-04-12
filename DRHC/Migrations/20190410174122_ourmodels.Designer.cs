@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190410174122_ourmodels")]
+    partial class ourmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +135,7 @@ namespace DRHC.Migrations
 
             modelBuilder.Entity("DRHC.Models.DietaryRestriction", b =>
                 {
-                    b.Property<int>("DietaryRestrictionID")
+                    b.Property<int>("DietaryRestrictionsID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClearLiquid")
@@ -173,7 +174,7 @@ namespace DRHC.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("DietaryRestrictionID");
+                    b.HasKey("DietaryRestrictionsID");
 
                     b.ToTable("DietaryRestrictions");
                 });
@@ -447,7 +448,7 @@ namespace DRHC.Migrations
                     b.Property<DateTime>("DateAdmitted")
                         .HasMaxLength(255);
 
-                    b.Property<int>("DietaryRestrictionID");
+                    b.Property<int>("DietaryRestrictionsID");
 
                     b.Property<string>("Fname")
                         .IsRequired()
@@ -462,9 +463,6 @@ namespace DRHC.Migrations
                         .HasMaxLength(255);
 
                     b.HasKey("PatientID");
-
-                    b.HasIndex("DietaryRestrictionID")
-                        .IsUnique();
 
                     b.ToTable("Patients");
                 });
@@ -687,18 +685,16 @@ namespace DRHC.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int>("VolunteerPositionID");
+                    b.Property<int>("VolunteerPostingID");
 
                     b.HasKey("ApplicantID");
-
-                    b.HasIndex("VolunteerPositionID");
 
                     b.ToTable("VolunteerApplicants");
                 });
 
             modelBuilder.Entity("DRHC.Models.VolunteerPosition", b =>
                 {
-                    b.Property<int>("VolunteerPositionID")
+                    b.Property<int>("VolunteerPostingID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AboutOrg");
@@ -719,7 +715,7 @@ namespace DRHC.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("VolunteerPositionID");
+                    b.HasKey("VolunteerPostingID");
 
                     b.ToTable("VolunteerPositions");
                 });
@@ -855,14 +851,6 @@ namespace DRHC.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DRHC.Models.Patient", b =>
-                {
-                    b.HasOne("DRHC.Models.DietaryRestriction", "dietaryrestriction")
-                        .WithOne("patient")
-                        .HasForeignKey("DRHC.Models.Patient", "DietaryRestrictionID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DRHC.Models.Testimonial", b =>
                 {
                     b.HasOne("DRHC.Models.TestimonialStatus", "TestimonialStatus")
@@ -881,14 +869,6 @@ namespace DRHC.Migrations
                     b.HasOne("DRHC.Models.TipStatus", "TipStatus")
                         .WithMany("TipAndLetters")
                         .HasForeignKey("TipStatusID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DRHC.Models.VolunteerApplicant", b =>
-                {
-                    b.HasOne("DRHC.Models.VolunteerPosition", "volunteerposition")
-                        .WithMany("volunteerapplicants")
-                        .HasForeignKey("VolunteerPositionID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

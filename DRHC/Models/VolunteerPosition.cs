@@ -13,7 +13,7 @@ namespace DRHC.Models
     public class VolunteerPosition
     {
         [Key]
-        public int VolunteerPostingID { get; set; }
+        public int VolunteerPositionID { get; set; }
 
         [Required, StringLength(255)]
         public string PostTitle { get; set; }
@@ -31,5 +31,10 @@ namespace DRHC.Models
         public string Experience { get; set; }
 
         public string Education {get; set;}
+
+        //a position can have many applicants
+        [InverseProperty("VolunteerPosition")]
+        public IEnumerable<VolunteerApplicant> volunteerapplicants { get; set; }
+        
     }
 }

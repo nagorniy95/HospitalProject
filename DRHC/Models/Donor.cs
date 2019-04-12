@@ -19,14 +19,14 @@ namespace DRHC.Models
 
         [Required, StringLength(255), Display(Name = "Last Name")]
         public string LastName { get; set; }
-        /*public string Address { get; set; }
+        public string Address { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
         public string PostalCode { get; set; }
 
         [Required, StringLength(255), Display(Name = "Email")]
         public string Email { get; set; }
-        public string Phone { get; set; }*/
+        public string Phone { get; set; }
 
        // [InverseProperty("Donor")]
        // public List<Donation> Donations { get; set; }

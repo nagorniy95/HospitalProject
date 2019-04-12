@@ -14,7 +14,7 @@ namespace DRHC.Models
     public class DietaryRestriction
     {
         [Key]
-        public int DietaryRestrictionsID { get; set; }
+        public int DietaryRestrictionID { get; set; }
 
         [Required, StringLength(255)]
         public string FoodType { get; set; } //solid, semi-solid, liquid, checkbox
@@ -29,7 +29,7 @@ namespace DRHC.Models
         public string Preference { get; set; } // Patient can change
 
         [Required, StringLength(255)]
-        public string  Diabetic { get; set; } // yes no radio buttons
+        public string Diabetic { get; set; } // yes no radio buttons
 
         [Required, StringLength(255)]
         public string ClearLiquid { get; set; } // yes no radio buttons
@@ -46,6 +46,7 @@ namespace DRHC.Models
         [ForeignKey("PatientID")]
         public int PatientID { get; set; }
 
+        public virtual Patient patient { get; set; }
 
     }
 }

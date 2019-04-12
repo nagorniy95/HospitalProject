@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DRHC.Models
 {
-    public class Events
+    public class Event
     {
         [Key]
         public int EventID { get; set; }

@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DRHC.Models
 {
-    public class Directions
+    public class Direction
     {
         [Key]
         public int DirectionID { get; set; }

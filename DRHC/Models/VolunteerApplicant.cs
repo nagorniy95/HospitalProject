@@ -47,7 +47,11 @@ namespace DRHC.Models
         [Required, StringLength(255)]
         public Boolean Approval { get; set; }
 
-        [ForeignKey ("VolunteerPostingID")]
-        public int VolunteerPostingID { get; set; }
+        //a volunteerapplicant can apply for one position
+        [ForeignKey ("VolunteerPositionID")]
+        public int VolunteerPositionID { get; set; }
+        
+        //an applicant can only apply for one position
+        public virtual VolunteerPosition volunteerposition { get; set; }
     }
 }

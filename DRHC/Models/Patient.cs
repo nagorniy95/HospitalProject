@@ -27,8 +27,9 @@ namespace DRHC.Models
         [Required, StringLength(255)]
         public string RoomNumber { get; set; }
 
-        [ForeignKey("DietaryRestrictionsID")]
-        public int DietaryRestrictionsID { get; set; }
+        [ForeignKey("DietaryRestrictionID")]
+        public int DietaryRestrictionID { get; set; }
 
+        public virtual DietaryRestriction dietaryrestriction { get; internal set; }
     }
 }

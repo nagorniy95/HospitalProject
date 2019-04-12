@@ -11,7 +11,10 @@ namespace DRHC.Models
         
         public int ERWaitTimeId { get; set; }
         [Required, StringLength(255), Display(Name = "ER Wait Times")]
-        public string WaitTime { get; set; }
+        public string WaitTimeCat { get; set; }
         public string Description { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+
     }
 }

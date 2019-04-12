@@ -3,24 +3,19 @@
 @{
     ViewBag.Title = "List";
 }
+@* 
+   Author: Artem Nahornyi 
+   Emergency Alert message
+*@
 
-<div>
-    <h2>Alert message</h2>
-</div>
-<div>
+<div class="row">
     @foreach (var alerts in Model)
     {
-        <div class="group_container">
+        <div class="group_container col-md-12" align="center" >
             <h3 class="title">
                 @alerts.AlertTitle
             </h3>
             <p>@alerts.AlertMessage</p>
-            @*<p class="options edd">
-                @Html.ActionLink("Edit", "Edit", new { id = muscleGroup.MuscleGroupID }) |
-                @Html.ActionLink("Details", "Details", new { id = muscleGroup.MuscleGroupID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = muscleGroup.MuscleGroupID })
-            </p>*@
-            @*<div class="clear"></div>*@
         </div>
     }
 </div>

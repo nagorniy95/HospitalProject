@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-DRHC-CF40FECC-A21B-4B00-B06B-B1C2DA40DA4C</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="WIreframes\Azeb\**" />
+    <Content Remove="WIreframes\Azeb\**" />
+    <EmbeddedResource Remove="WIreframes\Azeb\**" />
+    <None Remove="WIreframes\Azeb\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
@@ -24,7 +31,6 @@
     <Folder Include="Views\ERWaitTime\" />
     <Folder Include="Views\Feedback\" />
     <Folder Include="Views\SearchCategory\" />
-    <Folder Include="WIreframes\Azeb\" />
   </ItemGroup>
 
 </Project>

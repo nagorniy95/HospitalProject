@@ -12,6 +12,10 @@
     <None Remove="WIreframes\Azeb\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="WIreframes\Rohit Feature\Testimonial\Wireframe.zip" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />

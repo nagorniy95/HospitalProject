@@ -1,0 +1,17 @@
+﻿@model  IEnumerable<VolunteerPosition>
+
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Open Volunteer Positions</h2>
+@{ 
+    foreach(var position in Model)
+    {
+    <div>
+        @Html.ActionLink(position.PostTitle, "Show", "VolunteerPosition", new { id=position.VolunteerPositionID })
+    </div>
+    }
+}
+

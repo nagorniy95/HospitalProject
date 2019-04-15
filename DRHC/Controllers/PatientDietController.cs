@@ -20,7 +20,7 @@ using DRHC.Data;
 namespace DRHC.Controllers
 {
     public class PatientDietController : Controller
-    {/*
+    {
         private readonly DrhcCMSContext db;
 
         public PatientDietController(DrhcCMSContext context)
@@ -35,13 +35,14 @@ namespace DRHC.Controllers
         }
         public ActionResult List()
         {
-            List<Patient> patients = db.Patients.ToList();
+            List<Patient> patients = db.Patient.ToList();
 
             return View(patients);
         }
         public ActionResult New()
         {
             //Check if viewmodel is correct
+            return View();
         }
         [HttpPost]
         public ActionResult Create(string Fname_New, string Lname_New, DateTime DateAdmitted_New, string RoomNumber_New, int DietaryRestrictionsID_New)// Foreign Key here?
@@ -62,9 +63,9 @@ namespace DRHC.Controllers
         }
         public ActionResult Edit(int id)
         {
-
+            return View();
         } 
-        
+        /*
         public IActionResult Index()
         {
             return View();

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DRHC.Data;
+using DRHC.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,28 +15,53 @@ namespace DRHC.Controllers
     public class TestimonialController : Controller
     {
 
-        //makes a BlogCMSContext
+       
         private readonly DrhcCMSContext db;
-        //constructor function which takes a BlogCMSContext as a constructor.
-        //Q: How does the Controller just *get* this context?
-        //A: "magic" called dependency injection will put the data there.
-        public TestimonialController(DrhcCMSContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
+
+        public TestimonialController(DrhcCMSContext context, UserManager<ApplicationUser> usermanager)
         {
             db = context;
+            _userManager = usermanager;
         }
+
+
+        public async Task<int> GetUserDetails(ApplicationUser user)
+        {
+            //check if the user is an author or not.
+            //UserState
+            //0 => No User
+            //1 => has user has no author not admin
+            //2 => has user has author but no blogs no testimonial
+            //3 => has user has author and at least 1 testimonial
+            if (user == null) return 0;
+          
+            if (user.AdminID == null) return 1; //User is not admin author
+            else return 2;
+            
+            return -1;//something went wrong
+        }
+
+
+
 
         public ActionResult New()
         {
 
+            
             return View(db.TestimonialStatuss.ToList());
         }
-        //Restricts this method to only handle POST
-        //eg. POST to /Pages/Create/
+   
         [HttpPost]
         public ActionResult Create(string UserFName, string UserLName, string Title, string Story, int? TestimonialStatusID)
-        {
+        {   
             string query = "insert into Testimonials (UserFName, UserLName, Title,Story,TestimonialStatusID) " +
                 "values (@UserFName, @UserLName, @Title,@Story,@TestimonialStatusID)";
+
+           // var TestimonialStatusID = await db.Blogs.Where(b => b.AuthorID == uauthorid);
 
             SqlParameter[] myparams = new SqlParameter[5];
             myparams[0] = new SqlParameter("@UserFName", UserFName);
@@ -44,20 +71,25 @@ namespace DRHC.Controllers
             myparams[4] = new SqlParameter("@TestimonialStatusID", TestimonialStatusID);
 
             db.Database.ExecuteSqlCommand(query, myparams);
-            //testing that the paramters do indeed pass to the method
-            //Debug>Windows>Output
-            Debug.WriteLine(query);
+  
             return RedirectToAction("List");
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult List()
+        public async Task<ActionResult> List()
         {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            ViewData["UserState"] = userstate;
+
+           if (userstate==0){
+                return RedirectToAction("Register", "Account");}
+
             return View(db.Testimonials.ToList());
+
+
+
         }
 
     }

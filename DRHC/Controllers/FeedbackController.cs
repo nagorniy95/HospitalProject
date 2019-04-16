@@ -21,10 +21,19 @@ namespace DRHC.Controllers
     public class FeedbackController : Controller
     {
         private readonly DrhcCMSContext db;
+        //This function will return the current user at some point when called
 
-        public FeedbackController(DrhcCMSContext context)
+        //We need the usermanager class to get things like the id or name
+        //Right now we only have one user type (ApplicationUser) but we could have others.
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
+
+        public FeedbackController(DrhcCMSContext context, UserManager<ApplicationUser> usermanager)
         {
             db = context;
+            _userManager = usermanager;
         }
 
         // Redirect to the Feedback List
@@ -35,8 +44,13 @@ namespace DRHC.Controllers
 
         //================================================================================= Read
 
-        public ActionResult List()
+        public async Task<ActionResult> List()
         {
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                ViewData["UserInfo"] = user.Id;
+            }
 
             string query = "select * from Feedback";
   

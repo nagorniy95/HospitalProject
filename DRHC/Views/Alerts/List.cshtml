@@ -6,9 +6,10 @@
 @* 
    Author: Artem Nahornyi 
    Emergency Alert message
-   User side
 *@
-<div>MY USER INFORMATION IS @ViewData["UserInfo"]</div>
+@*
+    To get user key string
+    <div>MY USER INFORMATION IS @ViewData["UserInfo"]</div>*@
 <div class="row">
     @foreach (var alerts in Model)
     {
@@ -17,10 +18,25 @@
             @alerts.AlertTitle
         </h3>
         <p>@alerts.AlertMessage</p>
-        @*<div>
-            @Html.ActionLink("Edit", "Edit", new { id = alerts.AlertID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = alerts.AlertID })
-        </div>*@
+
+        @* admin key string *@
+        @{
+            string admin = "112cfee3-e07d-491c-8cc3-5acb329d297f";
+        }
+
+        @* Only admin will be able to see these content *@
+        @if (ViewData["UserInfo"] == null)
+        {
+
+        }
+        else if (ViewData["UserInfo"].ToString() == admin)
+        {
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { id = alerts.AlertID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = alerts.AlertID })
+            </div>
+        }
+
     </div>
     }
 </div>

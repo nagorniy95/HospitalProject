@@ -8,9 +8,14 @@
     Feedback form
     User side
 *@
+@*<div>MY USER INFORMATION IS @ViewData["UserInfo"]</div>*@
 <div id="feedback_wrapper">
-
-    <h2 class="FeedbackH2">Feedback</h2>
+    <div class="row">
+        <h2 class="FeedbackH2 col-md-10">Feedback</h2>
+        <div class="FeedbackH2 col-md-2">
+            <span class="btn btn-default">@Html.ActionLink("Add new", "Create")</span>
+        </div>
+    </div>
 
     <div class="row">
         @foreach (var feedback in Model)
@@ -20,11 +25,28 @@
                     Author: <span class="strong"> @feedback.AuthorFName  @feedback.AuthorLName</span>
                 </p>
                 <div class="FedbackAuthorMessage">@feedback.AuthorMessage</div>
+
+
+                @* admin key string *@
+                @{
+                    string admin = "112cfee3-e07d-491c-8cc3-5acb329d297f";
+                }
+
+
+                @if (ViewData["UserInfo"] == null)
+                {
+
+                }
+                else if (ViewData["UserInfo"].ToString() == admin)
+                {
+                    <div>
+                        <span class="btn btn-success">Approve</span>
+                        <span class="btn btn-info">@Html.ActionLink("Edit", "Edit", new { id = feedback.FeedbackID })</span>
+                        <span class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id = feedback.FeedbackID })</span>
+                    </div>
+                }
             </div>
-            @*<div>
-                @Html.ActionLink("Edit", "Edit", new { id = feedback.FeedbackID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = feedback.FeedbackID })
-            </div>*@
+
         }
     </div>
 </div>

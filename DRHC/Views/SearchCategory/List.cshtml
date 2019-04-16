@@ -9,6 +9,7 @@
     Search by Category
     User side
 *@
+@*<div>MY USER INFORMATION IS @ViewData["UserInfo"]</div>*@
 <div id="searchCategory_wrapper">
 
     <h2 class="searchCategoryH2">SearchCategory</h2>
@@ -16,18 +17,33 @@
     <div class="row">
         @foreach (var searchCategory in Model)
         {
-            <div class="group_container col-md-4">
-                @* here is should be redirect link to department *@
-                <a href="#">
-                    <div class="searchCategory_title" title="@searchCategory.SearchCategoryDescriptioin">
-                        @searchCategory.SearchCategoryTitle
-                    </div>
-                </a>
-            </div>
-            @*<div>
-                @Html.ActionLink("Edit", "Edit", new { id = searchCategory.SearchCategoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = searchCategory.SearchCategoryID })
-            </div>*@
+        <div class="group_container col-md-4">
+            @* here is should be redirect link to department *@
+            <a href="#">
+                <div class="searchCategory_title" title="@searchCategory.SearchCategoryDescriptioin">
+                    @searchCategory.SearchCategoryTitle
+                </div>
+            </a>
+            @* admin key string *@
+            @{ 
+                string admin = "112cfee3-e07d-491c-8cc3-5acb329d297f";
+            }
+
+            @* Only admin will be able to see these content *@
+            @if (ViewData["UserInfo"] == null)
+            {
+
+            }
+            else if (ViewData["UserInfo"].ToString() == admin)
+            {
+                <div>
+                    <span class="btn btn-info">@Html.ActionLink("Edit", "Edit", new { id = searchCategory.SearchCategoryID })</span>
+                    <span class="btn btn-success">@Html.ActionLink("Delete", "Delete", new { id = searchCategory.SearchCategoryID })</span>
+                </div>
+            }
+        </div>
+
+           
         }
     </div>
 </div>

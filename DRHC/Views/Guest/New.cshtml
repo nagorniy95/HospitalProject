@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "New";
+}
+
+<h2>New</h2>
+
+<form method="POST" action="/Guest/Create">
+    <div class="inprow">
+        <label class="inplabel">Number Of Guest</label>
+        <input id="NumberOfGuest" name="NumberOfGuest" />
+    </div>
+    <div class="inprow">
+        <input type="submit" value="Submit" />
+    </div>
+
+
+</form>
+
+@Html.ActionLink("Back To List", "List", "TestimonialStatus");

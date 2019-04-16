@@ -15,9 +15,6 @@ namespace DRHC.Models
         [Required, StringLength(255), Display(Name = "Name")]
         public string TestimonialStatusName { get; set; }
 
-        //This is how we can represent a one (blog) to many (pages) relation
-        //notice how if we were using a relational database this column
-        //would be included as a foreign of authorid in the pages table.
         [InverseProperty("TestimonialStatus")]
         public virtual List<Testimonial> Testimonials { get; set; }
 

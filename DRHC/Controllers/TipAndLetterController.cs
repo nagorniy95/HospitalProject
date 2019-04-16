@@ -49,8 +49,9 @@ namespace DRHC.Controllers
             TipAndLetterEdit tagandstatus = new TipAndLetterEdit();
             tagandstatus.Tags = db.Tags.ToList();
             tagandstatus.TipStatuss = db.TipStatuss.ToList();
-
-            return View(tagandstatus);
+            if (tagandstatus.Tags == null) return RedirectToAction("New", "Tag");
+            else if (tagandstatus.TipStatuss == null) return RedirectToAction("New", "TipStatus");
+            else return View(tagandstatus);
         }
 
 
@@ -104,9 +105,22 @@ namespace DRHC.Controllers
 
             return View(HTL);
         }
+        public async Task<ActionResult> Show(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            var htl = db.TipAndLetters.Include(t => t.TipStatus).Include(t => t.Tag).SingleOrDefault(t => t.TipAndLetterID == id);
+
+            return View(htl);
 
 
-        
+        }
+
+
         public async Task<ActionResult> Edit(int id)
         {
             var user = await GetCurrentUserAsync();

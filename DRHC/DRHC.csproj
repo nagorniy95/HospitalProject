@@ -38,4 +38,10 @@
     <Folder Include="Views\SearchCategory\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\TipAndLetter\Show.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

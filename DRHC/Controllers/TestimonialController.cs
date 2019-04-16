@@ -46,27 +46,28 @@ namespace DRHC.Controllers
         public ActionResult New()
         {
 
-            
-            return View(db.TestimonialStatuss.ToList());
+            return View();
         }
-   
+
         [HttpPost]
-        public ActionResult Create(string UserFName, string UserLName, string Title, string Story, int? TestimonialStatusID)
-        {   
+        public ActionResult Create(string UserFName, string UserLName, string Title, string Story)
+        {
             string query = "insert into Testimonials (UserFName, UserLName, Title,Story,TestimonialStatusID) " +
                 "values (@UserFName, @UserLName, @Title,@Story,@TestimonialStatusID)";
 
-           // var TestimonialStatusID = await db.Blogs.Where(b => b.AuthorID == uauthorid);
-
+            //Making deafult status of testimonial to Pending-Unpublished
+            var Ts = db.TestimonialStatuss.SingleOrDefault(ts => ts.TestimonialStatusID == 3);
+            var tsid = Ts.TestimonialStatusID;
+                
             SqlParameter[] myparams = new SqlParameter[5];
             myparams[0] = new SqlParameter("@UserFName", UserFName);
             myparams[1] = new SqlParameter("@UserLName", UserLName);
             myparams[2] = new SqlParameter("@Title", Title);
             myparams[3] = new SqlParameter("@Story", Story);
-            myparams[4] = new SqlParameter("@TestimonialStatusID", TestimonialStatusID);
+            myparams[4] = new SqlParameter("@TestimonialStatusID", tsid);
 
             db.Database.ExecuteSqlCommand(query, myparams);
-  
+
             return RedirectToAction("List");
         }
 
@@ -125,15 +126,12 @@ namespace DRHC.Controllers
                 db.Testimonials
                     .Include(t => t.TestimonialStatus)
                     .SingleOrDefault(t => t.TestimonialID == id);
-            //get blogs that belong to this user
             te.TestimonialStatuss = db.TestimonialStatuss.ToList();
            
-            //if we have info, pass it to Page/View.cshtml
             if (te.Testimonial != null) return View(te);
             else return NotFound();
         }
 
-        //This one actually does the editing commmand
         [HttpPost]
         public async Task<ActionResult> Edit(int id, int? TestimonialStatusID)
         {
@@ -143,42 +141,33 @@ namespace DRHC.Controllers
             {
                 return RedirectToAction("Register", "Account");
             }
-            //[(id == null) ]=>no ID in GET
-            //[(db.Pages.Find(id) == null)]=>couldn't find this page
             if (db.Testimonials.Find(id) == null)
             {
                 //Show error message
                 return NotFound();
 
             }
-            //Raw query data
             string query = "update Testimonials set TestimonialStatusID = @TestimonialStatusID " +
                 "where TestimonialID = @id";
-
-
-
+            
             SqlParameter[] myparams = new SqlParameter[2];
             myparams[0] = new SqlParameter("@TestimonialStatusID", TestimonialStatusID);
             myparams[1] = new SqlParameter("@id", id);
             
             db.Database.ExecuteSqlCommand(query, myparams);
 
-            //GOTO: SHOW method in PageController.cs and pass argument (page)id
             return RedirectToAction("List");
 
             //return RedirectToAction("Show/" + id);
         }
 
-
-        //GET of localhost/pages/delete/2 implies
-        //delete action on pages controller with id 2
+        
         public ActionResult Delete(int id)
         {
             string query = "delete from Testimonials where TestimonialID = @id";
             db.Database.ExecuteSqlCommand(query, new SqlParameter("@id", id));
 
            
-            //GOTO: method List in PageController.cs
             return RedirectToAction("List");
         }
 

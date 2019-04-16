@@ -43,22 +43,30 @@ namespace DRHC.Controllers
             return View("List");//make views
         }
         
+
+        public ActionResult Add()
+        {
+
+
+            return View();
+        }
         
         [HttpPost]
         public ActionResult Create(string Fname_New, string Lname_New, string Time_New, string Day_New, string Month_New, string Email_New, string Phone_New)
         {
 
-            /*Debug.WriteLine(Fname_New, Lname_New, Time_New, Day_New, Month_New,Email_New,  Phone_New);*/
+            Debug.WriteLine(Fname_New, Lname_New, Time_New, Day_New, Month_New, Email_New, Phone_New);
 
-            string query = "insert into RecRoombooking (Fname, Lname, Day, Week, Month, Email, Phone) values (@fname, @lname, @day, @week, @month, @email, @phone)";
+            string query = "insert into RecRoombooking (Fname, Lname, Day, Week, Month, Email, Phone) values (@fname, @lname, @time, @day, @week, @month, @email, @phone)";
 
-            SqlParameter[] myparams = new SqlParameter[6];
+            SqlParameter[] myparams = new SqlParameter[7];
             myparams[0] = new SqlParameter("@fname", Fname_New);
             myparams[1] = new SqlParameter("@lname", Lname_New);
-            myparams[2] = new SqlParameter("@day", Day_New);
-            myparams[3] = new SqlParameter("@month", Month_New);
-            myparams[4] = new SqlParameter("@email", Email_New);
-            myparams[5] = new SqlParameter("@phone", Phone_New);
+            myparams[2] = new SqlParameter("@time", Time_New);
+            myparams[3] = new SqlParameter("@day", Day_New);
+            myparams[4] = new SqlParameter("@month", Month_New);
+            myparams[5] = new SqlParameter("@email", Email_New);
+            myparams[6] = new SqlParameter("@phone", Phone_New);
 
             db.Database.ExecuteSqlCommand(query, myparams);
 
@@ -76,7 +84,7 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string Fname, string Lname, string Day, string Week, string Month, string Email, string Phone)
+        public ActionResult Edit(int id, string Fname, string Lname, string Time, string Day, string Month, string Email, string Phone)
         {
             if ((id == null) || (db.RecRoomBooking.Find(id) == null))
             {
@@ -84,13 +92,13 @@ namespace DRHC.Controllers
 
             }
 
-            string query = "update RecRoomBookings set Fname=@fname, Lname=@lname, Day=@day, Week=@week, Month=@month, Email=@email, Phone=@phone";
+            string query = "update RecRoomBookings set Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone";
 
             SqlParameter[] myparams = new SqlParameter[8];
             myparams[0] = new SqlParameter("@fname", Fname);
             myparams[1] = new SqlParameter("@lname", Lname);
             myparams[2] = new SqlParameter("@day", Day);
-            myparams[3] = new SqlParameter("@week", Week);
+            myparams[3] = new SqlParameter("@time", Time);
             myparams[4] = new SqlParameter("@month", Month);
             myparams[5] = new SqlParameter("@email", Email);
             myparams[6] = new SqlParameter("@phone", Phone);

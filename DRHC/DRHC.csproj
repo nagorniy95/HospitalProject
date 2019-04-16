@@ -35,6 +35,8 @@
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\ERWaitTime\" />
     <Folder Include="Views\Feedback\" />
+    <Folder Include="Views\RecRoomBooking\Admin\" />
+    <Folder Include="Views\RecRoomBooking\ClientSide\" />
     <Folder Include="Views\SearchCategory\" />
   </ItemGroup>
 

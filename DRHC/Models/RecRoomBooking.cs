@@ -23,10 +23,10 @@ namespace DRHC.Models
         public string Lname { get; set; }
 
         [Required, StringLength(255)]
-        public string Day { get; set; }
+        public string Time { get; set; }
 
         [Required, StringLength(255)]
-        public string Week { get; set; }
+        public string Day { get; set; }
 
         [Required, StringLength(255)]
         public string Month { get; set; }

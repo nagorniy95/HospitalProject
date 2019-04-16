@@ -496,7 +496,7 @@ namespace DRHC.Migrations
 
                     b.Property<string>("Phone");
 
-                    b.Property<string>("Week")
+                    b.Property<string>("Time")
                         .IsRequired()
                         .HasMaxLength(255);
 

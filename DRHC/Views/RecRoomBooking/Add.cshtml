@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "AddBooking";
+}
+
+<h2>Rec Room Booking</h2>
+
+<form method="POST" action="Add">
+    <div class="inputrow">
+        <label class="input-label">First Name:</label>
+        <input id="Fname_New" name="Fname_New" />
+    </div>
+    <div class="inputrow">
+        <label class="input-label">Last Name:</label>
+        <input id="Lname_New" name="Lname_New" />
+    </div>
+    <div class="inputrow">
+        <label class="input-label">Email:</label>
+        <input id="Email_New" name="Email_New" />
+    </div>
+    <div class="inputrow">
+        <label class="input-label">Phone:</label>
+        <input id="Phone_New" name="Phone_New" />
+    </div>
+    <div class="inputrow">
+        <label class="inputrow"></label>
+        <select id="Day_New" name="Day_New">
+            <option value="0">Day</option>
+           @for(int i=1; i<32; i++)
+           {
+            <option value="@(i.ToString())"> @(i.ToString()) </option>;
+           }
+        </select>
+    </div>
+    <div class="inputrow">
+        <label class="inputrow"></label>
+        <select id="Time_New" name="Time_New">
+            <option value="Default">Time</option>
+            <option value="11:00AM">11:00AM</option>
+            <option value="12:00PM">12:00PM</option>
+            <option value="1:00PM">1:00PM</option>
+            <option value="2:00PM">2:00PM</option>
+            <option value="3:00PM">3:00PM</option>
+            <option value="4:00">4:00PM</option>
+            <option value="5:00PM">5:00PM</option>
+            <option value="6:00PM">6:00PM</option>
+            <option value="7:00PM">7:00PM</option>
+        </select>
+    </div>
+    <div class="inputrow">
+        <label class="inputrow"></label>
+        <select id="Month_New" name="Month_New">
+            <option value="Default">Month</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+    </div>
+    <div class="inputrow">
+        <input type="submit" value="Submit" />
+    </div>
+</form>

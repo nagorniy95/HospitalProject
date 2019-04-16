@@ -8,6 +8,8 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/rohit.css" />
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -18,7 +20,6 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,20 +32,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <!----<li>@Html.ActionLink("Testimonial status", "New", "TestimonialStatus")</li>
-
-                     <li>@Html.ActionLink("Testimonial", "New", "Testimonial")</li>
-                    <li>@Html.ActionLink("TipAndLetter", "New", "TipAndLetter")</li>
+                    <li>@Html.ActionLink("Testimonial status", "New", "TestimonialStatus")</li>
+                   <li>@Html.ActionLink("Testimonial", "New", "Testimonial")</li>
+                    
+                    <!--<li>@Html.ActionLink("TipAndLetter", "New", "TipAndLetter")</li>
                     <li>@Html.ActionLink("Tag", "New", "Tag")</li>
-                    <li>@Html.ActionLink("TipStatus", "New", "TipStatus")</li>
+                    <li>@Html.ActionLink("TipStatus", "New", "TipStatus")</li>-->
+
                     <li>@Html.ActionLink("Ecard", "New", "Ecard")</li>
                     <li>@Html.ActionLink("Users", "Index", "Registration")</li>
                     <li>@Html.ActionLink("AddUser", "New", "Registration")</li>
-                    <li>@Html.ActionLink("Add Faq", "New", "Faq")</li>-->
-
-
-
-
+                    <li>@Html.ActionLink("Add Faq", "New", "Faq")</li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>

@@ -1,0 +1,28 @@
+﻿@model DRHC.Models.TipAndLetter
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+
+<h2> @Model.Title</h2>
+
+<div class="inprow">
+    <label class="inplabel">Title</label>
+    @Model.Title
+</div>
+<div class="inprow">
+    <div class="inplabel">Message</div>
+    @Model.Message
+</div>
+
+<div class="inprow">
+    <label>Type</label>@Model.Tag.TagName
+</div>
+<div class="inprow">
+    <label>Status</label>@Model.TipStatus.TipStatusName
+</div>
+
+@Html.ActionLink("Back To List", "List", "TipAndLetter")
+@Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = Model.TipAndLetterID })
+

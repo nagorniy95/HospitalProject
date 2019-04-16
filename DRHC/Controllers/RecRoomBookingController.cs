@@ -22,7 +22,7 @@ namespace DRHC.Controllers
 {   
     public class RecRoomBookingController : Controller
     {
-        /*
+        
         private readonly DrhcCMSContext db;
 
         public RecRoomBookingController(DrhcCMSContext context)
@@ -33,32 +33,37 @@ namespace DRHC.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("List");
-        }       //List?
+            return RedirectToAction("Admin/List");
+        }       
 
         public ActionResult List()
         {
-            List<RecRoomBooking> recroombookings = db.RecRoomBookings.ToList();
+            List<RecRoomBooking> recroombookings = db.RecRoomBooking.ToList();
 
-            return View();//make views
+            return View("List");//make views
         }
-        //CMSContext does not contain a definition for RecRoomBooking, probably the others too, find out how to do that
+        
 
-        public ActionResult New()
+        public ActionResult Add()
         {
-            //ViewModel? Do I need this ActionResult if there's no relationship for the rec room booking
+
+
+            return View();
         }
         
         [HttpPost]
-        public ActionResult Create(string Fname_New, string Lname_New, DateTime Checkedtime_New, string Email_New, string Phone_New)
+        public ActionResult Create(string Fname_New, string Lname_New, string Time_New, string Day_New, string Month_New, string Email_New, string Phone_New)
         {
-            string query = "insert into RecRoombooking (Fname, Lname, Day, Week, Month, Email, Phone) values (@fname, @lname, @day, @week, @month, @email, @phone)";
+
+            Debug.WriteLine(Fname_New, Lname_New, Time_New, Day_New, Month_New, Email_New, Phone_New);
+
+            string query = "insert into RecRoombooking (Fname, Lname, Day, Week, Month, Email, Phone) values (@fname, @lname, @time, @day, @week, @month, @email, @phone)";
 
             SqlParameter[] myparams = new SqlParameter[7];
             myparams[0] = new SqlParameter("@fname", Fname_New);
             myparams[1] = new SqlParameter("@lname", Lname_New);
-            myparams[2] = new SqlParameter("@day", Day_New);
-            myparams[3] = new SqlParameter("@week", Week_New);
+            myparams[2] = new SqlParameter("@time", Time_New);
+            myparams[3] = new SqlParameter("@day", Day_New);
             myparams[4] = new SqlParameter("@month", Month_New);
             myparams[5] = new SqlParameter("@email", Email_New);
             myparams[6] = new SqlParameter("@phone", Phone_New);
@@ -67,29 +72,33 @@ namespace DRHC.Controllers
 
             //Debug.WriteLine(myparams);
 
-            return RedirectToAction("List");//List, change?
+            return RedirectToAction("Admin/List");
         }
+
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            //need the viewmodel
+            RecRoomBooking recRoomBooking = db.RecRoomBooking.Find(id);
+
+            return View(recRoomBooking);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string Fname, string Lname, string Day, string Week, string Month, string Email, string Phone)
+        public ActionResult Edit(int id, string Fname, string Lname, string Time, string Day, string Month, string Email, string Phone)
         {
-            if ((id == null) || (db.RecRoomBookings.Find(id) == null))
+            if ((id == null) || (db.RecRoomBooking.Find(id) == null))
             {
                 return NotFound();
 
             }
 
-            string query = "update RecRoomBookings set Fname=@fname, Lname=@lname, Day=@day, Week=@week, Month=@month, Email=@email, Phone=@phone";
+            string query = "update RecRoomBookings set Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone";
 
             SqlParameter[] myparams = new SqlParameter[8];
             myparams[0] = new SqlParameter("@fname", Fname);
             myparams[1] = new SqlParameter("@lname", Lname);
             myparams[2] = new SqlParameter("@day", Day);
-            myparams[3] = new SqlParameter("@week", Week);
+            myparams[3] = new SqlParameter("@time", Time);
             myparams[4] = new SqlParameter("@month", Month);
             myparams[5] = new SqlParameter("@email", Email);
             myparams[6] = new SqlParameter("@phone", Phone);
@@ -101,12 +110,12 @@ namespace DRHC.Controllers
         }
         public ActionResult Show(int? id)
         {
-
+            return View();
         }
         
         public ActionResult Delete(int? id)
         {
-            if ((id == null) || (db.RecRoomBookings.Find(id) == null))
+            if ((id == null) || (db.RecRoomBooking.Find(id) == null))
             {
                 return NotFound();
 
@@ -114,6 +123,8 @@ namespace DRHC.Controllers
             string query = "delete from RecRoomBookings where BookingID=@id";
             SqlParameter myparam = new SqlParameter("@id", id);
             db.Database.ExecuteSqlCommand(query, myparam);
+
+            return RedirectToAction("List");
         }
         protected override void Dispose(bool disposing)
         {
@@ -126,12 +137,12 @@ namespace DRHC.Controllers
 
     }
 
-
+    /*
         public IActionResult Index()
         {
             return View();
         }
 
     */
-    }
+
 }

@@ -1,7 +1,39 @@
-﻿
+﻿@model DRHC.Models.ViewModels.TestimonialEdit
+
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
 
+<h2>Edit @Model.Testimonial.Title</h2>
+
+<form method="POST" action="/Testimonial/Edit/@Model.Testimonial.TestimonialID">
+    <div class="inprow">
+        <label class="inplabel">Title</label>
+        <p>@Model.Testimonial.Title</p>
+    </div>
+    <div class="inprow">
+        <label>Status</label>
+        <select id="TestimonialStatusID" name="TestimonialStatusID">
+            @foreach (var status in Model.TestimonialStatuss)
+            {
+                @if (status.TestimonialStatusID == Model.Testimonial.TestimonialStatus.TestimonialStatusID)
+                {
+                    <option value="@status.TestimonialStatusID" selected="selected">@status.TestimonialStatusName</option>
+                }
+                else
+                {<option value="@status.TestimonialStatusID">@status.TestimonialStatusName</option> }
+
+            }
+
+        </select>
+    </div>
+   
+    <div class="inprow">
+        <div class="inplabel">Story</div>
+        <p>@Model.Testimonial.Story</p>
+    </div>
+    <div class="inprow">
+        <input type="submit" value="Submit" />
+    </div>
+</form>

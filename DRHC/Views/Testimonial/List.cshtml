@@ -5,18 +5,37 @@
 
 <h2>List</h2>
 
+<div id="paginate">
+    @ViewData["PaginationSummary"]
+    @Html.ActionLink("Prev",
+        "List",
+        "Testinomial",
+        new { pagenum = ((int)ViewData["pagenum"] - 1) }
+        )
+    |
+    @Html.ActionLink("Next",
+        "List",
+        "Testinomial",
+        new { pagenum = ((int)ViewData["pagenum"] + 1) }
+    )
+</div>
+
 @foreach (var Testimonials in Model)
 {
 <div class="test">
-    <label> @Html.ActionLink(Testimonials.Title, "Show", "Testimonial", new { id = Testimonials.TestimonialID })</label>
-    <a href="@Url.Action("Delete/"+Testimonials.TestimonialID   )"><i class="far fa-trash-alt">Edit</i></a>
     <span class="del">
+
+
+        @Html.ActionLink(Testimonials.Title, "Show", "Testimonial", new { id = Testimonials.TestimonialID })
+
+        @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Testimonials.TestimonialID })
+
         <a href="@Url.Action("Delete/"+Testimonials.TestimonialID   )"><i class="far fa-trash-alt">delete</i></a>
     </span>
 
     <p>submitted by @Testimonials.UserFName   @Testimonials.UserLName</p>
 
-   <p>Status : @Testimonials.TestimonialStatusID </p>
+    <p>Status : @Testimonials.TestimonialStatus.TestimonialStatusName </p>
 </div>
 }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DRHC.Data;
 using DRHC.Models;
+using DRHC.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,12 +32,6 @@ namespace DRHC.Controllers
 
         public async Task<int> GetUserDetails(ApplicationUser user)
         {
-            //check if the user is an author or not.
-            //UserState
-            //0 => No User
-            //1 => has user has no author not admin
-            //2 => has user has author but no blogs no testimonial
-            //3 => has user has author and at least 1 testimonial
             if (user == null) return 0;
           
             if (user.AdminID == null) return 1; //User is not admin author
@@ -76,21 +71,119 @@ namespace DRHC.Controllers
         }
 
 
-        public async Task<ActionResult> List()
+        public async Task<ActionResult> List(int pagenum)
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
-            ViewData["UserState"] = userstate;
-
            if (userstate==0){
                 return RedirectToAction("Register", "Account");}
 
-            return View(db.Testimonials.ToList());
+            /*Pagination Algorithm*/
+            var testimonials = await db.Testimonials.Include(t => t.TestimonialStatus).ToListAsync();
+            int count = testimonials.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)count / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
 
+            List<Testimonial> testi = await db.Testimonials.Include(t => t.TestimonialStatus).Skip(start).Take(perpage).ToListAsync();
+            /*End of Pagination  Algorithm*/
 
+            return View(testi);
 
         }
+
+
+
+        //This shows the edit interface
+        //The edit interface is more advanced with a relational record now.
+        public async Task<ActionResult> Edit(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+
+           
+            TestimonialEdit te = new TestimonialEdit();
+            
+            te.Testimonial =
+                db.Testimonials
+                    .Include(t => t.TestimonialStatus)
+                    .SingleOrDefault(t => t.TestimonialID == id);
+            //get blogs that belong to this user
+            te.TestimonialStatuss = db.TestimonialStatuss.ToList();
+           
+            //if we have info, pass it to Page/View.cshtml
+            if (te.Testimonial != null) return View(te);
+            else return NotFound();
+        }
+
+        //This one actually does the editing commmand
+        [HttpPost]
+        public async Task<ActionResult> Edit(int id, int? TestimonialStatusID)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            //[(id == null) ]=>no ID in GET
+            //[(db.Pages.Find(id) == null)]=>couldn't find this page
+            if (db.Testimonials.Find(id) == null)
+            {
+                //Show error message
+                return NotFound();
+
+            }
+            //Raw query data
+            string query = "update Testimonials set TestimonialStatusID = @TestimonialStatusID " +
+                "where TestimonialID = @id";
+
+
+
+            SqlParameter[] myparams = new SqlParameter[2];
+            myparams[0] = new SqlParameter("@TestimonialStatusID", TestimonialStatusID);
+            myparams[1] = new SqlParameter("@id", id);
+            
+            db.Database.ExecuteSqlCommand(query, myparams);
+
+            //GOTO: SHOW method in PageController.cs and pass argument (page)id
+            return RedirectToAction("List");
+
+            //return RedirectToAction("Show/" + id);
+        }
+
+
+        //GET of localhost/pages/delete/2 implies
+        //delete action on pages controller with id 2
+        public ActionResult Delete(int id)
+        {
+            string query = "delete from Testimonials where TestimonialID = @id";
+            db.Database.ExecuteSqlCommand(query, new SqlParameter("@id", id));
+
+           
+            //GOTO: method List in PageController.cs
+            return RedirectToAction("List");
+        }
+
+
+
 
     }
 }

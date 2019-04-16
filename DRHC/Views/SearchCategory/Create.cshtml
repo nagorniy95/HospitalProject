@@ -1,0 +1,43 @@
+﻿@model DRHC.Models.SearchCategory
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@*
+    Author: Artem Nahornyi
+    Search by Category
+    Admin side
+*@
+
+
+<h2>New Search Category</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="POST" action="/SearchCategory/Create">
+            <br />
+            <div>
+                <label for="New_SearchCategory_Title" class="control-label">Title:</label>
+                <input type="text" id="New_SearchCategory_Title" name="SearchCategoryTitle" class="form-control" />
+            </div>
+            <br />
+            <div>
+                <label for="New_SearchCategory_Description" class="control-label">Description:</label>
+                <textarea id="New_SearchCategory_Description" name="SearchCategoryDescriptioin" class="form-control" rows="5"></textarea>
+            </div>
+            <br />
+            <div>
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+@* Redirect to List page *@
+<span class="btn btn-default">
+    @Html.ActionLink("Go back to list", "List", "SearchCategory")
+</span>
+
+

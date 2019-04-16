@@ -1,0 +1,55 @@
+﻿@model DRHC.Models.Feedback
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@*
+    Author: Artem Nahornyi
+    Feedback form
+    Admin side
+*@
+
+<h2>Edit</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form method="POST" action="/Feedback/Edit/@Model.FeedbackID">
+            <br />
+            <div>
+                <label for="New_AuthorFName" class="control-label">First name:</label>
+                <input type="text" id="New_AuthorFName" name="AuthorFName" class="form-control" required value="@Model.AuthorFName" />
+            </div>
+
+            <div>
+                <label for="New_AuthorLName" class="control-label">Last name:</label>
+                <input type="text" id="New_AuthorLName" name="AuthorLName" class="form-control" required value="@Model.AuthorLName" />
+            </div>
+
+            <div>
+                <label for="New_AuthorEmail" class="control-label">Email:</label>
+                <input type="text" id="New_AuthorEmail" name="AuthorEmail" class="form-control" required value="@Model.AuthorEmail" />
+                <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" ValidationExpression="\w+([-+.]\w+)*&#64;\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="AuthorEmail" ErrorMessage="Invalid Email Format"></asp:RegularExpressionValidator>
+            </div>
+
+            <div>
+                <label for="New_AuthorPhone" class="control-label">Phone:</label>
+                <input type="text" id="New_AuthorPhone" name="AuthorPhone" class="form-control" value="@Model.AuthorPhone" />
+            </div>
+
+            <div>
+                <label for="New_AuthorMessage" class="control-label">Message:</label>
+                <textarea id="New_AuthorMessage" name="AuthorMessage" class="form-control" rows="10" required>@Model.AuthorMessage</textarea>
+            </div>
+            <br />
+            <div>
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+@* Redirect to List page *@
+<span class="btn btn-default">
+    @Html.ActionLink("Go back to list", "List", "Feedback")
+</span>
+

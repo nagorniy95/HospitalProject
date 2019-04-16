@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DRHC.Models.Feedback>
+
+@{
+    ViewData["Title"] = "List";
+}
+@*
+    Author: Artem Nahornyi
+    Feedback form
+    User side
+*@
+<div id="feedback_wrapper">
+
+    <h2 class="FeedbackH2">Feedback</h2>
+
+    <div class="row">
+        @foreach (var feedback in Model)
+        {
+            <div class="group_container col-md-12">
+                <p class="FedbackAuthorName">
+                    Author: <span class="strong"> @feedback.AuthorFName  @feedback.AuthorLName</span>
+                </p>
+                <div class="FedbackAuthorMessage">@feedback.AuthorMessage</div>
+            </div>
+            @*<div>
+                @Html.ActionLink("Edit", "Edit", new { id = feedback.FeedbackID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = feedback.FeedbackID })
+            </div>*@
+        }
+    </div>
+</div>

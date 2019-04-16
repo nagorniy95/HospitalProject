@@ -7,33 +7,36 @@
 @*
     Author: Artem Nahornyi
     Emergency Alert message
+    Admin side
 *@
 
 
-<h2>Create Emergency Alert Message</h2>
+<h2>New Emergency Alert Message</h2>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AlertTitle" class="control-label"></label>
-                <input asp-for="AlertTitle" class="form-control" />
-                <span asp-validation-for="AlertTitle" class="text-danger"></span>
+        <form method="POST" action="/Alerts/Create">
+            <br />
+            <div>
+                <label for="New_Alert_Title" class="control-label">Title:</label>
+                <input type="text" id="New_Alert_Title" name="AlertTitle" class="form-control" />
             </div>
-            <div class="form-group">
-                <label asp-for="AlertMessage" class="control-label"></label>
-                <input asp-for="AlertMessage" class="form-control" />
-                <span asp-validation-for="AlertMessage" class="text-danger"></span>
+            <br />
+            <div>
+                <label for="New_Alert_Message" class="control-label">Message:</label>
+                <textarea id="New_Alert_Message" name="AlertMessage" class="form-control" rows="10"></textarea>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <br />
+            <div>
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
+            <br />
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@* Redirect to List page *@
+<span class="btn btn-default">
+    @Html.ActionLink("Go back to list", "List", "Alerts")
+</span>
 

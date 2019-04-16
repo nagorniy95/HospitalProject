@@ -6,16 +6,21 @@
 @* 
    Author: Artem Nahornyi 
    Emergency Alert message
+   User side
 *@
 
 <div class="row">
     @foreach (var alerts in Model)
     {
-        <div class="group_container col-md-12" align="center" >
-            <h3 class="title">
-                @alerts.AlertTitle
-            </h3>
-            <p>@alerts.AlertMessage</p>
-        </div>
+    <div class="group_container col-md-12 w3-panel w3-pale-red w3-border" align="center" id="alert_redBox">
+        <h3 class="title">
+            @alerts.AlertTitle
+        </h3>
+        <p>@alerts.AlertMessage</p>
+        @*<div>
+            @Html.ActionLink("Edit", "Edit", new { id = alerts.AlertID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = alerts.AlertID })
+        </div>*@
+    </div>
     }
 </div>

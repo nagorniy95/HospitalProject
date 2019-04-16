@@ -1,0 +1,30 @@
+﻿@model DRHC.Models.Alerts
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form method="POST" action="/Alerts/Edit/@Model.AlertID">
+            <br />
+            <div>
+                <label for="New_Alert_Title" class="control-label">Title:</label>
+                <input type="text" id="New_Alert_Title" name="AlertTitle" class="form-control" value="@Model.AlertTitle" />
+            </div><br />
+            <div>
+                <label for="New_Alert_Message" class="control-label">Message:</label>
+                <textarea id="New_Alert_Message" name="AlertMessage" class="form-control" rows="10">@Model.AlertMessage</textarea>
+            </div><br />
+            <div>
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div><br />
+        </form>
+    </div>
+</div>
+
+@* Redirect to List page *@
+<span class="btn btn-default">
+    @Html.ActionLink("Go back to list", "List", "Alerts")
+</span>

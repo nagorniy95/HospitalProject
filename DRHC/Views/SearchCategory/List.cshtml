@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DRHC.Models.SearchCategory>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+@*
+    Author: Artem Nahornyi
+    Search by Category
+    User side
+*@
+<div id="searchCategory_wrapper">
+
+    <h2 class="searchCategoryH2">SearchCategory</h2>
+
+    <div class="row">
+        @foreach (var searchCategory in Model)
+        {
+            <div class="group_container col-md-4">
+                @* here is should be redirect link to department *@
+                <a href="#">
+                    <div class="searchCategory_title" title="@searchCategory.SearchCategoryDescriptioin">
+                        @searchCategory.SearchCategoryTitle
+                    </div>
+                </a>
+            </div>
+            @*<div>
+                @Html.ActionLink("Edit", "Edit", new { id = searchCategory.SearchCategoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = searchCategory.SearchCategoryID })
+            </div>*@
+        }
+    </div>
+</div>

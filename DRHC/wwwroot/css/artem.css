@@ -1,2 +1,54 @@
-﻿body {
+﻿/* Author: Artem Nahornyi*/
+
+.strong{
+    font-weight: 600;
 }
+/* ==================== Emergency Alert ========================== */
+#alert_redBox {
+    box-sizing: border-box;
+    margin: 0;
+}
+#alert_redBox h3,
+#alert_redBox p{
+    margin: 0;
+}
+
+
+/* ==================== Feddback Form ========================== */
+#feedback_wrapper {
+    max-width: 660px;
+    margin: 0 auto;
+}
+.FeedbackH2 {
+    margin: 25px 0 25px 0;
+    font-weight: 600;
+}
+.FedbackAuthorName {
+    font-size: 0.8em;
+    margin-bottom: 0;
+}
+.FedbackAuthorMessage {
+    padding: 10px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    background-color: #fff;
+}
+/* ==================== Search by Category ========================== */
+#searchCategory_wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+}
+.searchCategoryH2 {
+    margin: 25px 0 25px 0;
+    font-weight: 600;
+}
+.searchCategory_title {
+    padding: 10px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    background-color: #fff;
+}
+
+

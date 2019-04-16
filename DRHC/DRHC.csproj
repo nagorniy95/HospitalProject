@@ -22,8 +22,6 @@
     <Folder Include="Views\Donor\" />
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\ERWaitTime\" />
-    <Folder Include="Views\Feedback\" />
-    <Folder Include="Views\SearchCategory\" />
     <Folder Include="WIreframes\Azeb\" />
   </ItemGroup>
 

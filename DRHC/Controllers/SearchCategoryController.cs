@@ -57,13 +57,13 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string SearchCategoryTitle, string SearchCategoryDescription)
+        public ActionResult Create(string SearchCategoryTitle, string SearchCategoryDescriptioin)
         {
-            string query = "insert into SearchCategory (SearchCategoryTitle, SearchCategoryDescription)" +
-                " values (@fname, @lname, @email, @phone, @message)";
+            string query = "insert into SearchCategory (SearchCategoryTitle, SearchCategoryDescriptioin)" +
+                " values (@title, @description)";
             SqlParameter[] myparams = new SqlParameter[2];
             myparams[0] = new SqlParameter("@title", SearchCategoryTitle);
-            myparams[1] = new SqlParameter("@description", SearchCategoryDescription);
+            myparams[1] = new SqlParameter("@description", SearchCategoryDescriptioin);
 
             db.Database.ExecuteSqlCommand(query, myparams);
 

@@ -7,64 +7,60 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DRHC.Data;
 using DRHC.Models;
+using System.Data.SqlClient;
 
 namespace DRHC.Controllers
 {
     
     public class ERWaitTimeController : Controller
-    {/*
-        private readonly ApplicationDbContext _context;
+    {
+        private readonly DrhcCMSContext db;
 
-        public ERWaitTimeController(ApplicationDbContext context)
+        
+        public ERWaitTimeController(DrhcCMSContext context)
         {
-            _context = context;
+            db = context;
         }
 
-        // GET: ERWaitTimes
-        public async Task<IActionResult> Index()
+       
+        public ActionResult Index()
         {
-            return View(await _context.ERWaitTime.ToListAsync());
+            return RedirectToAction("List");
         }
 
-        // GET: ERWaitTimes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //View
+
+        public ActionResult List()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var eRWaitTime = await _context.ERWaitTime
-                .FirstOrDefaultAsync(m => m.ERWaitTimeId == id);
-            if (eRWaitTime == null)
-            {
-                return NotFound();
-            }
+            string query = "select * from ERWaitTimes";
+            IEnumerable<ERWaitTime> eRWaitTimes;
 
-            return View(eRWaitTime);
+            eRWaitTimes = db.ERWaitTimes.FromSql(query);
+            return View(eRWaitTimes);
         }
 
         // GET: ERWaitTimes/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult New() => View();
 
         // POST: ERWaitTimes/Create
-        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ERWaitTimeId,WaitTime,Description")] ERWaitTime eRWaitTime)
+        public ActionResult Create(string WaitTimeCat, string StartDateTime, string EndDateTime, string Description)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(eRWaitTime);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(eRWaitTime);
+            string query = "insert into ERWaitTimes (WaitTimeCat, StartDateTime, EndDateTime, Description)" +
+                " values (@WaitTimeCat, @StartDateTime, @EndDateTime, @Description)";
+            SqlParameter[] myparams = new SqlParameter[4];
+            myparams[0] = new SqlParameter("@WaitTimeCat", WaitTimeCat);
+            myparams[1] = new SqlParameter("@StartDateTime", StartDateTime);
+            myparams[2] = new SqlParameter("@EndDateTime", EndDateTime);
+            myparams[3] = new SqlParameter("@Description", Description);
+           
+
+            db.Database.ExecuteSqlCommand(query, myparams);
+
+            return RedirectToAction("List");
         }
-        */
+        
        
     }
     

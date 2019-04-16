@@ -1,0 +1,18 @@
+﻿/** List Donors **/
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Donor List</h2>
+
+@foreach (var Donor in Model)
+{
+    <div> @Donor.FirstName</div>
+    <div> @Donor.LastName</div>
+    <div> @Donor.Address</div>
+    <div> @Donor.City</div>
+    <div> @Donor.PostalCode</div>
+    <div> @Donor.Email</div>
+    <div> @Donor.Phone</div>
+}
+

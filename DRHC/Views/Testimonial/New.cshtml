@@ -1,44 +1,32 @@
-﻿@model IEnumerable<DRHC.Models.TestimonialStatus>
-
+﻿
 @{
     ViewData["Title"] = "New";
 }
 
 
 
-<h2>New Page</h2>
-<form method="POST" action="/Testimonial/Create">
-    <div class="inprow">
-        <label class="inplabel">UserFName</label>
-        <input id="UserFName" name="UserFName" />
-    </div>
-    <div class="inprow">
-        <label class="inplabel">UserLName</label>
-        <input id="UserLName" name="UserLName" />
-    </div>
-    <div class="inprow">
-        <label class="inplabel">Title</label>
-        <input id="Title" name="Title" />
-    </div>
+<h2>Add a Testimonial</h2>
+<div class="test">
+    <form method="POST" action="/Testimonial/Create">
+        <div class="inprow">
+            <label class="inplabel">UserFName</label>
+            <input id="UserFName" name="UserFName" />
+        </div>
+        <div class="inprow">
+            <label class="inplabel">UserLName</label>
+            <input id="UserLName" name="UserLName" />
+        </div>
+        <div class="inprow">
+            <label class="inplabel">Title</label>
+            <input id="Title" name="Title" />
+        </div>
 
-    <div class="inprow">
-        <div class="inplabel">Story</div>
-        <textarea id="Story" name="Story"></textarea>
-    </div>
-    <div class="inptrow">
-        <label class="inplabel">Status</label>
-        <select id="PageBlog_New" name="TestimonialStatusID">
-            @foreach (var status in Model)
-            {
-                <option value="@status.TestimonialStatusID">@status.TestimonialStatusName</option>
-            }
-        </select>
-    </div>
-
-
-    <div class="inprow">
-        <input type="submit" value="Submit" />
-    </div>
-</form>
-
-@Html.ActionLink("Back To List", "List", "Testimonial")
+        <div class="inprow">
+            <div class="inplabel">Story</div>
+            <textarea id="Story" name="Story"></textarea>
+        </div>
+        <div class="inprow">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>

@@ -20,7 +20,7 @@ using DRHC.Data;
 namespace DRHC.Controllers
 {
     public class VolunteerApplicantController : Controller
-    { /*
+    { 
         private readonly DrhcCMSContext db;
 
         public VolunteerApplicantController(DrhcCMSContext context)
@@ -40,17 +40,12 @@ namespace DRHC.Controllers
 
             return View();//make views
         }
-        //CMSContext does not contain a definition for VolunteerApplicants
-
-        /*public ActionResult New()
-        {
-            //ViewModel
-        }*/
-      /*
+       
+      
      [HttpPost]
      public ActionResult Create(string Fname_New, string Lname_New, string Address_New, string City_New, string Postal_New,  string Province_New, string Phone_New, string Email_New, string Experience_New, DateTime ApplicationDate_New, Boolean Approval_New)
      {
-         string query = "insert into VolunteerApplicant (Fname, Lname, Address, City, Postal, Province, Phone, Email, Experience, ApplicationDate, Approval) values (@fname, @lname, @address, @city, @postal, @province, @phone, @email, @experience, @applicationdate, @approval )"; 
+         string query = "insert into VolunteerApplicant (Fname, Lname, Address, City, Postal, Province, Phone, Email, Experience, ApplicationDate, Approval) values (@fname, @lname, @address, @city, @postal, @province, @phone, @email, @experience, @applicationdate, @approval)"; 
 
          SqlParameter[] myparams = new SqlParameter[11];
          myparams[0] = new SqlParameter("@fname", Fname_New);    
@@ -71,14 +66,18 @@ namespace DRHC.Controllers
          return RedirectToAction("List");
      }
 
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            //Make ViewModel
+            VolunteerApplicant volunteerApplicant= db.VolunteerApplicant.Find(id);
+
+            return View(volunteerApplicant);
         }
+
         [HttpPost]
         public ActionResult Edit(int id, string Fname, string Lname, string Address, string City, string Postal, string Province, string Phone, string Email, string Experience, DateTime ApplicationDate, Boolean Approval)
         {
-            if ((id == null) || (db.VolunteerApplicants.Find(id) == null))
+            if ((id == null) || (db.VolunteerApplicant.Find(id) == null))
             //the bit following db is from DBcontext file
             {
                 return NotFound();
@@ -108,10 +107,10 @@ namespace DRHC.Controllers
 
         /*public ActionResult Show(int? id)
          {} Do I need a show? */
-/*
+
         public ActionResult Delete(int? id)
         {
-            if((id == null) || (db.VolunteerApplicants.Find(id) == null))
+            if((id == null) || (db.VolunteerApplicant.Find(id) == null))
             {
                 return NotFound();
             }

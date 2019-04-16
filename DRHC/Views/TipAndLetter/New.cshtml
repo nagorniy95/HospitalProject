@@ -7,29 +7,29 @@
 
 
 <h2>New Page</h2>
-<form method="POST" action="/Testimonial/Create">
+<form method="POST" action="/TipAndLetter/Create">
     <div class="inprow">
         <label class="inplabel">Title</label>
         <input id="Title" name="Title" />
     </div>
     <div class="inprow">
         <label class="inplabel">Message</label>
-        <input id="Message" name="Message" />
+        <textarea id="Message" name="Message"></textarea>
     </div>
 
     <div class="inptrow">
-        <label class="inplabel">Status</label>
+        <label class="inplabel">Type</label>
         <select id="TagID" name="TagID">
-            @foreach (var status in Model.Tags)
+            @foreach (var Tag in Model.Tags)
             {
-            <option value="@@Model.status.TagID">@status.TagName</option>
+            <option value="@Tag.TagID">@Tag.TagName</option>
             }
         </select>
     </div>
     <div class="inptrow">
         <label class="inplabel">Status</label>
         <select id="TipStatusID" name="TipStatusID">
-            @foreach (var status in Model)
+            @foreach (var status in Model.TipStatuss)
             {
             <option value="@status.TipStatusID">@status.TipStatusName</option>
             }

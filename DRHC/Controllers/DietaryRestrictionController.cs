@@ -21,7 +21,7 @@ namespace DRHC.Controllers
 {
     public class DietaryRestrictionController : Controller
     {
-        /*
+        
         private readonly DrhcCMSContext db;
 
         public DietaryRestrictionController(DrhcCMSContext context)
@@ -35,14 +35,19 @@ namespace DRHC.Controllers
         }
         public ActionResult List()
         {
-            List<DietaryRestriction> restrictions = db.DietaryRestrictions.ToList();
+            List<DietaryRestriction> restrictions = db.DietaryRestriction.ToList();
 
             return View(restrictions);
         }
 
         public ActionResult New()
         {
+            PatientDietEdit patientdieteditview = new PatientDietEdit();
+
+            //patientdieteditview.Patient = db.Patient.ToList();
             //double check viewmodels
+
+            return View(patientdieteditview);
         }
 
         [HttpPost]
@@ -73,7 +78,7 @@ namespace DRHC.Controllers
 
 
 
-        
+        /*
         public IActionResult Index()
         {
             return View();

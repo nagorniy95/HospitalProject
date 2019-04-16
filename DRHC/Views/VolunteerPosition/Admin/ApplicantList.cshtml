@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DRHC.Models.VolunteerApplicant>
+
+@{
+    ViewData["Title"] = "ApplicantList";
+}
+
+<h2>Admin Applicant List</h2>
+<p>
+    <a asp-action="AddVolunteerApplicatant">Add an Applicant</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Postal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Province)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Experience)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Approval)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VolunteerPostingID)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Province)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Experience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VolunteerPostingID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ApplicantID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ApplicantID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ApplicantID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

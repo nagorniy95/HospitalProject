@@ -5,8 +5,20 @@
     <UserSecretsId>aspnet-DRHC-CF40FECC-A21B-4B00-B06B-B1C2DA40DA4C</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="WIreframes\Azeb\**" />
+    <Content Remove="WIreframes\Azeb\**" />
+    <EmbeddedResource Remove="WIreframes\Azeb\**" />
+    <None Remove="WIreframes\Azeb\**" />
+  </ItemGroup>
 
   <ItemGroup>
+    <None Remove="WIreframes\Rohit Feature\Testimonial\Wireframe.zip" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
@@ -22,6 +34,8 @@
     <Folder Include="Views\Donor\" />
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\ERWaitTime\" />
+    <Folder Include="Views\Feedback\" />
+    <Folder Include="Views\SearchCategory\" />
     <Folder Include="WIreframes\Azeb\" />
   </ItemGroup>
 

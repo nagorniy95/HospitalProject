@@ -1,2 +1,10 @@
 ﻿body {
 }
+.test {
+    position: relative;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 3px 3px 3px 3px #ccc;
+    -moz-box-shadow: 3px 3px 3px 3px #ccc;
+    box-shadow: 3px 3px 3px 3px #ccc;
+    padding: 12px;
+}

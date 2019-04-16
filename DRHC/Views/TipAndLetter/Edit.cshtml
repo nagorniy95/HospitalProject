@@ -1,0 +1,59 @@
+﻿@model DRHC.Models.ViewModels.TipAndLetterEdit
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2>Edit @Model.TipAndLetter.Title</h2>
+
+<form method="POST" action="/TipAndLetter/Edit/@Model.TipAndLetter.TipAndLetterID">
+    <div class="inprow">
+        <label class="inplabel">Title</label>
+        <input type="text" value="@Model.TipAndLetter.Title" id="Title" name="Title" />
+    </div>
+    <div class="inprow">
+        <div class="inplabel">Message</div>
+        <textarea id="Message" name="Message">@Model.TipAndLetter.Message</textarea>
+    </div>
+
+    <div class="inprow">
+        <label>Type</label>
+        <select id="TagID" name="TagID">
+            @foreach (var tag in Model.Tags)
+            {
+                @if (tag.TagID == Model.TipAndLetter.Tag.TagID)
+                {
+                    <option value="@tag.TagID" selected="selected">@tag.TagName</option>
+                }
+                else
+                {
+                    <option value="@tag.TagID">@tag.TagName</option>
+                }
+            }
+
+        </select>
+    </div>
+    <div class="inprow">
+        <label>Status</label>
+        <select id="TipStatusID" name="TipStatusID">
+            @foreach (var status in Model.TipStatuss)
+            {
+                @if (status.TipStatusID == Model.TipAndLetter.TipStatus.TipStatusID)
+                {
+                    <option value="@status.TipStatusID" selected="selected">@status.TipStatusName</option>
+                }
+                else
+                {
+                    <option value="@status.TipStatusID">@status.TipStatusName</option>}
+
+            }
+
+        </select>
+    </div>
+
+    <div class="inprow">
+        <input type="submit" value="Submit" />
+    </div>
+</form>
+@Html.ActionLink("Back To List", "List", "TipAndLetter")

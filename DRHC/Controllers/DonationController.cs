@@ -7,70 +7,64 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DRHC.Data;
 using DRHC.Models;
+using System.Data.SqlClient;
 
 namespace DRHC.Controllers
 {   
     
     public class DonationController : Controller
-    {   
-        /*
-        private readonly ApplicationDbContext _context;
+    {
 
-        public DonationController(ApplicationDbContext context)
+        private readonly DrhcCMSContext db;
+
+
+        public DonationController(DrhcCMSContext context)
         {
-            _context = context;
+            db = context;
         }
 
-        // GET: Donations
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            var applicationDbContext = _context.Donation.Include(d => d.Donors);
-            return View(await applicationDbContext.ToListAsync());
+            return RedirectToAction("List");
         }
 
-        // GET: Donations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //View
+
+        public ActionResult List()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var donation = await _context.Donation
-                .Include(d => d.Donors)
-                .FirstOrDefaultAsync(m => m.DonationId == id);
-            if (donation == null)
-            {
-                return NotFound();
-            }
+            string query = "select * from Donations";
+            IEnumerable<Donation> donations;
 
-            return View(donation);
+            donations = db.Donations.FromSql(query);
+            return View(donations);
         }
+
+
 
         // GET: Donations/Create
-        public IActionResult Create()
-        {
-            ViewData["DonorId"] = new SelectList(_context.Donor, "DonorId", "Email");
-            return View();
-        }
+        public IActionResult New() => View();
 
         // POST: Donations/Create
-       
+
+        
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DonationId,AppDate,Amount,DonorId")] Donation donation)
+        public ActionResult Create(string AppDate, decimal Amount)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(donation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DonorId"] = new SelectList(_context.Donor, "DonorId", "Email", donation.DonorId);
-            return View(donation);
+            string query = "insert into Donations (AppDate,Amount)" +
+                " values (@AppDate,@Amount)";
+            SqlParameter[] myparams = new SqlParameter[2];
+            myparams[0] = new SqlParameter("@AppDate", AppDate);
+            myparams[1] = new SqlParameter("@Amount", Amount);
+            
+
+
+            db.Database.ExecuteSqlCommand(query, myparams);
+
+            return RedirectToAction("List");
         }
 
-     */  
     }
-    
+
 }

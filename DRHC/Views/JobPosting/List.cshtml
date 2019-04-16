@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Donor List</h2>
+
+@foreach (var JobPosting in Model)
+{
+    <div> @JobPosting.JobPostingID</div>
+    <div> @JobPosting.JobTitle</div>
+    <div> @JobPosting.Department</div>
+    <div> @JobPosting.Now</div>
+    <div> @JobPosting.DeadlineToApply</div>
+    <div> @JobPosting.Description</div>
+    <div> @JobPosting.AboutOrg</div>
+    <div> @JobPosting.AboutPosition</div>
+    <div> @JobPosting.Experience</div>
+    <div> @JobPosting.Education</div>
+
+
+}
+
+
+

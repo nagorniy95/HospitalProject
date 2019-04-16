@@ -1,0 +1,10 @@
+﻿@model VolunteerPosition
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h2>@Model.PostTitle</h2>
+
+@Html.ActionLink("Apply Now!", "Create", "Volunteer")
+<p>@Model.Description</p>
+

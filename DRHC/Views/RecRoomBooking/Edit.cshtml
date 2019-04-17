@@ -1,26 +1,68 @@
-﻿
+﻿@model DRHC.Models.RecRoomBooking
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h2>Change A Booking</h2>
 
-<form method="POST" action="RecRoomBooking/ClientSide/Add">
+<form method="POST" action="Edit/@Model.BookingID">
     <div class="inputrow">
         <label class="input-label">First Name:</label>
-        <input id="Fname_New" name="Fname_New" />
+        <input id="Fname" name="Fname" value="@Model.Fname"/>
     </div>
     <div class="inputrow">
         <label class="input-label">Last Name:</label>
-        <input id="Lname_New" name="Lname_New" />
+        <input id="Lname" name="Lname" value="@Model.Lname"/>
     </div>
     <div class="inputrow">
         <label class="input-label">First Name:</label>
-        <input id="Email_New" name="Email_New" />
+        <input id="Email" name="Email" value="@Model.Email"/>
     </div>
     <div class="inputrow">
         <label class="input-label">First Name:</label>
-        <input id="Phone_New" name="Phone_New" />
+        <input id="Phone" name="Phone" value="@Model.Phone"/>
     </div>
-
+    <div class="inputrow">
+        <label class="inputrow">test123123</label>
+        <select id="Day" name="Day">
+            <option value="0">Day</option>
+            @for (int i = 1; i < 32; i++)
+            {
+                <option value="@(i.ToString())"> @(i.ToString()) </option>;
+            }
+        </select>
+    </div>
+    <div class="inputrow">
+        <label class="inputrow">6543</label>
+        <select id="Time" name="Time">
+            @foreach (var time in Model.Time)
+            {
+                <option value="@Model.BookingID"
+                        @if (Model.BookingID == @Model.BookingID) { var selected="selected" ; @selected ; }> <!--Displaying ID-->
+                    @Model.BookingID
+                </option>
+            }
+            </select>
+    </div>
+    <div class="inputrow">
+        <label class="inputrow"></label>
+        <select id="Month" name="Month">
+            <option value="Default">Month</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+    </div>
+    <div class="inputrow">
+        <input type="submit" value="Submit" />
+    </div>
 </form>

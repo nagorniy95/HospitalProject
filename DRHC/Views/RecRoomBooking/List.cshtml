@@ -1,7 +1,30 @@
-﻿
+﻿@model IEnumerable<RecRoomBooking>
 @{
-    ViewData["Title"] = "ListBookingAdmin";
+    ViewData["Title"] = "List";
 }
 
-<h2>ListBookingAdmin</h2>
+<h2>Rec Room Bookings</h2>
 
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Month</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var recRoom in Model)
+            {
+
+            }
+        }
+    </tbody>
+
+</table>

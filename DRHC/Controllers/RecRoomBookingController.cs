@@ -33,14 +33,14 @@ namespace DRHC.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("Admin/List");
+            return RedirectToAction("List");
         }       
 
         public ActionResult List()
         {
             List<RecRoomBooking> recroombookings = db.RecRoomBooking.ToList();
 
-            return View("List");//make views
+            return View("List");
         }
         
 
@@ -55,9 +55,9 @@ namespace DRHC.Controllers
         public ActionResult Create(string Fname_New, string Lname_New, string Time_New, string Day_New, string Month_New, string Email_New, string Phone_New)
         {
 
-            Debug.WriteLine(Fname_New, Lname_New, Time_New, Day_New, Month_New, Email_New, Phone_New);
+            //Debug.WriteLine(Fname_New, Lname_New, Time_New, Day_New, Month_New, Email_New, Phone_New);
 
-            string query = "insert into RecRoombooking (Fname, Lname, Day, Week, Month, Email, Phone) values (@fname, @lname, @time, @day, @week, @month, @email, @phone)";
+            string query = "INSERT into RecRoomBookings (Fname, Lname, Time, Day, Month, Email, Phone) VALUES (@fname, @lname, @time, @day, @month, @email, @phone)";
 
             SqlParameter[] myparams = new SqlParameter[7];
             myparams[0] = new SqlParameter("@fname", Fname_New);
@@ -72,7 +72,7 @@ namespace DRHC.Controllers
 
             //Debug.WriteLine(myparams);
 
-            return RedirectToAction("Admin/List");
+            return RedirectToAction("List");
         }
 
         [HttpGet]
@@ -92,7 +92,7 @@ namespace DRHC.Controllers
 
             }
 
-            string query = "update RecRoomBookings set Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone";
+            string query = "UPDATE RecRoomBookings SET Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone";
 
             SqlParameter[] myparams = new SqlParameter[8];
             myparams[0] = new SqlParameter("@fname", Fname);
@@ -106,11 +106,11 @@ namespace DRHC.Controllers
 
             db.Database.ExecuteSqlCommand(query, myparams);
 
-            return RedirectToAction("Show/" + id);//do I want show or list?
+            return RedirectToAction("List");
         }
         public ActionResult Show(int? id)
         {
-            return View();
+            return View();//DO I need this
         }
         
         public ActionResult Delete(int? id)
@@ -120,7 +120,7 @@ namespace DRHC.Controllers
                 return NotFound();
 
             }
-            string query = "delete from RecRoomBookings where BookingID=@id";
+            string query = "DELETE from RecRoomBookings WHERE BookingID=@id";
             SqlParameter myparam = new SqlParameter("@id", id);
             db.Database.ExecuteSqlCommand(query, myparam);
 

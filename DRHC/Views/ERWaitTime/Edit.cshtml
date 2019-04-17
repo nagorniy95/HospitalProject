@@ -1,0 +1,54 @@
+﻿@model DRHC.Models.ERWaitTime
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2>Edit ER Wait Times</h2>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>New</h2>
+            <form method="post" action="/ERWaitTime/Create">
+                <div class="inprow">
+                    <label> Wait Time </label><br />
+                    <input id="WaitTimeCat" type="text" value="@Model.WaitTimeCat" name="WaitTimeCat" />
+                </div>
+
+                <div class="inprow">
+                    <label>Start Date and Time</label><br />
+                    <input id="StartDateTime" value="@Model.StartDateTime" name="StartDateTime" />
+                </div>
+
+                <div class="inprow">
+                    <label>End Date and Time</label><br />
+                    <input id="EndDateTime" value="@Model.EndDateTime" name="EndDateTime" />
+                </div>
+
+                <div class="inprow">
+                    <label>Description</label><br />
+                    <input id="Description" type="text" value="@Model.Description" name="Description" />
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

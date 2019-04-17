@@ -20,7 +20,7 @@ namespace DRHC.Models
 
         public string Department { get; set; }
 
-        public static DateTime Now { get; }
+        //public static DateTime Now { get; }
 
         [Required, StringLength(500)]
         public string Description { get; set; }

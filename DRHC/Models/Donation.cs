@@ -12,20 +12,32 @@ namespace DRHC.Models
         [Key]
         public int DonationId { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime AppDate { get; set; }
+        public string Title { get; set; }
 
-        [Required, Display(Name = "Donation Amount")]
-        public decimal Amount { get; set; }
+        [Required, StringLength(255), Display(Name = "First Name")]
+        public string FirstName { get; set; }
 
+        [Required, StringLength(255), Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
+        public string Address { get; set; }
 
-        [ForeignKey("DonorId")]
-        public int DonorId { get; set; }
-        //One donor to many donations
-        public virtual Donor Donor { get; set; }
+        public string City { get; set; }
 
-       
+        public string Province { get; set; }
+
+        public string PostalCode { get; set; }
+
+        [Required, StringLength(255), Display(Name = "Email")]
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+
+        [Required, Display(Name = "Donation Amount")]  
+        public double Amount { get; set; }            
+
+        
+
 
     }
 }

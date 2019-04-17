@@ -1,0 +1,50 @@
+﻿@model DRHC.Models.ERWaitTime
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h2>Delete</h2>
+<h3> Are you sure?</h3>
+<h4> ER Wait Time </h4>
+<hr />
+<d1 class="d1-horizontal">
+    
+    <dt>
+        @Html.DisplayNameFor(model => model.WaitTimeCat)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.WaitTimeCat)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Description)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.StartDateTime)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.StartDateTime)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.EndDateTime)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.EndDateTime)
+    </dd>
+    
+</d1>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+
+    </div>
+}
+

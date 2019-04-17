@@ -31,7 +31,6 @@ namespace DRHC.Data
 
         public DbSet<JobPosting> JobPostings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
-        public DbSet<Donor> Donors { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<ERWaitTime> ERWaitTimes { get; set; }
 
@@ -130,19 +129,15 @@ namespace DRHC.Data
 
             //JobPosting has many JobApplications, each JobApplication has one JobPosting
             modelBuilder.Entity<JobApplication>()
-                .HasOne(JobApplication => JobApplication.JobPostings)
-                .WithMany(JobPosting=> JobPosting.JobApplication)
+                .HasOne(JobApplication => JobApplication.JobPosting)
+                .WithMany(JobPosting=> JobPosting.JobApplications)
                 .HasForeignKey(JobApplication => JobApplication.JobPostingId);
 
 
 
 
 
-            //Donor can have many donations, each donation has one donor
-              modelBuilder.Entity<Donation>()
-                .HasOne(donation => donation.Donor)
-                .WithMany(donor => donor.Donations)
-                .HasForeignKey(donation => donation.DonorId);
+            
 
            /****error withOne relationships*/
              modelBuilder.Entity<Patient>()
@@ -189,7 +184,6 @@ namespace DRHC.Data
 
             modelBuilder.Entity<JobPosting>().ToTable("JobPostings");
             modelBuilder.Entity<JobApplication>().ToTable("JobApplications");
-            modelBuilder.Entity<Donor>().ToTable("Donors");
             modelBuilder.Entity<Donation>().ToTable("Donations");
             modelBuilder.Entity<ERWaitTime>().ToTable("ERWaitTimes");
 

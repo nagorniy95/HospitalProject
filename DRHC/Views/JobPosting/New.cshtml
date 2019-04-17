@@ -6,51 +6,54 @@
 
 
 
-<h2>New</h2>
+
 <div class="row">
     <div class="col-md-4">
-        <form method="post" action="/JobPosting/Create">
-            <div class="inprow">
-                <label class="inplabel">Job Title </label>
-                <input id="JobTitle" name="JobTitle" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Department </label>
-                <input id="Department" name="Department" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Now </label>
-                <input id="Now" name="Now" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Deadline to Apply </label>
-                <input id="DeadlineToApply" name="DeadlineToApply" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Job Description </label>
-                <input id="Description" name="Description" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">About our Hospital </label>
-                <input id="AboutOrg" name="AboutOrg" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Detailed Description </label>
-                <input id="AboutPosition" name="AboutPosition" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Experience </label>
-                <input id="Experience" name="Experience" />
-            </div>
-            <div class="inprow">
-                <label class="inplabel">Education </label>
-                <input id="Education" name="Education" />
-            </div>
+        <h2>New</h2>
+        <div class="jobposting_wrapper">
+            <form method="post" action="/JobPosting/Create">
+                <div class="inprow">
+                    <label class="inplabel">Job Title </label><br />
+                    <input id="JobTitle" name="JobTitle" required/>
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Department </label><br />
+                    <input id="Department" name="Department" required/>
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Now </label><br />
+                    <input id="Now" name="Now" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Deadline to Apply </label><br />
+                    <input id="DeadlineToApply" name="DeadlineToApply"  required/>
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Job Description </label><br />
+                    <input id="Description" name="Description"  required/>
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">About our Hospital </label><br />
+                    <input id="AboutOrg" name="AboutOrg" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Detailed Description </label><br />
+                    <input id="AboutPosition" name="AboutPosition" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Experience </label><br />
+                    <input id="Experience" name="Experience"  required/>
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Education </label><br />
+                    <input id="Education" name="Education" required/>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

@@ -31,7 +31,6 @@ namespace DRHC.Data
 
         public DbSet<JobPosting> JobPostings { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
-        public DbSet<Donor> Donors { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<ERWaitTime> ERWaitTimes { get; set; }
 
@@ -44,6 +43,14 @@ namespace DRHC.Data
         public DbSet<TipAndLetter> TipAndLetters { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TipStatus> TipStatuss { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Guest> Guests { get; set; }
+
+
+
+
         /* public DbSet<Registration> Registrations { get; set; }*/
         public DbSet<Faq> Faqs { get; set; }
         public DbSet<Ecard> Ecards { get; set; }
@@ -95,22 +102,42 @@ namespace DRHC.Data
                 .WithMany(tipStatus => tipStatus.TipAndLetters)
                 .HasForeignKey(tipandletter => tipandletter.TipStatusID);
 
+            modelBuilder.Entity<OrderXMenu>()
+                .HasKey(oXt => new { oXt.OrderID, oXt.ItemID });
+
+            
+            modelBuilder.Entity<OrderXMenu>()
+                .HasOne(oXt => oXt.Order)
+                .WithMany(oXt => oXt.Ordersxmenus)
+                .HasForeignKey(oXt => oXt.OrderID);
+
+            modelBuilder.Entity<OrderXMenu>()
+                .HasOne(oXt => oXt.Menu)
+                .WithMany(oXt => oXt.Ordersxmenus)
+                .HasForeignKey(oXt => oXt.ItemID);
+
+
+
+            //guest has many orders, each orders has one guestlist
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Guests)
+                .WithMany(guest => guest.Orders)
+                .HasForeignKey(order => order.GuestID);
+
+
+
 
             //JobPosting has many JobApplications, each JobApplication has one JobPosting
-              modelBuilder.Entity<JobApplication>()
-                .HasOne(JobApplication => JobApplication.JobPostings)
-                .WithMany(JobPosting=> JobPosting.JobApplication)
+            modelBuilder.Entity<JobApplication>()
+                .HasOne(JobApplication => JobApplication.JobPosting)
+                .WithMany(JobPosting=> JobPosting.JobApplications)
                 .HasForeignKey(JobApplication => JobApplication.JobPostingId);
 
 
 
 
 
-            //Donor can have many donations, each donation has one donor
-              modelBuilder.Entity<Donation>()
-                .HasOne(donation => donation.Donor)
-                .WithMany(donor => donor.Donations)
-                .HasForeignKey(donation => donation.DonorId);
+            
 
            /****error withOne relationships*/
              modelBuilder.Entity<Patient>()
@@ -145,11 +172,18 @@ namespace DRHC.Data
             modelBuilder.Entity<Tag>().ToTable("Tags");
             modelBuilder.Entity<TipStatus>().ToTable("TipStatuss");
 
+            modelBuilder.Entity<Order>().ToTable("Orders");
+            modelBuilder.Entity<Menu>().ToTable("Menus");
+            modelBuilder.Entity<Guest>().ToTable("Guests");
+            modelBuilder.Entity<OrderXMenu>().ToTable("OrderXMenus");
+
+
+
+
             modelBuilder.Entity<Faq>().ToTable("Faqs");
 
             modelBuilder.Entity<JobPosting>().ToTable("JobPostings");
             modelBuilder.Entity<JobApplication>().ToTable("JobApplications");
-            modelBuilder.Entity<Donor>().ToTable("Donors");
             modelBuilder.Entity<Donation>().ToTable("Donations");
             modelBuilder.Entity<ERWaitTime>().ToTable("ERWaitTimes");
 

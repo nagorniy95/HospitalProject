@@ -48,9 +48,11 @@ namespace DRHC.Controllers
 
             TipAndLetterEdit tagandstatus = new TipAndLetterEdit();
             tagandstatus.Tags = db.Tags.ToList();
+            var tags = tagandstatus.Tags.Count();
             tagandstatus.TipStatuss = db.TipStatuss.ToList();
-            if (tagandstatus.Tags == null) return RedirectToAction("New", "Tag");
-            else if (tagandstatus.TipStatuss == null) return RedirectToAction("New", "TipStatus");
+            var tipstatus = tagandstatus.TipStatuss.Count();
+            if (tags == 0) return RedirectToAction("New", "Tag");
+            else if (tipstatus == 0) return RedirectToAction("New", "TipStatus");
             else return View(tagandstatus);
         }
 

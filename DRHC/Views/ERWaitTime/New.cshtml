@@ -3,36 +3,38 @@
     ViewData["Title"] = "New";
 }
 
-<h2>New</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" action="/ERWaitTime/Create">
-            <div class="inprow">
-                <label class="inplabel">Wait Time </label>
-                <input id="WaitTimeCat" name="WaitTimeCat" />
-            </div>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>New</h2>
+            <form method="post" action="/ERWaitTime/Create">
+                <div class="inprow">
+                    <label class="inplabel">Wait Time </label><br />
+                    <input id="WaitTimeCat" name="WaitTimeCat" />
+                </div>
 
-            <div class="inprow">
-                <label class="inplabel">Start Date and Time</label>
-                <input id="StartDateTime" name="StartDateTime" />
-            </div>
+                <div class="inprow">
+                    <label class="inplabel">Start Date and Time</label><br />
+                    <input id="StartDateTime" name="StartDateTime" />
+                </div>
 
-            <div class="inprow">
-                <label class="inplabel">End Date and Time</label>
-                <input id="EndDateTime" name="EndDateTime" />
-            </div>
+                <div class="inprow">
+                    <label class="inplabel">End Date and Time</label><br />
+                    <input id="EndDateTime" name="EndDateTime" />
+                </div>
 
-            <div class="inprow">
-                <label class="inplabel">Description</label>
-                <input id="Description" name="Description" />
-            </div>
+                <div class="inprow">
+                    <label class="inplabel">Description</label><br />
+                    <input id="Description" name="Description" />
+                </div>
 
-            
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default" />
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+</body>
 
 

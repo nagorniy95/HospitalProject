@@ -1,2 +1,6 @@
-﻿body {
+﻿
+.Jobposting_wrapper {
+    font-size: 20px;
+    max-width: 660px;
+    margin: 0 auto;
 }

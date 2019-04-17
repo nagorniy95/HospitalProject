@@ -110,7 +110,7 @@ namespace DRHC.Migrations
                     table.PrimaryKey("PK_Directions", x => x.DirectionID);
                 });
 
-            migrationBuilder.CreateTable(
+          /*  migrationBuilder.CreateTable(
                 name: "Donors",
                 columns: table => new
                 {
@@ -129,7 +129,7 @@ namespace DRHC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Donors", x => x.DonorId);
-                });
+                });*/
             /*
             migrationBuilder.CreateTable(
                 name: "Ecards",
@@ -361,17 +361,12 @@ namespace DRHC.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Amount = table.Column<decimal>(nullable: false),
                     AppDate = table.Column<DateTime>(nullable: false),
-                    DonorId = table.Column<int>(nullable: false)
+                    //DonorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Donations", x => x.DonationId);
-                    table.ForeignKey(
-                        name: "FK_Donations_Donors_DonorId",
-                        column: x => x.DonorId,
-                        principalTable: "Donors",
-                        principalColumn: "DonorId",
-                        onDelete: ReferentialAction.Cascade);
+                    
                 });
 
             migrationBuilder.CreateTable(

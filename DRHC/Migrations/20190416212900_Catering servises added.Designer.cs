@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190416212900_Catering servises added")]
+    partial class Cateringservisesadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,9 +206,25 @@ namespace DRHC.Migrations
                     b.Property<int>("DonationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<decimal>("Amount");
 
-                    b.Property<double>("Amount");
+                    b.Property<DateTime>("AppDate");
+
+                    b.Property<int>("DonorId");
+
+                    b.HasKey("DonationId");
+
+                    b.HasIndex("DonorId");
+
+                    b.ToTable("Donations");
+                });
+
+            modelBuilder.Entity("DRHC.Models.Donor", b =>
+                {
+                    b.Property<int>("DonorId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
 
                     b.Property<string>("City");
 
@@ -231,9 +248,9 @@ namespace DRHC.Migrations
 
                     b.Property<string>("Title");
 
-                    b.HasKey("DonationId");
+                    b.HasKey("DonorId");
 
-                    b.ToTable("Donations");
+                    b.ToTable("Donors");
                 });
 
             modelBuilder.Entity("DRHC.Models.Ecard", b =>
@@ -264,6 +281,10 @@ namespace DRHC.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("EndDateTime");
+
+                    b.Property<DateTime>("StartDateTime");
 
                     b.Property<string>("WaitTimeCat")
                         .IsRequired()
@@ -370,9 +391,7 @@ namespace DRHC.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<string>("Coverletter")
-                        .IsRequired()
-                        .HasMaxLength(500);
+                    b.Property<string>("Coverletter");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -390,15 +409,15 @@ namespace DRHC.Migrations
 
                     b.Property<string>("Phone");
 
+                    b.Property<string>("Position");
+
                     b.Property<string>("PostalCode");
 
                     b.Property<string>("Province");
 
-                    b.Property<string>("Resume")
-                        .IsRequired()
-                        .HasMaxLength(500);
+                    b.Property<string>("Resume");
 
-                    b.Property<bool>("Status");
+                    b.Property<string>("Status");
 
                     b.HasKey("JobApplicationID");
 
@@ -914,10 +933,18 @@ namespace DRHC.Migrations
                         .HasForeignKey("DRHC.Models.ApplicationUser", "AdminID");
                 });
 
+            modelBuilder.Entity("DRHC.Models.Donation", b =>
+                {
+                    b.HasOne("DRHC.Models.Donor", "Donor")
+                        .WithMany("Donations")
+                        .HasForeignKey("DonorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DRHC.Models.JobApplication", b =>
                 {
-                    b.HasOne("DRHC.Models.JobPosting", "JobPosting")
-                        .WithMany("JobApplications")
+                    b.HasOne("DRHC.Models.JobPosting", "JobPostings")
+                        .WithMany("JobApplication")
                         .HasForeignKey("JobPostingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

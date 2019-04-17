@@ -41,6 +41,13 @@ namespace DRHC.Controllers
         }
 
 
+        //for user display
+        public ActionResult userview()
+        {
+
+            return View(db.Testimonials);
+        }
+
 
 
         public ActionResult New()

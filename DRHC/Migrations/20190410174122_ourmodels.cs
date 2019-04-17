@@ -353,7 +353,7 @@ namespace DRHC.Migrations
                     table.PrimaryKey("PK_VolunteerPositions", x => x.VolunteerPostingID);
                 });
 
-           /* migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Donations",
                 columns: table => new
                 {
@@ -363,16 +363,11 @@ namespace DRHC.Migrations
                     AppDate = table.Column<DateTime>(nullable: false),
                     //DonorId = table.Column<int>(nullable: false)
                 },
-               /* constraints: table =>
+                constraints: table =>
                 {
                     table.PrimaryKey("PK_Donations", x => x.DonationId);
-                    table.ForeignKey(
-                        name: "FK_Donations_Donors_DonorId",
-                        column: x => x.DonorId,
-                        principalTable: "Donors",
-                        principalColumn: "DonorId",
-                        onDelete: ReferentialAction.Cascade);
-                });*/
+                    
+                });
 
             migrationBuilder.CreateTable(
                 name: "JobApplications",

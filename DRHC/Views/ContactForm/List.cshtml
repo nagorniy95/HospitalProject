@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DRHC.Models.ContactForm>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+@foreach (var contact in Model)
+{
+    <div class="test">
+        <div class="row">
+            <div class="col-lg-10">
+                @contact.Name<br/>
+                @contact.Email<br />
+                @contact.Phone
+            </div>
+            <div class="col-lg-2">
+
+                @Html.ActionLink("Edit", "Edit", "ContactForm", new { id = contact.ContactID })
+
+                <a href="@Url.Action("Delete/"+ contact.ContactID  )"><i class="far fa-trash-alt">Delete</i></a>
+            </div>
+        </div>
+
+      </div>
+          
+
+
+
+}

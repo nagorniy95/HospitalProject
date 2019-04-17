@@ -28,11 +28,11 @@
     margin-bottom: 0;
 }
 .FedbackAuthorMessage {
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #000;
     box-sizing: border-box;
     margin-bottom: 25px;
-    background-color: #fff;
+    background-color: rgb(240,240,240);
 }
 /* ==================== Search by Category ========================== */
 #searchCategory_wrapper {

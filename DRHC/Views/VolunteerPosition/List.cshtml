@@ -9,7 +9,7 @@
 @{ 
     foreach(var position in Model)
     {
-    <div>
+    <div class="recitem"> <!--Record ITem -->
         @Html.ActionLink(position.PostTitle, "Show", "VolunteerPosition", new { id=position.VolunteerPositionID })
     </div>
     }

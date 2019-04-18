@@ -7,12 +7,15 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500" rel="stylesheet">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/rohit.css" />
         <link rel="stylesheet" href="~/css/artem.css" />
         <link rel="stylesheet" href="~/css/azeb.css" />
         <link rel="stylesheet" href="~/css/lawrence.css" />
+        <link rel="stylesheet" href="~/css/urvisha.css" />
 
 
     </environment>
@@ -23,46 +26,156 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">DRHC</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Testimonial status", "New", "TestimonialStatus")</li>
-                   <li>@Html.ActionLink("Testimonial", "New", "Testimonial")</li>
-                    
-                    <!--<li>@Html.ActionLink("TipAndLetter", "New", "TipAndLetter")</li>
-                    <li>@Html.ActionLink("Tag", "New", "Tag")</li>
-                    <li>@Html.ActionLink("TipStatus", "New", "TipStatus")</li>-->
 
-                    <li>@Html.ActionLink("Ecard", "New", "Ecard")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Registration")</li>
-                    <li>@Html.ActionLink("AddUser", "New", "Registration")</li>
-                    <li>@Html.ActionLink("Add Faq", "New", "Faq")</li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+
+<body>
+
+    <div class="top-bar">
+        <div class="d-flex flex-row justify-content-end align-items-center">
+            <span style="color: white">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <i class="fa fa-map-marker mr-2"> 203 humber college blvd,Etobicoke,ON M9W6V3</i>
+                        <i class="fa fa-phone mr-2">4116756622</i>
+                        <i class="far fa-envelope mr-2">abc@humbermail.ca</i>
+                    </div>
+                    <div class="col-lg-2">
+                        <i class="fab fa-twitter mr-2"></i>
+                        <i class="fab fa-facebook-f mr-2"></i>
+
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+
+
+    <nav>
+        <div class="row" id="logo">
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-between align-items-center" id="nav_width_wrapper">
+                    <a class="navbar-brand" href="/">
+                        <img alt="logo" src="~/images/icons/hospital-logo.png" height="100px" width="auto" />
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8" id="top-nav">
+                
+                    <a href="#">Home</a>
+
+                     <a href="#">Patient&Visitors</a>
+
+                     <a href="#">ProgramsAndServices</a>
+
+                      <a href="#">JoinOurTeam</a>
+
+                     <a href="#">AboutUs</a>
+
+                     <a href="#">ContactUs</a>
+
+                     <a href="#"><span style="color:#03a9f5">Donations</span></a>
+                        
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - DRHC</p>
-        </footer>
-    </div>
+    @RenderBody()
+
+    <footer>
+        <div class="row" id="footer-link">
+            <div class="col-lg-3">
+                <span class="row">
+                    <a href="#">Contact Us</a>
+                </span>
+                <span class="row">
+
+                    <a href="#">Careers</a>
+                </span>
+                <span class="row">
+
+                    <a href="Careers/">Volunteers</a>
+                </span>
+                <span class="row">
+
+                    <a href="#">Faq</a>
+                </span>
+               
+            </div>
+            <div class="col-lg-3">
+                <span class="row">
+                    <a href="#">Plan Your Stay</a>
+                </span>
+                <span class="row">
+                    <a href="#">Human Resaurces</a>
+                </span>
+                <span class="row">
+                    <a href="#">Feedback</a>
+                </span>
+                <span class="row">
+                    <a href="#">Direction and Locations</a>
+                </span>
+            </div>
+            <div class="col-lg-3">
+                <span class="row">
+                    <a href="#">Site Map</a>
+                </span>
+                <span class="row">
+                    <a href="#">Privacy</a>
+                </span>
+                <span class="row">
+                    <a href="#">Terms of Use</a>
+                </span>
+            </div>
+            <div class="col-lg-3">
+                <span class="row" style="color:white">
+                    <i class="fa fa-map-marker mr-2"> 203 humber college blvd,Etobicoke,ON M9W6V3</i>    
+                </span>
+                <span class="row"  style="color:white">
+                    <i class="fa fa-phone mr-2">(416)675 6622</i>
+                </span>
+                <span class="row"  style="color:white">
+                    <i class="far fa-envelope mr-2">abc@humbermail.ca</i>
+                </span>
+            </div>
+        </div>
+        
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2019 - DRHC</p>
+            </footer>
+        </div>*@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -84,6 +197,11 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+
+
+
+
 
     @RenderSection("Scripts", required: false)
 </body>

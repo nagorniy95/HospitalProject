@@ -49,21 +49,15 @@ namespace DRHC.Controllers
             //Raw Query   
             string query = "insert into Faqs (Questions, Answers) values (@Questions, @Answers)";
 
-            //SQL parameterized query technique
-            //[SqlParameter[] myparams] => SET variable myparams as an array of type (SqlParameter)
-            //[new SqlParameter[1]] => Create a new SqlParameter array with 3 items
             SqlParameter[] myparams = new SqlParameter[2];
-            //@title paramter
+           
             myparams[0] = new SqlParameter("@Questions", Questions_New);
-            //@bio parameter
+        
             myparams[1] = new SqlParameter("@Answers", Answers_New);
             
-
-            //Run the parameterized query (DML - Data Manipulation Language)
-            //Insert into blogs ( .. ) values ( .. ) 
             db.Database.ExecuteSqlCommand(query, myparams);
             Debug.WriteLine(query);
-            //GOTO: 
+          
             return RedirectToAction("List");
         }
 
@@ -72,10 +66,5 @@ namespace DRHC.Controllers
             return View(db.Faqs.ToList());
         }
 
-
-        /* public IActionResult Index()
-         {
-             return View();
-         }*/
     }
 }

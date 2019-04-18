@@ -58,12 +58,9 @@ namespace DRHC.Controllers
             myparams[4] = new SqlParameter("@SenderEmail", SenderEmail_New);
             myparams[5] = new SqlParameter("@Message", Message_New);
 
-
-            //Run the parameterized query (DML - Data Manipulation Language)
-            //Insert into blogs ( .. ) values ( .. ) 
+            
             db.Database.ExecuteSqlCommand(query, myparams);
             Debug.WriteLine(query);
-            //GOTO: 
             return RedirectToAction("List");
         }
 
@@ -73,15 +70,5 @@ namespace DRHC.Controllers
         }
 
 
-
-
-
-
-
-
-        /* public IActionResult Index()
-         {
-             return View();
-         } */
     }
 }

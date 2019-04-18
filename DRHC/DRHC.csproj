@@ -37,4 +37,29 @@
     <Folder Include="WIreframes\Azeb\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\images\doctor.png" />
+    <None Include="wwwroot\images\icons\ambulance.png" />
+    <None Include="wwwroot\images\icons\call-answer.png" />
+    <None Include="wwwroot\images\icons\close-envelope.png" />
+    <None Include="wwwroot\images\icons\customer.png" />
+    <None Include="wwwroot\images\icons\doctor.png" />
+    <None Include="wwwroot\images\icons\facebook-logo.png" />
+    <None Include="wwwroot\images\icons\first-aid-kit.png" />
+    <None Include="wwwroot\images\icons\heart.png" />
+    <None Include="wwwroot\images\icons\hospital-logo.png" />
+    <None Include="wwwroot\images\icons\information.png" />
+    <None Include="wwwroot\images\icons\magnifying-glass.png" />
+    <None Include="wwwroot\images\icons\medical-stethoscope-variant.png" />
+    <None Include="wwwroot\images\icons\medicine.png" />
+    <None Include="wwwroot\images\icons\placeholder %282%29.png" />
+    <None Include="wwwroot\images\icons\right-arrow.png" />
+    <None Include="wwwroot\images\icons\star.png" />
+    <None Include="wwwroot\images\icons\tooth.png" />
+    <None Include="wwwroot\images\icons\twitter-logo-silhouette.png" />
+    <None Include="wwwroot\images\icons\visitor-identification.png" />
+    <None Include="wwwroot\images\icons\youtube.png" />
+    <None Include="wwwroot\images\main.jpg" />
+  </ItemGroup>
+
 </Project>

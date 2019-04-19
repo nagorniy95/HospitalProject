@@ -5,40 +5,34 @@
 
 <h2>List</h2>
 @Html.ActionLink("Add new", "New", "TipAndLetter")
-<div id="paginate">
-    @ViewData["PaginationSummary"]
-    @Html.ActionLink("Prev",
-        "List",
-        "Testinomial",
-        new { pagenum = ((int)ViewData["pagenum"] - 1) }
-        )
-    |
-    @Html.ActionLink("Next",
-        "List",
-        "Testinomial",
-        new { pagenum = ((int)ViewData["pagenum"] + 1) }
-    )
-</div>
+<ul id="paginate" class="pagination">
+
+    <li class="page-item"> @Html.ActionLink("Prev", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
+    <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
+    <li class="page-item"> @Html.ActionLink("Next", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
+</ul>
+
+
 
 @foreach (var tl in Model)
 {
-<div class="test">
-    <div class="row">
-        <div class="col-sm-6">
-            @Html.ActionLink(tl.Title, "Show", "TipAndLetter", new { id = tl.TipAndLetterID })
-            <p>Type : @tl.Tag.TagName</p>
+    <div class="test">
+        <div class="row">
+            <div class="col-sm-6">
+                @Html.ActionLink(tl.Title, "Show", "TipAndLetter", new { id = tl.TipAndLetterID })
+                <p>Type : @tl.Tag.TagName</p>
 
-            <p>Status : @tl.TipStatus.TipStatusName </p>
+                <p>Status : @tl.TipStatus.TipStatusName </p>
+            </div>
+            <div class="col-sm-pull-4">
+
+                @Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = tl.TipAndLetterID })
+
+                <a href="@Url.Action("Delete/"+tl.TipAndLetterID)"
+                   onclick="return confirm('Are you sure you wish to delete this article?');"><i class="far fa-trash-alt">delete</i></a>
+            </div>
+
         </div>
-        <div class="col-sm-pull-4">
-
-            @Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = tl.TipAndLetterID })
-
-            <a href="@Url.Action("Delete/"+tl.TipAndLetterID)"
-               onclick="return confirm('Are you sure you wish to delete this article?');"><i class="far fa-trash-alt">delete</i></a>
-        </div>
-
     </div>
- </div>
-    }
+}
 

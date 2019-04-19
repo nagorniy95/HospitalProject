@@ -72,6 +72,12 @@ namespace DRHC.Controllers
             myparams[3] = new SqlParameter("@TipStatusID", TipStatusID);
 
             db.Database.ExecuteSqlCommand(query, myparams);
+            TipStatus ts = db.TipStatuss.Find(TipStatusID);
+            if (Equals(ts.TipStatusName, "Publish"){
+
+            }
+
+
             return RedirectToAction("List");
         }
 

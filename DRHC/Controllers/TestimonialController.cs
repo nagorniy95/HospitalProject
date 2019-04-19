@@ -182,7 +182,7 @@ namespace DRHC.Controllers
             Testimonial t = db.Testimonials.Find(id);
             TestimonialStatus ts = db.TestimonialStatuss.Find(tid);
             string Message;
-            if (string.Equals(t.TestimonialStatus, "Aproved-Published"))
+            if (t.TestimonialStatus.Equals("Aproved-Published"))
             {
                 Message = "Thankyou " + t.UserFName + " " + t.UserLName + " Your Testimonial is being recieved and is under revewing process.";
             }

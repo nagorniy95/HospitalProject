@@ -21,7 +21,7 @@
 
             @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Testimonials.TestimonialID })
 
-            <a href="@Url.Action("Delete/"+Testimonials.TestimonialID   )"><i class="far fa-trash-alt">delete</i></a>
+            <a href="@Url.Action("Delete/"+Testimonials.TestimonialID)"><i class="far fa-trash-alt">delete</i></a>
         </span>
 
         <p>submitted by @Testimonials.UserFName   @Testimonials.UserLName</p>

@@ -60,25 +60,30 @@
                 </div>
             </div>
             <div class="col-lg-8" id="top-nav">
-                
-                    <a href="#">Home</a>
 
-                     <a href="#">Patient&Visitors</a>
+                <a href="#">Home</a>
 
-                     <a href="#">ProgramsAndServices</a>
+                <a href="#">Patient&Visitors</a>
 
-                      <a href="#">JoinOurTeam</a>
+                <a href="#">ProgramsAndServices</a>
 
-                     <a href="#">AboutUs</a>
+                <a href="#">JoinOurTeam</a>
 
-                     <a href="#">ContactUs</a>
+                <a href="#">AboutUs</a>
 
-                     <a href="#"><span style="color:#03a9f5">Donations</span></a>
-                        
+                <a href="#">ContactUs</a>
+
+                <a href="#"><span style="color:#03a9f5">Donations</span></a>
+
             </div>
         </div>
     </nav>
     @RenderBody()
+    @model IEnumerable<DRHC.Models.Testimonial>
+
+
+    
+    @await Html.PartialAsync("~/Views/Testimonial/userview.cshtml", new Testimonial())
 
     <footer>
         <div class="row" id="footer-link">
@@ -98,7 +103,7 @@
 
                     <a href="#">Faq</a>
                 </span>
-               
+
             </div>
             <div class="col-lg-3">
                 <span class="row">
@@ -127,17 +132,17 @@
             </div>
             <div class="col-lg-3">
                 <span class="row" style="color:white">
-                    <i class="fa fa-map-marker mr-2"> 203 humber college blvd,Etobicoke,ON M9W6V3</i>    
+                    <i class="fa fa-map-marker mr-2"> 203 humber college blvd,Etobicoke,ON M9W6V3</i>
                 </span>
-                <span class="row"  style="color:white">
+                <span class="row" style="color:white">
                     <i class="fa fa-phone mr-2">(416)675 6622</i>
                 </span>
-                <span class="row"  style="color:white">
+                <span class="row" style="color:white">
                     <i class="far fa-envelope mr-2">abc@humbermail.ca</i>
                 </span>
             </div>
         </div>
-        
+
     </footer>
 
 

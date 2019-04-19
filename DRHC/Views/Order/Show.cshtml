@@ -5,18 +5,32 @@
 }
 
 <h2>Show</h2>
+<div>
+    <div class="row">
+        <div class="col-lg-6">
+            @Model.UserFName @Model.UserLName
+            @Model.Number
+            @Model.Email
+        </div>
+        <div class="col-lg-6">
 
-@Model.UserFName @Model.UserLName
-@Model.Number
-@Model.Email
-@Model.Date
-@Model.Time
-@Model.Veg
-@Model.NonVeg
-@total =0;
-@foreach( var fooditem in @Model.Ordersxmenus)
-{
-    @fooditem.Menu.ItemName
-    @fooditem.Menu.Price 
-}
-@Model.Guests.NumberOfGuest
+            @Model.Date
+            @Model.Time
+            @Model.Veg
+            @Model.NonVeg
+            @Model.Guests.NumberOfGuest
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            Name           Price
+            @foreach (var fooditem in @Model.Ordersxmenus)
+            {
+                @fooditem.Menu.ItemName @fooditem.Menu.Price<br />
+            }
+
+            Vat    :@ViewData["vat"]
+            Total: @ViewData["Total"]
+        </div>
+    </div>
+

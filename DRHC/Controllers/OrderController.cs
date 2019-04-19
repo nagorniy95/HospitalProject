@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DRHC.Data;
@@ -10,6 +11,7 @@ using DRHC.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 
 namespace DRHC.Controllers
 {
@@ -75,28 +77,30 @@ namespace DRHC.Controllers
             db.Database.ExecuteSqlCommand(query, myparams);
             
                  var order = await db.Orders.ToListAsync();
-                 if (order.Count() != 0)
-                 {
-                     int oid = (int)order.Max(o => o.OrderID);
-                     if ((FoodItems != null) && (FoodItems.Count() > 0))
-                     {
-                         foreach (int itemid in FoodItems)
-                         {
-                             string menuquerry = "insert into OrderXMenus (OrderID,ItemID) " +
-                                 "values (@oid,@itemid)";
-                             SqlParameter[] myparam = new SqlParameter[2];
-                             myparam[0] = new SqlParameter("@itemid", itemid);
-                             myparam[1] = new SqlParameter("@oid", oid);
+            if (order.Count() != 0)
+            {
+                int oid = (int)order.Max(o => o.OrderID);
+                if ((FoodItems != null) && (FoodItems.Count() > 0))
+                {
+                    foreach (int itemid in FoodItems)
+                    {
+                        string menuquerry = "insert into OrderXMenus (OrderID,ItemID) " +
+                            "values (@oid,@itemid)";
+                        SqlParameter[] myparam = new SqlParameter[2];
+                        myparam[0] = new SqlParameter("@itemid", itemid);
+                        myparam[1] = new SqlParameter("@oid", oid);
 
-                             db.Database.ExecuteSqlCommand(menuquerry, myparam);
-                             
-                         }
+                        db.Database.ExecuteSqlCommand(menuquerry, myparam);
+
+                    }
 
 
-                     }
-                 }
+                }
 
-                return RedirectToAction("New");
+
+                return RedirectToAction("SendOrderSummary/" + oid);
+            }
+            return RedirectToAction("index");
         }
 
 
@@ -130,8 +134,7 @@ namespace DRHC.Controllers
             }
 
             List<Order> or = await db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).Skip(start).Take(perpage).ToListAsync();
-
-
+          
             return View(or);
 
         }
@@ -144,8 +147,19 @@ namespace DRHC.Controllers
             {
                 return RedirectToAction("Register", "Account");
             }
-            var order = db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(o => o.OrderID == id);
+                Order order = db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(o => o.OrderID == id);
+            double total = 0;
+            foreach ( var f in order.Ordersxmenus)
+            {
+                total = total + Convert.ToDouble(f.Menu.Price);
+                //total = total + Convert.ToInt32(Convert.ToDouble(f.Menu.Price, CultureInfo.InvariantCulture));
 
+                //total = total + int.Parse(f.Menu.Price);
+            }
+            double vat = total * 0.13;
+            double grandtotal = vat + total;
+            ViewData["vat"] = "13%";
+            ViewData["Total"] = grandtotal;
             return View(order);
 
 
@@ -164,9 +178,55 @@ namespace DRHC.Controllers
 
 
             return RedirectToAction("List/?pagenum=" + pagenum);
+        }
 
 
+        //sending confirmation of order
+        public ActionResult SendOrderSummary(int id)
+        {
+            string summary = "Thankyou for ordering<br/>";
+            summary += "<div>Your Order Details are</div>";
+            double total =0;
+            Order o = db.Orders.Include(order => order.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(order => order.OrderID == id);
+            foreach ( var f in o.Ordersxmenus)
+            {
+                total = total + Convert.ToDouble(f.Menu.Price);
+
+                summary += f.Menu.ItemName +" :: " + f.Menu.Price+"<br/>";
+            }
+
+            double vat = total * 0.13;
+            double grandtotal = vat + total;
+            summary += "<div>Subtotal :: " + total + "</div>";
+            summary += "<div>Vat :: 13%</div>";
+            summary += "<div>Total :: "+ grandtotal +"</div>";
+            
+            
+            var msg = new MimeMessage();
+            msg.From.Add(new MailboxAddress("ram", "rohitinventor2@gmail.com"));
+            msg.To.Add(new MailboxAddress(o.UserFName,o.Email));
+            msg.Subject = "Order Detail";
+            msg.Body = new TextPart("html")
+            {
+                Text = summary
+            };
+
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("rohitinventor2@gmail.com", "ramkisan");
+                client.Send(msg);
+                client.Disconnect(true);
+
+
+
+            }
+
+
+            return RedirectToAction("List");
 
         }
+
     }
-  }
+}

@@ -197,29 +197,30 @@ namespace DRHC.Controllers
 
 
 
-        public ActionResult SendLetter(int id)
+        public ActionResult SendLetter()
         {
             List<Registration>  r = db.Registrations.ToList();
             List<TipAndLetter> t =  db.TipAndLetters.Include(tl => tl.TipStatus).ToList();
             var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress ("ram", "rohitinventor1@gmail.com"));
-            msg.To.Add(new MailboxAddress("ram", "rohitinventor2@gmail.com"));
+            msg.From.Add(new MailboxAddress ("ram", "rohitinventor2@gmail.com"));
+            msg.To.Add(new MailboxAddress("ram", "sneha.shukla@eitpl.com"));
             msg.Subject = "hahaha";
             msg.Body = new TextPart("plain") {
-                Text = "hjhkh"
+                Text = "thi is from my project"
             };
 
             
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.Connect ("smtp.gmail.com", 587, false);
-                client.Authenticate("rohitinventor2@gmail.com", "ramkisan1");
+                client.Authenticate("rohitinventor2@gmail.com", "ramkisan");
                 client.Send(msg);
                 client.Disconnect(true);
 
                 
 
             }
+        
 
                 return RedirectToAction("List");
 

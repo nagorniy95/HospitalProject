@@ -10,6 +10,7 @@ using DRHC.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 
 namespace DRHC.Controllers
 {
@@ -44,8 +45,8 @@ namespace DRHC.Controllers
         //for user display
         public ActionResult userview()
         {
-
-            return View(db.Testimonials);
+            return View( "~/Views/Testimonial/userview.cshtml", db.Testimonials);
+            //return View(db.Testimonials);
         }
 
 
@@ -74,8 +75,10 @@ namespace DRHC.Controllers
             myparams[4] = new SqlParameter("@TestimonialStatusID", tsid);
 
             db.Database.ExecuteSqlCommand(query, myparams);
+            List<Testimonial> t = db.Testimonials.ToList();
+            int id = (int)t.Max(testimonial => testimonial.TestimonialID);
 
-            return RedirectToAction("List");
+            return RedirectToAction("Sendletter/"+ id + "&tid=" + tsid);
         }
 
 
@@ -159,10 +162,7 @@ namespace DRHC.Controllers
             myparams[1] = new SqlParameter("@id", id);
             
             db.Database.ExecuteSqlCommand(query, myparams);
-
-            return RedirectToAction("List");
-
-            //return RedirectToAction("Show/" + id);
+            return RedirectToAction("Sendletter/" + id + "&tid=" + TestimonialStatusID);
         }
 
         
@@ -173,6 +173,48 @@ namespace DRHC.Controllers
 
            
             return RedirectToAction("List");
+        }
+
+
+        //sending thankyou letter to user
+        public ActionResult Sendletter(int? id , int? tid)
+        {
+            Testimonial t = db.Testimonials.Find(id);
+            TestimonialStatus ts = db.TestimonialStatuss.Find(tid);
+            string Message;
+            if (string.Equals(t.TestimonialStatus, "Aproved-Published"))
+            {
+                Message = "Thankyou " + t.UserFName + " " + t.UserLName + " Your Testimonial is being recieved and is under revewing process.";
+            }
+            else
+            {
+                Message = "Thankyou " + t.UserFName + " " + t.UserLName + " Your Testimonial is being Published and can be seen on home page.";
+            }
+
+            var msg = new MimeMessage();
+            msg.From.Add(new MailboxAddress("ram", "rohitinventor2@gmail.com"));
+            msg.To.Add(new MailboxAddress(t.UserFName, "rohitinventor2@gmail.com"));
+            msg.Subject = "Testimonial";
+            msg.Body = new TextPart("html")
+            {
+                Text = Message
+            };
+
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("rohitinventor2@gmail.com", "ramkisan");
+                client.Send(msg);
+                client.Disconnect(true);
+
+
+
+            }
+
+
+            return RedirectToAction("List");
+
         }
 
 

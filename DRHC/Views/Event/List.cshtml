@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DRHC.Models.Event>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>Events List</h2>
+
+@foreach (var e in Model)
+{
+    <div class="test">
+        <div class="row">
+            <div class="col-lg-10">
+                @e.EventImage<br />
+                @e.EventTitle<br />
+                @e.EventDescription<br />
+                @e.EventDate<br />
+            </div>
+            <div class="col-lg-2">
+
+                @Html.ActionLink("Edit", "Edit", "Event", new { id = e.EventID })
+
+                <a href="@Url.Action("Delete/"+ e.EventID  )"><i class="far fa-trash-alt">Delete</i></a>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>News&Events</h2>
+
+@if (@TempData["result"] != null)
+{
+    <p class="alert alert-success" id="successMessage">
+        @TempData["result"]
+    </p>
+}
+
+<form method="POST" action="Create">
+    <div class="inputname">
+        <label class="input-label">Image:</label>
+        <input id="img_New" name="img_New" />
+    </div>
+    <div class="inputname">
+        <label class="input-label">Title:</label>
+        <input id="title_New" name="title_New" />
+    </div>
+    <div class="inputname">
+        <label class="input-label">Description:</label>
+        <input id="desc_New" name="desc_New" />
+    </div>
+    <div class="inputname">
+        <label class="input-label">Date:</label>
+        <input id="date_New" name="date_New" />
+    </div>
+    <input type="submit" value="submit" />
+</form>
+

@@ -1,0 +1,22 @@
+﻿@model DRHC.Models.Order
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h2>Show</h2>
+
+@Model.UserFName @Model.UserLName
+@Model.Number
+@Model.Email
+@Model.Date
+@Model.Time
+@Model.Veg
+@Model.NonVeg
+@total =0;
+@foreach( var fooditem in @Model.Ordersxmenus)
+{
+    @fooditem.Menu.ItemName
+    @fooditem.Menu.Price 
+}
+@Model.Guests.NumberOfGuest

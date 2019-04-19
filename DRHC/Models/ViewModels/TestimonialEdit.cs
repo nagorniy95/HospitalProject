@@ -14,11 +14,8 @@ namespace DRHC.Models.ViewModels
 
         }
 
-        //Raw page information (in Models/Page.cs)
         public virtual Testimonial Testimonial { get; set; }
 
-        //need information about the different blogs this page COULD be
-        //assigned to
         public IEnumerable<TestimonialStatus> TestimonialStatuss { get; set; }
 
 

@@ -11,16 +11,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DRHC.Controllers
 {
-    public class GuestController : Controller
+    public class MenuController : Controller
     {
-
         private readonly DrhcCMSContext db;
         private readonly UserManager<ApplicationUser> _userManager;
 
         private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
 
-        public GuestController(DrhcCMSContext context, UserManager<ApplicationUser> usermanager)
+        public MenuController(DrhcCMSContext context, UserManager<ApplicationUser> usermanager)
         {
             db = context;
             _userManager = usermanager;
@@ -44,21 +43,17 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string start, string end)
+        public ActionResult Create(string ItemName, string Type, string Price)
         {
-            string NumberOfGuest = start + "-" + end;
-            string query = "insert into Guests (NumberOfGuest) " +
-                "values (@NumberOfGuest)";
+            string query = "insert into Menus (ItemName,Type,Price) " +
+                "values (@ItemName,@Type,@Price)";
 
-            SqlParameter[] myparams = new SqlParameter[1];
-            myparams[0] = new SqlParameter("@NumberOfGuest", NumberOfGuest);
+            SqlParameter[] myparams = new SqlParameter[3];
+            myparams[0] = new SqlParameter("@ItemName", ItemName);
+            myparams[1] = new SqlParameter("@Type", Type);
+            myparams[2] = new SqlParameter("@Price", Price);
             db.Database.ExecuteSqlCommand(query, myparams);
             return RedirectToAction("New");
         }
-
-
-
-
-
     }
 }

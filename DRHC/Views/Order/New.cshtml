@@ -1,0 +1,125 @@
+﻿@model DRHC.Models.ViewModels.OrderEdit
+
+@{
+    ViewData["Title"] = "New";
+}
+
+
+
+<h2>Place Your Order</h2>
+<form method="POST" action="/Order/Create">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label " for="UserFName">
+                            First Name
+                        </label>
+                        <input class="form-control" id="UserFName" name="UserFName" type="text" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label " for="UserLName">
+                            Email
+                        </label>
+                        <input class="form-control" id="UserLName" name="UserLName" type="text" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group ">
+                        <label class="control-label requiredField" for="Email">
+                            Last Name
+                           
+                        </label>
+                        <input class="form-control" id="Email" name="Email" type="text" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label " for="Number">
+                            Telephone
+                        </label>
+                        <input class="form-control" id="Number" name="Number" type="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group ">
+                        
+                        <div class="col-sm-10">
+                                <label class="inplabel">How Many Guest</label>
+                                <select class="select form-control" id="GuestID" name="GuestID">
+                                    @foreach (var guest in Model.Guests)
+                                    {
+                                        <option value="@guest.GuestID">@guest.NumberOfGuest</option>
+                                    }
+                                </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-sm-2" for="Date">
+                            Date
+                        </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="Date" name="Date" placeholder="MM/DD/YYYY" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-sm-2" for="Time">
+                            Time
+                        </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="Time" name="Time" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group ">
+
+                        <label class="control-label col-sm-2" for="name1">
+                            Dietresi
+                        </label>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-sm-2" for="Veg">
+                            Veg
+                        </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="Veg" name="Veg" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-sm-2" for="NonVeg">
+                            Non Veg
+                        </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="NonVeg" name="nameNonVeg2" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="inplabel">Food Items:</div>
+            @foreach (var menu in Model.Menus)
+            {
+                <label>
+                    <input type="checkbox" name="FoodItems" value="@menu.ItemID" />
+                    <span>@menu.ItemName</span>
+                    <br />Price: <span>@menu.Price</span>
+                </label>
+
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+            <button class="btn btn-primary " name="submit" type="submit">
+                Submit
+            </button>
+        </div>
+    </div>
+</form>
+   
+

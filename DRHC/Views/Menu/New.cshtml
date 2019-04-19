@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "New";
+}
+
+
+
+<h2>Add a Food Item</h2>
+<div class="test">
+    <form method="POST" action="/Menu/Create">
+        <div class="inprow">
+            <label class="inplabel">Item Name</label>
+            <input id="ItemName" name="ItemName" />
+        </div>
+        <div class="inprow">
+            <label class="inplabel">Type</label>
+            <select id="Type" name="Type">
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Non Vegetarian">Non Vegetarian</option>
+            </select>
+        </div>
+        <div class="inprow">
+            <label class="inplabel">Price</label>
+            <input id="Price" name="Price" />
+        </div>
+<div class="inprow">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>

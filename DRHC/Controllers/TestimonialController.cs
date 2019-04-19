@@ -87,7 +87,6 @@ namespace DRHC.Controllers
            if (userstate==0){
                 return RedirectToAction("Register", "Account");}
 
-            /*Pagination Algorithm*/
             var testimonials = await db.Testimonials.Include(t => t.TestimonialStatus).ToListAsync();
             int count = testimonials.Count();
             int perpage = 3;
@@ -114,8 +113,6 @@ namespace DRHC.Controllers
 
 
 
-        //This shows the edit interface
-        //The edit interface is more advanced with a relational record now.
         public async Task<ActionResult> Edit(int id)
         {
             var user = await GetCurrentUserAsync();

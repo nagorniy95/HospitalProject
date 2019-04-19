@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using DRHC.Data;
 using DRHC.Models;
@@ -10,7 +11,8 @@ using DRHC.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using MimeKit;
+using MailKit.Net.Smtp;
 namespace DRHC.Controllers
 {
     public class TipAndLetterController : Controller
@@ -85,7 +87,6 @@ namespace DRHC.Controllers
 
 
 
-            /*Pagination Algorithm*/
             var htl = await db.TipAndLetters.Include(t => t.TipStatus).Include(t => t.Tag).ToListAsync();
             int count = htl.Count();
             int perpage = 3;
@@ -132,8 +133,6 @@ namespace DRHC.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
-
-
             TipAndLetterEdit htl = new TipAndLetterEdit();
 
             htl.TipAndLetter =
@@ -149,7 +148,6 @@ namespace DRHC.Controllers
             else return NotFound();
         }
 
-        //This one actually does the editing commmand
         [HttpPost]
         public async Task<ActionResult> Edit(int id, string Title, string Message, int? TagID, int? TipStatusID)
         {
@@ -193,8 +191,38 @@ namespace DRHC.Controllers
             db.Database.ExecuteSqlCommand(query, new SqlParameter("@id", id));
 
 
-            //GOTO: method List in PageController.cs
             return RedirectToAction("List");
+        }
+
+
+
+
+        public ActionResult SendLetter(int id)
+        {
+            List<Registration>  r = db.Registrations.ToList();
+            List<TipAndLetter> t =  db.TipAndLetters.Include(tl => tl.TipStatus).ToList();
+            var msg = new MimeMessage();
+            msg.From.Add(new MailboxAddress ("ram", "rohitinventor1@gmail.com"));
+            msg.To.Add(new MailboxAddress("ram", "rohitinventor2@gmail.com"));
+            msg.Subject = "hahaha";
+            msg.Body = new TextPart("plain") {
+                Text = "hjhkh"
+            };
+
+            
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect ("smtp.gmail.com", 587, false);
+                client.Authenticate("rohitinventor2@gmail.com", "ramkisan1");
+                client.Send(msg);
+                client.Disconnect(true);
+
+                
+
+            }
+
+                return RedirectToAction("List");
+
         }
 
 

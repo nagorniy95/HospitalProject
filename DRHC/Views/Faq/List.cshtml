@@ -35,12 +35,24 @@
     </div>
 
 
-    <h2>FAQ List</h2>
 
     @foreach (var faq in Model)
     {
-        <div> @faq.Questions</div>
-        <div> @faq.Answers</div>
+        <div class="test">
+            <div class="row">
+                <div class="col-lg-10">
+                    @faq.Questions<br />
+                    @faq.Answers<br />
+                  
+                </div>
+                <div class="col-lg-2">
+
+                    @Html.ActionLink("Edit", "Edit", "Faq", new { id = faq.FaqID })
+
+                    <a href="@Url.Action("Delete/"+ faq.FaqID  )"><i class="far fa-trash-alt">Delete</i></a>
+                </div>
+            </div>
+        </div>
     }
 
 

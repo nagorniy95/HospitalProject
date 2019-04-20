@@ -17,18 +17,33 @@ namespace DRHC.Controllers
     {
 
         private readonly DrhcCMSContext db;
-        private readonly IHostingEnvironment _env;
 
-        //constructor function which takes a DrhcCMSContext as a constructor.
         private readonly UserManager<ApplicationUser> _userManager;
+
+        public object FlashMessage { get; private set; }
+
         private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public FaqController(DrhcCMSContext context, IHostingEnvironment env, UserManager<ApplicationUser> usermanager)
         {
 
             db = context;
-            _env = env;
-            _userManager = usermanager;
+           _userManager = usermanager;
+        }
+
+        public async Task<int> GetUserDetails(ApplicationUser user)
+        {
+            if (user == null) return 0;
+
+            if (user.AdminID == null) return 1; //User is not admin 
+            else return 2;
+
+            return -1;
+        }
+
+        public ActionResult Add()
+        {
+            return View();
         }
 
         public ActionResult Index()
@@ -90,27 +105,89 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        //public ActionResult List()
-        //{
-        //    return View(db.Faqs.ToList());
-        //}
 
-
-
-        /*
-        [HttpPost]
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+            Faq faqs = db.Faqs.Find(id);
+
+            return View(faqs);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(int id, string question, string answer )
+        {
+
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+
             if ((id == null) || (db.Faqs.Find(id) == null))
             {
                 return NotFound();
-
             }
-            string query = "delete from Faqs where Faqid=@id";
-            SqlParameter param = new SqlParameter("@id", id);
-            db.Database.ExecuteSqlCommand(query, param);
-            return View("List");
-        }*/
 
+            string query = "UPDATE Faqs SET Questions=@que, Answers=@ans  WHERE FaqID=@id";
+
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@que", question);
+            param[1] = new SqlParameter("@ans", answer);
+            param[2] = new SqlParameter("@id", id);
+
+
+            db.Database.ExecuteSqlCommand(query, param);
+
+            return RedirectToAction("List");
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            string query = "DELETE from Faq WHERE FaqID=@id";
+            SqlParameter param = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, param);
+
+            return RedirectToAction("List");
+        }
+
+        /* public async Task<ActionResult> List()
+         {
+
+             var user = await GetCurrentUserAsync();
+             var userstate = await GetUserDetails(user);
+
+             if (userstate == 0)
+             {
+                 return RedirectToAction("Register", "Account");
+             }
+
+             return View(db.Faqs.ToList());
+         }*/
     }
+
 }

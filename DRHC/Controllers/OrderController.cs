@@ -184,10 +184,11 @@ namespace DRHC.Controllers
         //sending confirmation of order
         public ActionResult SendOrderSummary(int id)
         {
+            
+            Order o = db.Orders.Include(order => order.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(order => order.OrderID == id);
             string summary = "Thankyou for ordering<br/>";
             summary += "<div>Your Order Details are</div>";
-            double total =0;
-            Order o = db.Orders.Include(order => order.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(order => order.OrderID == id);
+            double total = 0;
             foreach ( var f in o.Ordersxmenus)
             {
                 total = total + Convert.ToDouble(f.Menu.Price);

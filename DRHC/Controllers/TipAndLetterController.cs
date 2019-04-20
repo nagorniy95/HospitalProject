@@ -73,7 +73,12 @@ namespace DRHC.Controllers
 
             db.Database.ExecuteSqlCommand(query, myparams);
             TipStatus ts = db.TipStatuss.Find(TipStatusID);
-            if (Equals(ts.TipStatusName, "Publish"){
+            if (ts.TipStatusName.Equals("Publish"))
+            {
+                List<TipAndLetter> tl = db.TipAndLetters.ToList();
+                int id = (int)tl.Max(tipandlet => tipandlet.TipAndLetterID);
+
+                return RedirectToAction("Sendletter/" + id );
 
             }
 
@@ -183,6 +188,14 @@ namespace DRHC.Controllers
             myparams[4] = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, myparams);
+            TipStatus ts = db.TipStatuss.Find(TipStatusID);
+            if (ts.TipStatusName.Equals("Publish"))
+            {
+
+                return RedirectToAction("Sendletter/" + id);
+
+            }
+
 
             return RedirectToAction("List");
 
@@ -203,31 +216,42 @@ namespace DRHC.Controllers
 
 
 
-        public ActionResult SendLetter()
+        public ActionResult SendLetter(int id)
         {
             List<Registration>  r = db.Registrations.ToList();
-            List<TipAndLetter> t =  db.TipAndLetters.Include(tl => tl.TipStatus).ToList();
-            var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress ("ram", "rohitinventor2@gmail.com"));
-            msg.To.Add(new MailboxAddress("ram", "sneha.shukla@eitpl.com"));
-            msg.Subject = "hahaha";
-            msg.Body = new TextPart("plain") {
-                Text = "thi is from my project"
-            };
-
-            
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            TipAndLetter t = db.TipAndLetters.Include(tl => tl.TipStatus).Include(tl => tl.Tag).SingleOrDefault(tl => tl.TipAndLetterID == id);
+            string title = t.Title;
+            string Message = t.Message;
+            string type = t.TipStatus.TipStatusName;
+            string mailmessage = "<h2 class='text-center'><strong>" + title + "</strong></h2>";
+            mailmessage +="<p>"+ Message + "</p>";
+            foreach (var user in r)
             {
-                client.Connect ("smtp.gmail.com", 587, false);
-                client.Authenticate("rohitinventor2@gmail.com", "ramkisan");
-                client.Send(msg);
-                client.Disconnect(true);
+                string email = user.UserEmail;
+                string username = user.UserFName + " " + user.UserLName;
 
-                
+                var msg = new MimeMessage();
+                msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
+                msg.To.Add(new MailboxAddress("username", email));
+                msg.Subject = type;
+                msg.Body = new TextPart("html")
+                {
+                    Text = mailmessage
+                };
+
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("wdn01269796@gmail.com", "mailtest1234");
+                    client.Send(msg);
+                    client.Disconnect(true);
+
+
+
+                }
 
             }
-        
-
                 return RedirectToAction("List");
 
         }

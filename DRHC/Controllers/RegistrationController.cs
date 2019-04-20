@@ -59,7 +59,7 @@ namespace DRHC.Controllers
             //Data Needed: None
 
             //Raw Query   
-            string query = "insert into Faqs (UserFName, UserLName, UserEmail) values (@Fname, @lname, @Email)";
+            string query = "insert into Registrations (UserFName, UserLName, UserEmail) values (@Fname, @lname, @Email)";
 
             //SQL parameterized query technique
             //[SqlParameter[] myparams] => SET variable myparams as an array of type (SqlParameter)

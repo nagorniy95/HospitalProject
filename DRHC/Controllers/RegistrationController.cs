@@ -97,28 +97,32 @@ namespace DRHC.Controllers
 
                 string title = t.Title;
                 string Message = t.Message;
-                string type = t.TipStatus.TipStatusName;
-                string mailmessage = "<h2 class='text-center'><strong>" + title + "</strong></h2>";
-                
-                var msg = new MimeMessage();
-                msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
-                msg.To.Add(new MailboxAddress("username", email));
-                msg.Subject = type;
-                msg.Body = new TextPart("html")
+                string status = t.TipStatus.TipStatusName;
+                string subject = t.Tag.TagName;
+                if (status.Equals("Publish"))
                 {
-                    Text = mailmessage
-                };
+                    string mailmessage = "<h2 class='text-center'><strong>" + title + "</strong></h2>";
+
+                    var msg = new MimeMessage();
+                    msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
+                    msg.To.Add(new MailboxAddress("username", email));
+                    msg.Subject = subject;
+                    msg.Body = new TextPart("html")
+                    {
+                        Text = mailmessage
+                    };
 
 
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("wdn01269796@gmail.com", "mailtest1234");
-                    client.Send(msg);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Authenticate("wdn01269796@gmail.com", "mailtest1234");
+                        client.Send(msg);
+                        client.Disconnect(true);
 
 
 
+                    }
                 }
 
             }

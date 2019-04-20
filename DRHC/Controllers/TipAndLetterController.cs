@@ -221,7 +221,8 @@ namespace DRHC.Controllers
             TipAndLetter t = db.TipAndLetters.Include(tl => tl.TipStatus).Include(tl => tl.Tag).SingleOrDefault(tl => tl.TipAndLetterID == id);
             string title = t.Title;
             string Message = t.Message;
-            string type = t.TipStatus.TipStatusName;
+            string status = t.TipStatus.TipStatusName;
+            string subject = t.Tag.TagName;
             string mailmessage = "<h2 class='text-center'><strong>" + title + "</strong></h2>";
             mailmessage +="<p>"+ Message + "</p>";
             foreach (var user in r)
@@ -232,7 +233,7 @@ namespace DRHC.Controllers
                 var msg = new MimeMessage();
                 msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
                 msg.To.Add(new MailboxAddress("username", email));
-                msg.Subject = type;
+                msg.Subject = subject;
                 msg.Body = new TextPart("html")
                 {
                     Text = mailmessage

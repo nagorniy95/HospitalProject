@@ -36,6 +36,35 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
+        public async Task<ActionResult> List(int pagenum)
+        {
+
+            /*Faq PAGINATION ALGORITHM*/
+            var _faqs = await db.Faqs.ToListAsync();
+            int faqcount = _faqs.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)faqcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+
+            List<Faq> blogs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
+
+            return View();
+
+
+
+        }
+
         public ActionResult New()
         {
 
@@ -61,10 +90,27 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List()
+        //public ActionResult List()
+        //{
+        //    return View(db.Faqs.ToList());
+        //}
+
+
+
+        /*
+        [HttpPost]
+        public ActionResult Delete(int? id)
         {
-            return View(db.Faqs.ToList());
-        }
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+
+            }
+            string query = "delete from Faqs where Faqid=@id";
+            SqlParameter param = new SqlParameter("@id", id);
+            db.Database.ExecuteSqlCommand(query, param);
+            return View("List");
+        }*/
 
     }
 }

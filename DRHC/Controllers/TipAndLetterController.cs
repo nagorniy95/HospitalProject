@@ -73,7 +73,7 @@ namespace DRHC.Controllers
 
             db.Database.ExecuteSqlCommand(query, myparams);
             TipStatus ts = db.TipStatuss.Find(TipStatusID);
-            if (Equals(ts.TipStatusName, "Publish"){
+            if (Equals(ts.TipStatusName, "Publish")){
 
             }
 

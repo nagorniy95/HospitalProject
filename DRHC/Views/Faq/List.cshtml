@@ -1,13 +1,51 @@
-﻿
+﻿@model IEnumerable<DRHC.Models.Faq>
 @{
     ViewData["Title"] = "List";
 }
 
-<h2>FAQ List</h2>
 
-@foreach (var faq in Model)
-{
-    <div> @faq.Questions</div>
-    <div> @faq.Answers</div>
-}
+<div class="jumbotron">
+
+    <div class="pagination">
+
+        @ViewData["PaginationSummary"]
+
+        @Html.ActionLink("Prev",
+
+            "List",
+
+            "Faq",
+
+            new { pagenum= ((int)ViewData["pagenum"]-1)}
+
+            )
+
+        |
+
+        @Html.ActionLink("Next",
+
+            "List",
+
+            "Faq",
+
+            new { pagenum = ((int)ViewData["pagenum"] + 1) }
+
+            )
+
+    </div>
+
+
+    <h2>FAQ List</h2>
+
+    @foreach (var faq in Model)
+    {
+        <div> @faq.Questions</div>
+        <div> @faq.Answers</div>
+    }
+
+
+</div>
+
+
+
 

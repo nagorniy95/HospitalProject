@@ -77,7 +77,6 @@ namespace DRHC.Controllers
             {
                 List<TipAndLetter> tl = db.TipAndLetters.ToList();
                 int id = (int)tl.Max(tipandlet => tipandlet.TipAndLetterID);
-
                 return RedirectToAction("Sendletter/" + id );
 
             }

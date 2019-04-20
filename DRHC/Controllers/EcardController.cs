@@ -17,19 +17,37 @@ namespace DRHC.Controllers
     {
 
         private readonly DrhcCMSContext db;
-        private readonly IHostingEnvironment _env;
 
-        //constructor function which takes a DrhcCMSContext as a constructor.
         private readonly UserManager<ApplicationUser> _userManager;
+
+        public object FlashMessage { get; private set; }
+
         private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public EcardController(DrhcCMSContext context, IHostingEnvironment env, UserManager<ApplicationUser> usermanager)
         {
 
             db = context;
-            _env = env;
             _userManager = usermanager;
         }
+
+
+        public async Task<int> GetUserDetails(ApplicationUser user)
+        {
+            if (user == null) return 0;
+
+            if (user.AdminID == null) return 1; //User is not admin 
+            else return 2;
+
+            return -1;
+        }
+
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
 
         public ActionResult Index()
         {
@@ -70,5 +88,98 @@ namespace DRHC.Controllers
         }
 
 
+
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+            Ecard ecard = db.Ecards.Find(id);
+
+            return View(ecard);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(int id, string patientname, string department,string roomno,string sendername,string senderemail,string message)
+        {
+
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+
+            if ((id == null) || (db.Ecards.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            
+
+            string query = "UPDATE Ecards SET PatientName=@patientname, Department=@department,RoomNo=@roomno,SenderName=@sendername ,SenderEmail=@sendermail,Message=@message WHERE EcardID=@id";
+
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@patientname", patientname);
+            param[1] = new SqlParameter("@department", department);
+            param[2] = new SqlParameter("@roomno", roomno);
+            param[3] = new SqlParameter("@sendername", sendername);
+            param[4] = new SqlParameter("@sendermail", senderemail);
+            param[5] = new SqlParameter("@message", message);
+           
+
+
+            db.Database.ExecuteSqlCommand(query, param);
+
+            return RedirectToAction("List");
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+            if ((id == null) || (db.Ecards.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            string query = "DELETE from Ecard WHERE EcardID=@id";
+            SqlParameter param = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, param);
+
+            return RedirectToAction("List");
+        }
+
+        /* public async Task<ActionResult> List()
+         {
+
+             var user = await GetCurrentUserAsync();
+             var userstate = await GetUserDetails(user);
+
+             if (userstate == 0)
+             {
+                 return RedirectToAction("Register", "Account");
+             }
+
+             return View(db.ecards.ToList());
+         }*/
     }
+
+
+
 }

@@ -5,7 +5,7 @@
 
 <h2>Change A Booking</h2>
 
-<form method="POST" action="Edit/@Model.BookingID">
+<form method="POST" action="@Model.BookingID">
     <div class="inputrow">
         <label class="input-label">First Name:</label>
         <input id="Fname" name="Fname" value="@Model.Fname"/>
@@ -15,15 +15,15 @@
         <input id="Lname" name="Lname" value="@Model.Lname"/>
     </div>
     <div class="inputrow">
-        <label class="input-label">First Name:</label>
+        <label class="input-label">Email:</label>
         <input id="Email" name="Email" value="@Model.Email"/>
     </div>
     <div class="inputrow">
-        <label class="input-label">First Name:</label>
+        <label class="input-label">Phone:</label>
         <input id="Phone" name="Phone" value="@Model.Phone"/>
     </div>
     <div class="inputrow">
-        <label class="inputrow">test123123</label>
+        <label class="inputrow">Day</label>
         <select id="Day" name="Day">
             <option value="0">Day</option>
             @for (int i = 1; i < 32; i++)
@@ -33,19 +33,30 @@
         </select>
     </div>
     <div class="inputrow">
-        <label class="inputrow">6543</label>
+        <label class="inputrow">Time</label>
         <select id="Time" name="Time">
-            @foreach (var time in Model.Time)
+            /*foreach (var time in Model.Time)
             {
-                <option value="@Model.BookingID"
-                        @if (Model.BookingID == @Model.BookingID) { var selected="selected" ; @selected ; }> <!--Displaying ID-->
-                    @Model.BookingID
-                </option>
-            }
-            </select>
+            <option value="@Model.Time"
+                    @if (Model.BookingID= =@Model.Time) { var selected="selected" ; @selected ; }>
+                <!--Displaying ID-->
+                @Model.Time
+            </option>
+            }*/
+            <option value="Default">Time</option>
+            <option value="11:00AM-12:00PM">11:00AM-12:00PM</option>
+            <option value="12:00PM-1:00PM">12:00PM-1:00PM</option>
+            <option value="1:00PM-2:00PM">1:00PM-2:00PM</option>
+            <option value="2:00PM-3:00PM">2:00PM-3:00PM</option>
+            <option value="3:00PM-4:00PM">3:00PM-4:00PM</option>
+            <option value="4:00PM-5:00PM">4:00PM-5:00PM</option>
+            <option value="5:00PM-6:00PM">5:00PM-6:00PM</option>
+            <option value="6:00PM-7:00PM">6:00PM-7:00PM</option>
+            <option value="7:00PM-8:00PM">7:00PM-8:00PM</option>
+        </select>
     </div>
     <div class="inputrow">
-        <label class="inputrow"></label>
+        <label class="inputrow">Month</label>
         <select id="Month" name="Month">
             <option value="Default">Month</option>
             <option value="January">January</option>

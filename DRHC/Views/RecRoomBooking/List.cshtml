@@ -5,7 +5,42 @@
 
 <h2>Rec Room Bookings</h2>
 
-<table>
+@{
+    foreach (var recRoom in Model)
+    {
+        <div class="recitem">
+            <!--Record ITem -->
+            @Html.ActionLink(recRoom.Time, "Show", "RecRoomBooking", new { id = recRoom.BookingID })
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Day)
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Month)
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Fname)
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Lname)
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Email)
+        </div>
+        <div class="recitem">
+            @Html.DisplayNameFor(Model => recRoom.Phone)
+        </div>
+        <div class="recitem">
+            <a href="/RecRoomBooking/Edit/@recRoom.BookingID">Edit</a>
+            @Html.ActionLink("Delete", "Delete", new { id = recRoom.BookingID })
+        </div>
+
+    }
+}
+
+
+
+<!--<table>
     <thead>
         <tr>
             <th>ID</th>
@@ -19,12 +54,7 @@
         </tr>
     </thead>
     <tbody>
-        @{
-            foreach (var recRoom in Model)
-            {
 
-            }
-        }
     </tbody>
 
-</table>
+</table>-->

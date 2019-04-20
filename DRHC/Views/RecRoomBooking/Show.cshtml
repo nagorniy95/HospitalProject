@@ -1,0 +1,18 @@
+﻿@model DRHC.Models.RecRoomBooking
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h2>Your Booking</h2>
+
+<div>
+    @Html.ActionLink("Edit", "Edit/" + Model.BookingID)
+</div>
+
+<p>Day:@Model.Day</p>
+<p>Time:@Model.Time</p>
+<p>Month:@Model.Month</p>
+<p>First Name:@Model.Fname</p>
+<p>Last Name:@Model.Lname</p>
+<p>Email:@Model.Email</p>
+<p>Phone:@Model.Phone</p>

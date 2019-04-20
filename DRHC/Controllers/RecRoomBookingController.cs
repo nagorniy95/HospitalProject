@@ -72,7 +72,7 @@ namespace DRHC.Controllers
 
             //Debug.WriteLine(myparams);
 
-            return RedirectToAction("List");
+            return RedirectToAction("Add");
         }
 
         [HttpGet]

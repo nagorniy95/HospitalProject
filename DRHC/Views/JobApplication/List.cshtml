@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+@foreach (var JobApplication in Model)
+{
+    <div> @JobApplication.JobApplicationID </div>
+    <div> @JobApplication.FirstName </div>
+    <div> @JobApplication.LastName </div>
+    <div> @JobApplication.Email </div>
+    <div> @JobApplication.Address   </div>
+    <div> @JobApplication.City  </div>
+    <div> @JobApplication.Province</div>
+    <div> @JobApplication.PostalCode  </div>
+    <div> @JobApplication.Phone </div>
+    <div> @JobApplication.AppDate </div>
+    <div> @JobApplication.Status </div>
+    <div> @JobApplication.Resume  </div>
+    <div> @JobApplication.Coverletter  </div>
+
+
+}
+
+
+
+

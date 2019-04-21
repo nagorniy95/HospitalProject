@@ -28,7 +28,11 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        //View
+        //added this to display ER wait time
+        public IActionResult Display()
+        {
+            return View();
+        }
 
         public ActionResult List()
         {
@@ -39,21 +43,24 @@ namespace DRHC.Controllers
             eRWaitTimes = db.ERWaitTimes.FromSql(query);
             return View(eRWaitTimes);
         }
+        // GET: ERWaitTimes
+        public async Task<IActionResult> Show()
+        {
+            return View(await db.ERWaitTimes.ToListAsync());
+        }
 
         // GET: ERWaitTimes/Create
         public IActionResult New() => View();
 
         // POST: ERWaitTimes/Create
         [HttpPost]
-        public ActionResult Create(string WaitTimeCat, string StartDateTime, string EndDateTime, string Description)
+        public ActionResult Create(string WaitTimeCat, string Description)
         {
-            string query = "insert into ERWaitTimes (WaitTimeCat, StartDateTime, EndDateTime, Description)" +
-                " values (@WaitTimeCat, @StartDateTime, @EndDateTime, @Description)";
-            SqlParameter[] myparams = new SqlParameter[4];
+            string query = "insert into ERWaitTimes (WaitTimeCat, Description)" +
+                " values (@WaitTimeCat, @Description)";
+            SqlParameter[] myparams = new SqlParameter[2];
             myparams[0] = new SqlParameter("@WaitTimeCat", WaitTimeCat);
-            myparams[1] = new SqlParameter("@StartDateTime", StartDateTime);
-            myparams[2] = new SqlParameter("@EndDateTime", EndDateTime);
-            myparams[3] = new SqlParameter("@Description", Description);
+            myparams[1] = new SqlParameter("@Description", Description);
            
 
             db.Database.ExecuteSqlCommand(query, myparams);
@@ -80,7 +87,7 @@ namespace DRHC.Controllers
 
         [HttpPost]
 
-        public ActionResult Edit(int id, string WaitTimeCat, string Description, DateTime StartDateTime, DateTime EndDateTime)
+        public ActionResult Edit(int id, string WaitTimeCat, string Description)
         {
 
             if ((id == null) || (db.ERWaitTimes.Find(id)) == null)
@@ -93,8 +100,7 @@ namespace DRHC.Controllers
             myparams[0] = new SqlParameter("@id", id);
             myparams[1] = new SqlParameter("@WaitTimeCat", WaitTimeCat);
             myparams[2] = new SqlParameter("@Description", Description);
-            myparams[3] = new SqlParameter("@StartDateTime", StartDateTime);
-            myparams[4] = new SqlParameter("@EndDateTime", EndDateTime);
+            
 
             db.Database.ExecuteSqlCommand(query, myparams);
 

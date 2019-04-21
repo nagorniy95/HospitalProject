@@ -7,67 +7,67 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DRHC.Data;
 using DRHC.Models;
+using System.Data.SqlClient;
 
-namespace Myfeatures.Controllers
+namespace DRHC.Controllers
 {
     
     public class JobApplicationController : Controller
-    {   /*
-        private readonly ApplicationDbContext _context;
+    {   
+        private readonly DrhcCMSContext db;
 
-        public JobApplicationController(ApplicationDbContext context)
+        public JobApplicationController(DrhcCMSContext context)
         {
-            _context = context;
+            db = context;
         }
 
-        // GET: JobApplications
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.JobApplication.Include(j => j.JobPostings);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: JobApplications/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jobApplication = await _context.JobApplication
-                .Include(j => j.JobPostings)
-                .FirstOrDefaultAsync(m => m.JobApplicationID == id);
-            if (jobApplication == null)
-            {
-                return NotFound();
-            }
-
-            return View(jobApplication);
-        }
-
-        // GET: JobApplications/Create
-        public IActionResult Create()
-        {
-            ViewData["JobPostingId"] = new SelectList(_context.JobPosting, "JobPostingID", "JobTitle");
-            return View();
-        }
-
-        // POST: JobApplications/Create
         
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobApplicationID,FirstName,LastName,Email,Address,City,Province,PostalCode,Phone,AppDate,Status,Position,Resume,Coverletter,JobPostingId")] JobApplication jobApplication)
+        public ActionResult Index()
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(jobApplication);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["JobPostingId"] = new SelectList(_context.JobPosting, "JobPostingID", "JobTitle", jobApplication.JobPostingId);
-            return View(jobApplication);
-        }*/
+            return RedirectToAction("List");
+        }
+
+        // view
+        public ActionResult List()
+        {
+
+            string query = "select * from JobApplications";
+            IEnumerable<JobApplication> jobApplications;
+
+            jobApplications = db.JobApplications.FromSql(query);
+            return View(jobApplications);
+        }
+
+        
+        // GET: Job Postings/Create
+        public IActionResult New() => View();
+
+        // POST: Job Posstings/Create
+        [HttpPost]
+        public ActionResult Create(string FirstName, string LastName, string Email, string Address, string City, string Province, string PostalCode, string Phone, string Resume, string Coverletter)
+        {
+            string query = "insert into JobApplications (FirstName, LastName, Email, Address, City, Province,PostalCode,Phone, Resume, Coverletter)" +
+                " values (@FirstName, @LastName, Email, @Address, @City, @Province,@PostalCode,@Phone, @Resume, @Coverletter)";
+            SqlParameter[] myparams = new SqlParameter[10];
+            myparams[0] = new SqlParameter("@FirstName ", FirstName);
+            myparams[1] = new SqlParameter("@LastName", LastName);
+            myparams[2] = new SqlParameter("@Email", Email);
+            myparams[3] = new SqlParameter("@Address", Address);
+            myparams[4] = new SqlParameter("@City ", City);
+            myparams[5] = new SqlParameter("@Province", Province);
+            myparams[6] = new SqlParameter("@PostalCode", PostalCode);
+            myparams[7] = new SqlParameter("@Phone", Phone);
+            myparams[8] = new SqlParameter("@Resume", Resume);
+            myparams[9] = new SqlParameter("@Coverletter", Coverletter);
+
+
+
+            db.Database.ExecuteSqlCommand(query, myparams);
+
+            return RedirectToAction("List");
+        }
+
+
     }
-    
+
 }

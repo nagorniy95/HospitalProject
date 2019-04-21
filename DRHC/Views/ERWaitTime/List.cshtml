@@ -1,16 +1,14 @@
-﻿/** ER Wait Times - List **/
+﻿
 
 @{
     ViewData["Title"] = "List";
 }
 
-<h2>ER Wait Times List</h2>
+<h2>The Current Emergency Room Wait Time</h2>
 
 @foreach (var ERWait in Model)
 {
-    <div> @ERWait.ERWaitTimeId</div>
+    //<div> @ERWait.ERWaitTimeId</div>
     <div> @ERWait.WaitTimeCat</div>
-    <div> @ERWait.StartDateTime</div>
-    <div> @ERWait.EndDateTime</div>
     <div> @ERWait.Description</div>
 }

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "New";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>New</h2>
+        <div class="jobapplication_wrapper">
+            <form method="post" action="/JobApplication/Create">
+                <div class="inprow">
+                    <label class="inplabel">First Name </label><br />
+                    <input id="FirstName" name="FirstName" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Last Name  </label><br />
+                    <input id="LastName" name="LastName" required />
+                </div>
+
+                <div class="inprow">
+                    <label class="inplabel">Email </label><br />
+                    <input id="Email" name="Email" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Address  </label><br />
+                    <input id="Address" name="Address" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">City </label><br />
+                    <input id="City" name="City" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Province  </label><br />
+                    <input id="Province" name="Province" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Postal Code  </label><br />
+                    <input id="PostalCode" name="PostalCode" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Phone  </label><br />
+                    <input id="Phone" name="Phone" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Resume   </label><br />
+                    <input id="Resume" name="Resume" required />
+                </div>
+                <div class="inprow">
+                    <label class="inplabel">Cover Letter  </label><br />
+                    <input id="Coverletter " name="Coverletter " required />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

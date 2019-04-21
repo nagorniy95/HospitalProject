@@ -44,20 +44,19 @@ namespace DRHC.Controllers
 
         // POST: Job Posstings/Create
         [HttpPost]
-        public ActionResult Create(string JobTitle, string Department, DateTime Now, DateTime DeadlineToApply, string Description, string AboutOrg, string AboutPosition, string Experience, string Education)
+        public ActionResult Create(string JobTitle, string Department,  DateTime DeadlineToApply, string Description, string AboutOrg, string AboutPosition, string Experience, string Education)
         {
-            string query = "insert into JobPostings (JobTitle, Department, Now, DeadlineToApply,Description,AboutOrg, AboutPosition, Experience, Education  )" +
-                " values (@JobTitle, @Department, @Now, @DeadlineToApply, @Description, @AboutOrg, @AboutPosition, @Experience, @Education)";
-            SqlParameter[] myparams = new SqlParameter[9];
+            string query = "insert into JobPostings (JobTitle, Department,  DeadlineToApply,Description,AboutOrg, AboutPosition, Experience, Education  )" +
+                " values (@JobTitle, @Department, @DeadlineToApply, @Description, @AboutOrg, @AboutPosition, @Experience, @Education)";
+            SqlParameter[] myparams = new SqlParameter[8];
             myparams[0] = new SqlParameter("@JobTitle ", JobTitle);
             myparams[1] = new SqlParameter("@Department", Department);
-            myparams[2] = new SqlParameter("@Now", Now);
-            myparams[3] = new SqlParameter("@DeadlineToApply", DeadlineToApply);
-            myparams[4] = new SqlParameter("@Description ", Description);
-            myparams[5] = new SqlParameter("@AboutOrg", AboutOrg);
-            myparams[6] = new SqlParameter("@AboutPosition", AboutPosition);
-            myparams[7] = new SqlParameter("@Experience", Experience);
-            myparams[8] = new SqlParameter("@Education", Education);
+            myparams[2] = new SqlParameter("@DeadlineToApply", DeadlineToApply);
+            myparams[3] = new SqlParameter("@Description ", Description);
+            myparams[4] = new SqlParameter("@AboutOrg", AboutOrg);
+            myparams[5] = new SqlParameter("@AboutPosition", AboutPosition);
+            myparams[6] = new SqlParameter("@Experience", Experience);
+            myparams[7] = new SqlParameter("@Education", Education);
 
 
             db.Database.ExecuteSqlCommand(query, myparams);

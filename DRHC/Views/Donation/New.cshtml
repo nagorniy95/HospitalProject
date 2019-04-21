@@ -3,20 +3,51 @@
     ViewData["Title"] = "New";
 }
 
-
-
-
 <div class="row">
     <div class="col-md-4">
         <h2>New</h2>
         <hr />
+         
+        
         <form method="post" action="/Donation/Create">
             <div class="form-group">
-                <label class="inplabel">Date </label><br>
-                <input id="AppDate" name="AppDate" />
+                <label class="inplabel">Title </label><br>
+                <input id="Title" name="Title" />
             </div>
             <div class="form-group">
-                <label class="inplabel">Donation Amount </label><br>
+                <label class="inplabel">First Name </label><br>
+                <input id="FirstName" name="FirstName" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Last Name</label><br>
+                <input id="LastName" name="LastName" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Address </label><br>
+                <input id="Address" name="Address" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">City</label><br>
+                <input id="City" name="City" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Province </label><br>
+                <input id="Province" name="Province" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Postal Code</label><br>
+                <input id="PostalCode" name="PostalCode" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Email </label><br>
+                <input id="Email" name="Email" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Phone </label><br>
+                <input id="Phone" name="Phone" />
+            </div>
+            <div class="form-group">
+                <label class="inplabel">Amount </label><br>
                 <input id="Amount" name="Amount" />
             </div>
 

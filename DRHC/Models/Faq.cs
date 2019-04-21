@@ -12,12 +12,12 @@ namespace DRHC.Models
     {
         public int FaqID { get; set; }
 
-        //u fname
-        [Required, StringLength(1000), Display(Name = "Question")]
+        
+        //[Required, StringLength(1000), Display(Name = "Question")]
         public string Questions { get; set; }
 
-        //u lname
-        [Required, StringLength(1000), Display(Name = "Answer")]
+        
+        //[Required, StringLength(1000), Display(Name = "Answer")]
         public string Answers { get; set; }
 
     }

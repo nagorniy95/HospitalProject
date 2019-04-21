@@ -88,10 +88,9 @@ namespace DRHC.Controllers
         }
 
 
-
-
-        public async Task<ActionResult> Edit(int id)
+        public ActionResult Delete(int? id)
         {
+            /*
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
@@ -100,64 +99,12 @@ namespace DRHC.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
-            Ecard ecard = db.Ecards.Find(id);
-
-            return View(ecard);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Edit(int id, string patientname, string department,string roomno,string sendername,string senderemail,string message)
-        {
-
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
-
-            if (userstate == 0)
-            {
-                return RedirectToAction("Register", "Account");
-            }
-
-
-            if ((id == null) || (db.Ecards.Find(id) == null))
+            if ((id == null) || (db.Faqs.Find(id) == null))
             {
                 return NotFound();
-            }
+            }*/
 
-            
-
-            string query = "UPDATE Ecards SET PatientName=@patientname, Department=@department,RoomNo=@roomno,SenderName=@sendername ,SenderEmail=@sendermail,Message=@message WHERE EcardID=@id";
-
-            SqlParameter[] param = new SqlParameter[3];
-            param[0] = new SqlParameter("@patientname", patientname);
-            param[1] = new SqlParameter("@department", department);
-            param[2] = new SqlParameter("@roomno", roomno);
-            param[3] = new SqlParameter("@sendername", sendername);
-            param[4] = new SqlParameter("@sendermail", senderemail);
-            param[5] = new SqlParameter("@message", message);
-           
-
-
-            db.Database.ExecuteSqlCommand(query, param);
-
-            return RedirectToAction("List");
-        }
-
-        public async Task<ActionResult> Delete(int? id)
-        {
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
-
-            if (userstate == 0)
-            {
-                return RedirectToAction("Register", "Account");
-            }
-
-            if ((id == null) || (db.Ecards.Find(id) == null))
-            {
-                return NotFound();
-            }
-
-            string query = "DELETE from Ecard WHERE EcardID=@id";
+            string query = "DELETE from Ecards WHERE EcardID=@id";
             SqlParameter param = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, param);
@@ -165,9 +112,37 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        /* public async Task<ActionResult> List()
-         {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
+         public async Task<ActionResult> Delete(int? id)
+         {
              var user = await GetCurrentUserAsync();
              var userstate = await GetUserDetails(user);
 
@@ -176,8 +151,32 @@ namespace DRHC.Controllers
                  return RedirectToAction("Register", "Account");
              }
 
-             return View(db.ecards.ToList());
-         }*/
+             if ((id == null) || (db.Ecards.Find(id) == null))
+             {
+                 return NotFound();
+             }
+
+             string query = "DELETE from Ecard WHERE EcardID=@id";
+             SqlParameter param = new SqlParameter("@id", id);
+
+             db.Database.ExecuteSqlCommand(query, param);
+
+             return RedirectToAction("List");
+         }
+
+         /* public async Task<ActionResult> List()
+          {
+
+              var user = await GetCurrentUserAsync();
+              var userstate = await GetUserDetails(user);
+
+              if (userstate == 0)
+              {
+                  return RedirectToAction("Register", "Account");
+              }
+
+              return View(db.ecards.ToList());
+          }*/
     }
 
 

@@ -1,18 +1,28 @@
-﻿
+﻿@model IEnumerable<DRHC.Models.Ecard>
 @{
     ViewData["Title"] = "List";
 }
 
-<h2>Ecards List</h2>
+<h2 class="text-center"><span style="color:#03a9f5">Ecards List</span></h2>
 
 @foreach (var Ecard in Model)
 {
-    <div> @Ecard.EcardID</div>
-    <div> @Ecard.PatientName</div>
-    <div> @Ecard.Department</div>
-    <div> @Ecard.RoomNo</div>
-    <div> @Ecard.SenderName</div>
-    <div> @Ecard.SenderEmail</div>
-    <div> @Ecard.Message  </div>
+    <div class="test">
+        <div class="row">
+            <div class="col-lg-8">
+                <div> <label>Patient Name</label> @Ecard.PatientName </div>
+                <div><label>Department</label> @Ecard.Department</div>
+                <div><label>RoomNo</label> @Ecard.RoomNo</div>
+                <div><label>Sender Name</label> @Ecard.SenderName</div>
+                <div><label>Sender Mail</label> @Ecard.SenderEmail</div>
+                <div><label>Message</label> @Ecard.Message  </div>
+            </div>
+
+            <div class="col-lg-2">
+                <a href="@Url.Action("Delete/"+ Ecard.EcardID  )"><i class="far fa-trash-alt">Delete</i></a>
+            </div>
+
+        </div>
+    </div>
 }
 

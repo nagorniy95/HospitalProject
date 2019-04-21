@@ -30,7 +30,7 @@ namespace DRHC.Controllers
             db = context;
            _userManager = usermanager;
         }
-
+        
         public async Task<int> GetUserDetails(ApplicationUser user)
         {
             if (user == null) return 0;
@@ -40,7 +40,7 @@ namespace DRHC.Controllers
 
             return -1;
         }
-
+        
         public ActionResult Add()
         {
             return View();
@@ -51,34 +51,72 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        public async Task<ActionResult> List(int pagenum)
+        public ActionResult Show()
         {
 
-            /*Faq PAGINATION ALGORITHM*/
-            var _faqs = await db.Faqs.ToListAsync();
-            int faqcount = _faqs.Count();
-            int perpage = 3;
-            int maxpage = (int)Math.Ceiling((decimal)faqcount / perpage) - 1;
-            if (maxpage < 0) maxpage = 0;
-            if (pagenum < 0) pagenum = 0;
-            if (pagenum > maxpage) pagenum = maxpage;
-            int start = perpage * pagenum;
-            ViewData["pagenum"] = (int)pagenum;
-            ViewData["PaginationSummary"] = "";
-            if (maxpage > 0)
+            return View(db.Faqs);
+           
+        }
+
+
+        public async Task<ActionResult> List(int? id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
             {
-                ViewData["PaginationSummary"] =
-                    (pagenum + 1).ToString() + " of " +
-                    (maxpage + 1).ToString();
+                return RedirectToAction("Register", "Account");
             }
 
-            List<Faq> blogs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
 
-            return View();
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
 
 
 
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            string query = "select * from Faqs";
+
+            IEnumerable<Faq> faqs = db.Faqs.FromSql(query);
+
+            return View(faqs);
         }
+        /*
+         public async Task<ActionResult> List(int pagenum)
+         {
+
+             /*Faq PAGINATION ALGORITHM
+             var _faqs = await db.Faqs.ToListAsync();
+             int faqcount = _faqs.Count();
+             int perpage = 3;
+             int maxpage = (int)Math.Ceiling((decimal)faqcount / perpage) - 1;
+             if (maxpage < 0) maxpage = 0;
+             if (pagenum < 0) pagenum = 0;
+             if (pagenum > maxpage) pagenum = maxpage;
+             int start = perpage * pagenum;
+             ViewData["pagenum"] = (int)pagenum;
+             ViewData["PaginationSummary"] = "";
+             if (maxpage > 0)
+             {
+                 ViewData["PaginationSummary"] =
+                     (pagenum + 1).ToString() + " of " +
+                     (maxpage + 1).ToString();
+             }
+
+             List<Faq> faqs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
+
+             return View();
+
+
+
+         }*/
 
         public ActionResult New()
         {
@@ -105,26 +143,23 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
+        //TODO: EDIT VIEW, EDIT, DELETE, SHOW
 
-        public async Task<ActionResult> Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
-
-            if (userstate == 0)
+            if ((id == null) || (db.Faqs.Find(id) == null))
             {
-                return RedirectToAction("Register", "Account");
+                return NotFound();
             }
-
-            Faq faqs = db.Faqs.Find(id);
-
-            return View(faqs);
+            string query = "select * from Faqs where faqid=@id";
+            SqlParameter param = new SqlParameter("@id", id);
+            Faq myfaq = db.Faqs.FromSql(query, param).FirstOrDefault();
+            return View(myfaq);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, string question, string answer )
+        public async Task<ActionResult> Edit(int? id, string Question, string Answer)
         {
-
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
@@ -139,7 +174,60 @@ namespace DRHC.Controllers
                 return NotFound();
             }
 
-            string query = "UPDATE Faqs SET Questions=@que, Answers=@ans  WHERE FaqID=@id";
+
+
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
+            string query = "update faqs set questions=@que, answers=@ans" +
+                " where FaqID=@id";
+            SqlParameter[] myparams = new SqlParameter[3];
+            myparams[0] = new SqlParameter("@que", Question);
+            myparams[1] = new SqlParameter("@ans", Answer);
+            myparams[2] = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, myparams);
+
+            return RedirectToAction("List");
+        }
+
+        /*
+        public async Task<ActionResult> Edit(int id)
+        {
+            
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+        Faq faqs = db.Faqs.Find(id);
+
+            return View(faqs);
+        }
+
+        [HttpPost]
+        public  ActionResult Edit(int id, string question, string answer )
+        {
+            /*
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            string query = "UPDATE Faq SET Questions=@que, Answers=@ans  WHERE FaqID=@id";
 
             SqlParameter[] param = new SqlParameter[3];
             param[0] = new SqlParameter("@que", question);
@@ -147,13 +235,17 @@ namespace DRHC.Controllers
             param[2] = new SqlParameter("@id", id);
 
 
+            /* db.Database.ExecuteSqlCommand(query, param);
+
             db.Database.ExecuteSqlCommand(query, param);
+            Debug.WriteLine(query);
 
             return RedirectToAction("List");
-        }
+        }*/
 
         public async Task<ActionResult> Delete(int? id)
         {
+            
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
@@ -167,17 +259,17 @@ namespace DRHC.Controllers
                 return NotFound();
             }
 
-            string query = "DELETE from Faq WHERE FaqID=@id";
+        string query = "DELETE from faqs WHERE FaqID=@id";
             SqlParameter param = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, param);
 
             return RedirectToAction("List");
         }
-
-        /* public async Task<ActionResult> List()
+        /*
+         public async Task<ActionResult> List()
          {
-
+            
              var user = await GetCurrentUserAsync();
              var userstate = await GetUserDetails(user);
 
@@ -185,7 +277,7 @@ namespace DRHC.Controllers
              {
                  return RedirectToAction("Register", "Account");
              }
-
+             
              return View(db.Faqs.ToList());
          }*/
     }

@@ -72,9 +72,9 @@ namespace DRHC.Controllers
                     (maxpage + 1).ToString();
             }
 
-            List<Faq> blogs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
+            List<Faq> Faqs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
 
-            return View();
+            return View(Faqs);
 
 
 

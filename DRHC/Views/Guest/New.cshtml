@@ -2,21 +2,23 @@
 @{
     ViewData["Title"] = "New";
 }
-
-<h2>New</h2>
-
-<form method="POST" action="/Guest/Create">
-    <div class="inprow">
-        <label class="inplabel">Enter Range for Guest</label>
-        <span>Start<input id="start" name="start" /></span>
-        <span>End<input id="end" name="end" /></span>
-
-    </div>
-    <div class="inprow">
-        <input type="submit" value="Submit" />
-    </div>
+<div id="r_box_list">
 
 
-</form>
+    <form method="POST" action="/Guest/Create">
+        <div class="row">
+            <label class="text-center col-lg-12">Enter Range for the number of Guest attending</label>
+            <span class="col-lg-6">Start Range: <input id="start" name="start" /></span>
+            <span class="col-lg-6">End Range: <input id="end" name="end" /></span>
 
-@Html.ActionLink("Back To List", "List", "TestimonialStatus");
+        </div>
+        <div class="inprow">
+             <input type="submit" class="btn btn-success" value="Submit" />
+            <span class="btn btn-default" style="background-color:#03a9f5;;color:white">@Html.ActionLink("Back to list of orders", "List", "Order")</span>
+
+        </div>
+
+
+    </form>
+
+</div>

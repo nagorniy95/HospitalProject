@@ -3,30 +3,68 @@
     ViewData["Title"] = "List";
 }
 
-<h2>List</h2>
-<ul id="paginate" class="pagination">
+<div id="r_box_list">
+    <h2 class="text-center text-info"><strong>List Of Testimonials</strong></h2>
+    <ul id="paginate" class="pagination">
 
-    <li class="page-item"> @Html.ActionLink("Prev", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
-    <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
-    <li class="page-item"> @Html.ActionLink("Next", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
-</ul>
+        <li class="page-item"> @Html.ActionLink("Prev", "List", "Testimonial", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
+        <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
+        <li class="page-item"> @Html.ActionLink("Next", "List", "Testimonial", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
+    </ul>
+    @if (Model.Count() != 0)
+    {
+        <div class="row">
 
-@foreach (var Testimonials in Model)
-{
-    <div class="test">
-        <span class="del">
+            <div class="col-lg-9">
+                    <span class="col-lg-3 text-uppercase"><strong>Name</strong></span>
+                    <span class="col-lg-4 text-uppercase"><strong>Title</strong></span>
+
+                    <span class="col-lg-2 text-uppercase"><strong>status</strong></span>
+                </div>
+
+            <div class="col-lg-3">
+                <p class="text-uppercase"><strong>Action</strong></p>
+            </div>
+        </div>
 
 
-            @Html.ActionLink(Testimonials.Title, "Show", "Testimonial", new { id = Testimonials.TestimonialID })
+        @foreach (var Testimonials in Model)
+        {
+            <div class="test">
+                <div class="row">
 
-            @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Testimonials.TestimonialID })
+                    <div class="col-lg-9">
+                        <span class="col-lg-3 text-capitalize">
 
-            <a href="@Url.Action("Delete/"+Testimonials.TestimonialID)"><i class="far fa-trash-alt">delete</i></a>
-        </span>
+                            @Testimonials.UserFName   @Testimonials.UserLName
+                        </span>
 
-        <p>submitted by @Testimonials.UserFName   @Testimonials.UserLName</p>
+                        <span class="col-lg-4 text-capitalize">
+                            @Html.ActionLink(Testimonials.Title, "Show", "Testimonial", new { id = Testimonials.TestimonialID })
+                        </span>
 
-        <p>Status : @Testimonials.TestimonialStatus.TestimonialStatusName </p>
-    </div>
-}
+                        <span class="col-lg-2">@Testimonials.TestimonialStatus.TestimonialStatusName </span>
+                    </div>
+                    <div class="col-lg-3">
+                        <span class="btn btn-info" style="background-color:#03a9f5;">
+                            @Html.ActionLink("Details", "Show", "Testimonial", new { id = Testimonials.TestimonialID })
+                        </span>
 
+                        <span class="btn btn-primary glyphicon glyphicon-pencil" style="background-color:#03a9f5;">
+                            @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Testimonials.TestimonialID })
+                        </span>
+                        <span class="btn btn-danger">
+                            <a href="@Url.Action("Delete/" + Testimonials.TestimonialID)"
+                               onclick="return confirm('Are you sure you wish to delete this article?');"><i class="far fa-trash-alt"></i></a>
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        }
+    }
+
+</div>

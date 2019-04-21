@@ -3,54 +3,62 @@
     ViewData["Title"] = "List";
 }
 
-<h2>List</h2>
-<ul id="paginate" class="pagination">
-    
-    <li class="page-item"> @Html.ActionLink("Prev", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
-    <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
-    <li class="page-item"> @Html.ActionLink("Next", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
-</ul>
-@if (Model.Count() != 0)
-{   <div class="row">
 
-        <div class="col-lg-9">
-            <div class="row">
+<div id="r_box_list">
+    <h2 class="text-center col-lg-12">List Of Order</h2>
+    <ul id="paginate" class="pagination col-lg-8">
+
+        <li class="page-item"> @Html.ActionLink("Prev", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
+        <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
+        <li class="page-item"> @Html.ActionLink("Next", "List", "Order", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
+    </ul>
+    <span class=" pull-right btn btn-default col-lg-3" style="background-color:#03a9f5;color:white">@Html.ActionLink("Add new guest Range", "New", "Guest")</span>
+    <span class=" pull-right btnbtn-default col-lg-3 text-center" style="background-color:#03a9f5;color:white">@Html.ActionLink("Add new food Item", "New", "Menu")</span>
+
+    @if (Model.Count() != 0)
+    {
+        <div class="row">
+
+            <div class="col-lg-9">
                 <span class="col-lg-3 text-uppercase"><strong>Order By</strong></span>
                 <span class="col-lg-3 text-uppercase"><strong>Email</strong></span>
                 <span class="col-lg-3 text-uppercase"><strong>Phone Number</strong></span>
             </div>
-         </div>
 
-         <div class="col-lg-3">
+            <div class="col-lg-2">
                 <p class="text-uppercase"><strong>Action</strong></p>
-         </div>
-    </div>
-                @foreach (var o in Model)
-                {
-                    <div class="test">
-                        <div class="row">
+            </div>
 
-                            <div class="col-lg-9">
-                                <div class="row">
-                                    <span class="col-lg-3 text-capitalize">@o.UserFName  @o.UserLName</span>
-                                    <span class="col-lg-3">@o.Email</span>
-                                    <span class="col-lg-3">@o.Number</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <span class="btn-default">@Html.ActionLink("Details", "Show", "Order", new { id = o.OrderID })</span>
-                                <a href="@Url.Action("Delete/"+o.OrderID)" onclick="return confirm('Are you sure you wish to delete this article?');">
+        </div>
+        @foreach (var o in Model)
+        {
+            <div class="test">
+                <div class="row">
+
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <span class="col-lg-3 text-capitalize">@o.UserFName  @o.UserLName</span>
+                            <span class="col-lg-3">@o.Email</span>
+                            <span class="col-lg-3">@o.Number</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <span class="btn btn-default" style="background-color:#03a9f5;color:white">@Html.ActionLink("Details", "Show", "Order", new { id = o.OrderID })</span>
+                        <span class="btn btn-danger">
+                            <a href="@Url.Action("Delete/"+o.OrderID)" onclick="return confirm('Are you sure you wish to delete this article?');">
                                 <span class="glyphicon glyphicon-trash">
                                 </span>
-                                </a>
-                            </div>
+                            </a>
+                        </span>
+                    </div>
 
-                            
-                        </div>
-                        </div>
 
-                        }
-                        }
+                </div>
+            </div>
 
-                      
+        }
+    }
 
+
+
+</div>

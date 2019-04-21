@@ -33,36 +33,42 @@ namespace DRHC.Controllers
             if (user == null) return 0;
 
             if (user.AdminID == null) return 1; //User is not admin author
-            else return 2;
+            if (user.AdminID != null) return 2; //User is not admin author
 
-            return -1;//something went wrong
+            else return -1;
         }
 
         public async Task<ActionResult> New()
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
+
+
+                TipAndLetterEdit tagandstatus = new TipAndLetterEdit();
+                tagandstatus.Tags = db.Tags.ToList();
+                var tags = tagandstatus.Tags.Count();
+                tagandstatus.TipStatuss = db.TipStatuss.ToList();
+                var tipstatus = tagandstatus.TipStatuss.Count();
+                if (tags == 0) return RedirectToAction("New", "Tag");
+                else if (tipstatus == 0) return RedirectToAction("New", "TipStatus");
+                else return View(tagandstatus);
             }
+            else return View("Index", "Home");
 
-
-            TipAndLetterEdit tagandstatus = new TipAndLetterEdit();
-            tagandstatus.Tags = db.Tags.ToList();
-            var tags = tagandstatus.Tags.Count();
-            tagandstatus.TipStatuss = db.TipStatuss.ToList();
-            var tipstatus = tagandstatus.TipStatuss.Count();
-            if (tags == 0) return RedirectToAction("New", "Tag");
-            else if (tipstatus == 0) return RedirectToAction("New", "TipStatus");
-            else return View(tagandstatus);
         }
 
 
         [HttpPost]
-        public ActionResult Create(string Title, string Message, int? TagID, int? TipStatusID)
+        public async Task<ActionResult> Create(string Title, string Message, int? TagID, int? TipStatusID)
         {
-            string query = "insert into TipAndLetters (Title, Message, TagID,TipStatusID) " +
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 2)
+            {
+
+                string query = "insert into TipAndLetters (Title, Message, TagID,TipStatusID) " +
                 "values (@Title, @Message, @TagID,@TipStatusID)";
 
             SqlParameter[] myparams = new SqlParameter[4];
@@ -77,26 +83,26 @@ namespace DRHC.Controllers
             {
                 List<TipAndLetter> tl = db.TipAndLetters.ToList();
                 int id = (int)tl.Max(tipandlet => tipandlet.TipAndLetterID);
-                return RedirectToAction("Sendletter/" + id );
+                return RedirectToAction("Sendletter/" + id);
 
             }
 
 
             return RedirectToAction("List");
         }
+                        else return View("Index", "Home");
+
+        }
 
 
         public async Task<IActionResult> List(int pagenum)
         {
+
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
-            }
-
-
-
+                
             var htl = await db.TipAndLetters.Include(t => t.TipStatus).Include(t => t.Tag).ToListAsync();
             int count = htl.Count();
             int perpage = 3;
@@ -118,17 +124,21 @@ namespace DRHC.Controllers
 
             return View(HTL);
         }
-        public async Task<ActionResult> Show(int id)
+        else return View("Index", "Home");
+
+    }
+    public async Task<ActionResult> Show(int id)
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
-            }
             var htl = db.TipAndLetters.Include(t => t.TipStatus).Include(t => t.Tag).SingleOrDefault(t => t.TipAndLetterID == id);
 
             return View(htl);
+            }
+            else return View("Index", "Home");
+
 
 
         }
@@ -138,11 +148,8 @@ namespace DRHC.Controllers
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
-            }
-
             TipAndLetterEdit htl = new TipAndLetterEdit();
 
             htl.TipAndLetter =
@@ -156,6 +163,9 @@ namespace DRHC.Controllers
 
             if (htl.TipAndLetter != null) return View(htl);
             else return NotFound();
+            }
+            else return View("Index", "Home");
+
         }
 
         [HttpPost]
@@ -163,10 +173,8 @@ namespace DRHC.Controllers
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
-            }
             if (db.TipAndLetters.Find(id) == null)
             {
                 //Show error message
@@ -198,26 +206,42 @@ namespace DRHC.Controllers
 
             return RedirectToAction("List");
 
-            //return RedirectToAction("Show/" + id);
+                //return RedirectToAction("Show/" + id);
+            }
+            else return View("Index", "Home");
+
         }
 
 
-        
-        public ActionResult Delete(int id)
+
+        public async Task<ActionResult> Delete(int id)
         {
-            string query = "delete from TipAndLetters where TipAndLetterID = @id";
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 2)
+            {
+
+                string query = "delete from TipAndLetters where TipAndLetterID = @id";
             db.Database.ExecuteSqlCommand(query, new SqlParameter("@id", id));
 
 
             return RedirectToAction("List");
         }
+        else return View("Index", "Home");
+
+    }
 
 
 
 
-        public ActionResult SendLetter(int id)
+    public async Task<ActionResult> SendLetterAsync(int id)
         {
-            List<Registration>  r = db.Registrations.ToList();
+            var _user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(_user);
+            if (userstate == 2)
+            {
+
+                List<Registration>  r = db.Registrations.ToList();
             TipAndLetter t = db.TipAndLetters.Include(tl => tl.TipStatus).Include(tl => tl.Tag).SingleOrDefault(tl => tl.TipAndLetterID == id);
             string title = t.Title;
             string Message = t.Message;
@@ -253,6 +277,10 @@ namespace DRHC.Controllers
 
             }
                 return RedirectToAction("List");
+
+            }
+            else return View("Index", "Home");
+
 
         }
 

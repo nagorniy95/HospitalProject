@@ -2,37 +2,44 @@
 @{
     ViewData["Title"] = "List";
 }
+<div id="r_box_list">
+    <h2 class="text-center">List</h2>
+    <span class="btn btn-info"style="background-color:#03a9f5;"> @Html.ActionLink("Add new", "New", "TipAndLetter")</span>
+        <ul id="paginate" class="pagination text-center">
 
-<h2>List</h2>
-@Html.ActionLink("Add new", "New", "TipAndLetter")
-<ul id="paginate" class="pagination">
-
-    <li class="page-item"> @Html.ActionLink("Prev", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
-    <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
-    <li class="page-item"> @Html.ActionLink("Next", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
-</ul>
+            <li class="page-item"> @Html.ActionLink("Prev", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] - 1) })</li>
+            <li class="page-item "><a> @ViewData["PaginationSummary"]</a></li>
+            <li class="page-item"> @Html.ActionLink("Next", "List", "TipAndLetter", new { pagenum = ((int)ViewData["pagenum"] + 1) })</li>
+        </ul>
 
 
 
-@foreach (var tl in Model)
-{
-    <div class="test">
-        <div class="row">
-            <div class="col-sm-6">
-                @Html.ActionLink(tl.Title, "Show", "TipAndLetter", new { id = tl.TipAndLetterID })
-                <p>Type : @tl.Tag.TagName</p>
+        @foreach (var tl in Model)
+        {
+            <div class="test">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.ActionLink(tl.Title, "Show", "TipAndLetter", new { id = tl.TipAndLetterID })
+                        <p>Type : @tl.Tag.TagName</p>
 
-                <p>Status : @tl.TipStatus.TipStatusName </p>
+                        <p>Status : @tl.TipStatus.TipStatusName </p>
+                    </div>
+                    <div class="col-sm-pull-4">
+                        <span class="btn btn-info " style="background-color:#03a9f5;">
+                            @Html.ActionLink("Details", "Show", "TipAndLetter", new { id = tl.TipAndLetterID })
+                        </span>
+                        <span class="btn btn-info glyphicon glyphicon-pencil" style="background-color:#03a9f5;">
+                            @Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = tl.TipAndLetterID })
+                        </span>
+
+                        <span class="btn btn-danger">
+                            <a href="@Url.Action("Delete/"+tl.TipAndLetterID)"
+                               onclick="return confirm('Are you sure you wish to delete this article?');"><i class="far fa-trash-alt"></i></a>
+                        </span>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-sm-pull-4">
+        }
 
-                @Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = tl.TipAndLetterID })
-
-                <a href="@Url.Action("Delete/"+tl.TipAndLetterID)"
-                   onclick="return confirm('Are you sure you wish to delete this article?');"><i class="far fa-trash-alt">delete</i></a>
-            </div>
-
-        </div>
-    </div>
-}
-
+</div>

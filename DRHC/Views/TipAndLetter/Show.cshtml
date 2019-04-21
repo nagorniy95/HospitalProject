@@ -4,25 +4,26 @@
     ViewData["Title"] = "Show";
 }
 
+<div id="r_box">
+    <h2 class="text-capitalize text-center"> @Model.Title</h2>
 
-<h2> @Model.Title</h2>
+    <div class="inprow">
+        <label class="inplabel">Title : </label>
+        @Model.Title
+    </div>
+    <div class="inprow">
+        <label class="inplabel ">Message : </label>
+        @Model.Message
+    </div>
 
-<div class="inprow">
-    <label class="inplabel">Title</label>
-    @Model.Title
+    <div class="inprow">
+        <label>Type : </label>@Model.Tag.TagName
+    </div>
+    <div class="inprow">
+        <label>Status</label>@Model.TipStatus.TipStatusName
+    </div>
+    <span class="btn btn-info">   @Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = Model.TipAndLetterID })</span>
+
+    <span class="btn btn-info">  @Html.ActionLink("Back To List", "List", "TipAndLetter")</span>
+
 </div>
-<div class="inprow">
-    <div class="inplabel">Message</div>
-    @Model.Message
-</div>
-
-<div class="inprow">
-    <label>Type</label>@Model.Tag.TagName
-</div>
-<div class="inprow">
-    <label>Status</label>@Model.TipStatus.TipStatusName
-</div>
-
-@Html.ActionLink("Back To List", "List", "TipAndLetter")
-@Html.ActionLink("Edit", "Edit", "TipAndLetter", new { id = Model.TipAndLetterID })
-

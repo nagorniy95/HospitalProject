@@ -53,7 +53,7 @@ namespace DRHC.Controllers
             SqlParameter[] myparams = new SqlParameter[1];
             myparams[0] = new SqlParameter("@NumberOfGuest", NumberOfGuest);
             db.Database.ExecuteSqlCommand(query, myparams);
-            return RedirectToAction("New");
+            return RedirectToAction("List","Order");
         }
 
 

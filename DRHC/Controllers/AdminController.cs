@@ -58,11 +58,86 @@ namespace DRHC.Controllers
             }
         }
 
-
-        // For delete... in example make sure to change : var admin = db.Admins.FindAsync(id) ... ADD await before db....
-       /* public IActionResult Index()
+        public ActionResult New()
         {
             return View();
-        }*/
+        }
+
+        // POST: Authors/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create()
+        {
+
+            Admin admin = new Admin();
+
+            if (ModelState.IsValid)
+            {
+                db.admin.Add(admin);
+                db.SaveChanges();
+                var res = await MapUserToAdmin(admin);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+
+
+        }
+
+        private async Task<IActionResult> MapUserToAdmin(Admin a)
+        {
+            var user = await GetCurrentUserAsync();
+            //mapping the user to the author
+            user.admin = a;
+            var user_res = await _userManager.UpdateAsync(user);
+            if (user_res == IdentityResult.Success)
+            {
+                Debug.WriteLine("ok the amdin to the user.");
+            }
+            else
+            {
+                Debug.WriteLine("not ok the user is not  admin.");
+                return BadRequest(user_res);
+            }
+            //mapping the author to the user
+            a.user = user;
+            a.UserID = user.Id;
+            //checking that 
+            if (ModelState.IsValid)
+            {
+                db.Entry(a).State = EntityState.Modified;
+                var author_res = await db.SaveChangesAsync();
+                if (author_res > 0) //some authors affected
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(author_res);
+                }
+            }
+            else
+            {
+                return BadRequest("Unstable admin Model.");
+            }
+
+        }
+
+
+
+
+
+
+        // For delete... in example make sure to change : var admin = db.Admins.FindAsync(id) ... ADD await before db....
+        /* public IActionResult Index()
+         {
+             return View();
+         }*/
     }
 }

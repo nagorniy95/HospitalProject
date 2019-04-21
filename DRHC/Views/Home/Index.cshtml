@@ -2,9 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="row">
-        <img class="col-lg-6" src="~/images/main.jpg" />
-    <div class="col-lg-6"  >
-        <div class="row" >
+    <img class="col-lg-6" src="~/images/main.jpg" />
+    <div class="col-lg-6">
+        <div class="row">
             <div class="col-lg-3 box">
                 <a href="#">
                     <img src="~/images/icons/first-aid-kit.png" class="logoimg" />
@@ -13,8 +13,8 @@
             </div>
             <div class="col-lg-3 box">
                 <a href="#" class="text-center">
-                <img src="~/images/icons/information.png" class="logoimg"> 
-                    <div class="logomsg">Program and Services</div> 
+                    <img src="~/images/icons/information.png" class="logoimg">
+                    <div class="logomsg">Program and Services</div>
                 </a>
             </div>
         </div>
@@ -40,25 +40,27 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-6">
-        
+    <div class="col-lg-6" style="margin-top:100px;">
+
         <p class="text-center"><strong>Improving the quality of life through excellence in rural health care delivery.</strong></p>
-        
-       
-            <p class="text-center">Since its incorporation in 1952, the Dryden Regional Health Centre has provided professional, compassionate, 
-            safe and high quality patient health care to the community of Dryden and surrounding areas.</p>
 
-            <p class="text-center">
-                As a small, rural and northern hospital, the 41-bed facility supports the work of more than 300 staff, physicians, nurses and volunteers and, through prudent planning and fiscal responsibility, continually moves forward with innovative programming suited to meet patient care needs at
-                the right time, in the right place.
-            </p>
 
-            <p class="text-center">
-                With the continued support of the Dryden Area Health Services Foundation, the hospital’s
-                fundraising partner, the facility is attracting regional and provincial attention for its innovative approach to recruiting and retaining skilled health care professionals;  support of an engaged and healthy organization; 
-                focus on aggressive facilities renewal programs and for its provision of safe, high quality health care services.
-            </p>
-        
+        <p class="text-center">
+            Since its incorporation in 1952, the Dryden Regional Health Centre has provided professional, compassionate,
+            safe and high quality patient health care to the community of Dryden and surrounding areas.
+        </p>
+
+        <p class="text-center">
+            As a small, rural and northern hospital, the 41-bed facility supports the work of more than 300 staff, physicians, nurses and volunteers and, through prudent planning and fiscal responsibility, continually moves forward with innovative programming suited to meet patient care needs at
+            the right time, in the right place.
+        </p>
+
+        <p class="text-center">
+            With the continued support of the Dryden Area Health Services Foundation, the hospital’s
+            fundraising partner, the facility is attracting regional and provincial attention for its innovative approach to recruiting and retaining skilled health care professionals;  support of an engaged and healthy organization;
+            focus on aggressive facilities renewal programs and for its provision of safe, high quality health care services.
+        </p>
+
     </div>
     <div><img class="col-lg-6" src="~/images/doctor.png" id="docimg"></div>
 </div>
@@ -91,7 +93,7 @@
         <div class="col-lg-4">
             <img src="~/images/icons/tooth.png" class="serviceimg" />
             <h3 class="text-center"><strong>Dental Care</strong></h3>
-            <p class="text-center">We provide cost-effective dental care,including all general dentistry,specially and advanced dental services</p>   
+            <p class="text-center">We provide cost-effective dental care,including all general dentistry,specially and advanced dental services</p>
         </div>
         <div class="col-lg-4">
             <img src="~/images/icons/medicine.png" class="serviceimg" />
@@ -107,5 +109,7 @@
 </div>
 
 <div class="row">
-        <h2 class="text-center text-uppercase">Customer <span style="color:#03a9f5">testimonials</span></h2>
+    <h2 class="text-center text-uppercase">Customer <span style="color:#03a9f5">testimonials</span></h2>
 </div>
+
+<partial name="~/Views/Testimonial/_userview.cshtml" />

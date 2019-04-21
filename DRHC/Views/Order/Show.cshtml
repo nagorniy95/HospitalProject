@@ -4,33 +4,95 @@
     ViewData["Title"] = "Show";
 }
 
-<h2>Show</h2>
-<div>
-    <div class="row">
-        <div class="col-lg-6">
-            @Model.UserFName @Model.UserLName
-            @Model.Number
-            @Model.Email
-        </div>
-        <div class="col-lg-6">
-
-            @Model.Date
-            @Model.Time
-            @Model.Veg
-            @Model.NonVeg
-            @Model.Guests.NumberOfGuest
-        </div>
-    </div>
+<div id="r_box_list" >
+    <h2 class="text-center">Order Summary</h2>
     <div class="row">
         <div class="col-lg-8">
-            Name           Price
+            <div class="col-lg-5">
+                <h3>User Details</h3>
+                Name : @Model.UserFName @Model.UserLName<br />
+                Phone Number:  @Model.Number<br />
+                Email :@Model.Email
+            </div>
+            <div class="col-lg-1">
+                ---------------------------------------
+            </div>
+            <div class="col-lg-6">
+                <h3 class="text-center ">Event Details</h3>
+
+                Date: @Model.Date<br />
+                Time: @Model.Time<br />
+                Veg :  @Model.Veg %<br />
+                Non : @Model.NonVeg %<br />
+                Number Of people attending : @Model.Guests.NumberOfGuest
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <h3 class="text-center">Food Items</h3>
+            <div class="col-lg-6">
+                Name
+            </div>
+            <div class="col-lg-6">
+                Price
+            </div>
             @foreach (var fooditem in @Model.Ordersxmenus)
             {
-                @fooditem.Menu.ItemName @fooditem.Menu.Price<br />
+                <div class="col-lg-6">
+                    @fooditem.Menu.ItemName
+                </div>
+                <div class="col-lg-6">
+                    $ @fooditem.Menu.Price
+                </div>
+
+
             }
+            <div class="col-lg-12">
+                ---------------------------------------
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-6">
 
-            Vat    :@ViewData["vat"]
-            Total: @ViewData["Total"]
+                    Sub Total  :
+                </div>
+                <div class="col-lg-6">
+                    $ @ViewData["subtotal"]
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    Vat   :
+                </div>
+                <div class="col-lg-6">
+                    @ViewData["vat"]
+                </div>
+            </div>
+            <div class="col-lg-12">
+                ---------------------------------------
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+
+                    Total :
+                </div>
+                <div class="col-lg-6">
+                    $ @ViewData["Total"]
+
+                </div>
+
+
+            </div>
+            <div class="col-lg-12">
+                ---------------------------------------
+            </div>
+
         </div>
-    </div>
 
+    </div>
+    <span class="btn btn-default" style="background-color:#03a9f5;;color:white">@Html.ActionLink("Back to list", "List", "Order")</span>
+    <span class="btn btn-danger">
+        <a href="@Url.Action("Delete/"+Model.OrderID)" onclick="return confirm('Are you sure you wish to delete this article?');">
+            <span class="glyphicon glyphicon-trash">
+            </span>
+        </a></span>
+</div>

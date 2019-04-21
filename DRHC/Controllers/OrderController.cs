@@ -35,12 +35,12 @@ namespace DRHC.Controllers
             if (user == null) return 0;
 
             if (user.AdminID == null) return 1; //User is not admin author
-            else return 2;
+            if (user.AdminID != null) return 2; //User is not admin author
 
-            return -1;//something went wrong
+            else return -1;
         }
 
-        
+
         public ActionResult New()
         {
             OrderEdit oe = new OrderEdit();
@@ -100,7 +100,7 @@ namespace DRHC.Controllers
 
                 return RedirectToAction("SendOrderSummary/" + oid);
             }
-            return RedirectToAction("index");
+            return RedirectToAction("index","Home");
         }
 
 
@@ -109,33 +109,33 @@ namespace DRHC.Controllers
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
+
+                var orders = await db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).ToListAsync();
+
+                int count = orders.Count();
+                int perpage = 4;
+                int maxpage = (int)Math.Ceiling((decimal)count / perpage) - 1;
+                if (maxpage < 0) maxpage = 0;
+                if (pagenum < 0) pagenum = 0;
+                if (pagenum > maxpage) pagenum = maxpage;
+                int start = perpage * pagenum;
+                ViewData["pagenum"] = (int)pagenum;
+                ViewData["PaginationSummary"] = "";
+                if (maxpage > 0)
+                {
+                    ViewData["PaginationSummary"] =
+                        (pagenum + 1).ToString() + " of " +
+                        (maxpage + 1).ToString();
+                }
+
+                List<Order> or = await db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).Skip(start).Take(perpage).ToListAsync();
+
+                return View(or);
             }
+            else return View("Index", "Home");
 
-            /*Pagination Algorithm*/
-            var orders = await db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).ToListAsync();
-
-            int count = orders.Count();
-            int perpage = 4;
-            int maxpage = (int)Math.Ceiling((decimal)count / perpage) - 1;
-            if (maxpage < 0) maxpage = 0;
-            if (pagenum < 0) pagenum = 0;
-            if (pagenum > maxpage) pagenum = maxpage;
-            int start = perpage * pagenum;
-            ViewData["pagenum"] = (int)pagenum;
-            ViewData["PaginationSummary"] = "";
-            if (maxpage > 0)
-            {
-                ViewData["PaginationSummary"] =
-                    (pagenum + 1).ToString() + " of " +
-                    (maxpage + 1).ToString();
-            }
-
-            List<Order> or = await db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).Skip(start).Take(perpage).ToListAsync();
-          
-            return View(or);
 
         }
 
@@ -143,33 +143,40 @@ namespace DRHC.Controllers
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
-            if (userstate == 0)
+            if (userstate == 2)
             {
-                return RedirectToAction("Register", "Account");
-            }
-                Order order = db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(o => o.OrderID == id);
-            double total = 0;
-            foreach ( var f in order.Ordersxmenus)
-            {
-                total = total + Convert.ToDouble(f.Menu.Price);
-                //total = total + Convert.ToInt32(Convert.ToDouble(f.Menu.Price, CultureInfo.InvariantCulture));
 
-                //total = total + int.Parse(f.Menu.Price);
+                Order order = db.Orders.Include(o => o.Guests).Include(o => o.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(o => o.OrderID == id);
+                double total = 0;
+                foreach (var f in order.Ordersxmenus)
+                {
+                    total = total + Convert.ToDouble(f.Menu.Price);
+                    //total = total + Convert.ToInt32(Convert.ToDouble(f.Menu.Price, CultureInfo.InvariantCulture));
+
+                    //total = total + int.Parse(f.Menu.Price);
+                }
+                double vat = total * 0.13;
+                double grandtotal = vat + total;
+                ViewData["subtotal"] = total;
+                ViewData["vat"] = "13%";
+                ViewData["Total"] = grandtotal;
+                return View(order);
             }
-            double vat = total * 0.13;
-            double grandtotal = vat + total;
-            ViewData["vat"] = "13%";
-            ViewData["Total"] = grandtotal;
-            return View(order);
+            else return View("Index", "Home");
 
 
         }
 
 
 
-        public ActionResult Delete(int id,int? pagenum)
+        public async Task<ActionResult> Delete(int id,int? pagenum)
         {
-            string query = "delete from OrderXMenus where OrderID = @id";
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if (userstate == 2)
+            {
+
+                string query = "delete from OrderXMenus where OrderID = @id";
             db.Database.ExecuteSqlCommand(query, new SqlParameter("@id", id));
 
 
@@ -178,6 +185,10 @@ namespace DRHC.Controllers
 
 
             return RedirectToAction("List/?pagenum=" + pagenum);
+            }
+            else return View("Index", "Home");
+
+
         }
 
 
@@ -186,8 +197,16 @@ namespace DRHC.Controllers
         {
             
             Order o = db.Orders.Include(order => order.Ordersxmenus).ThenInclude(oxt => oxt.Menu).SingleOrDefault(order => order.OrderID == id);
-            string summary = "Thankyou for ordering<br/>";
-            summary += "<div>Your Order Details are</div>";
+            string summary = "-----------------------------------<br/>";
+
+            summary += "<h2>Thankyou "+o.UserFName+" "+o.UserLName+" for ordering</h2><br/>";
+            summary += "-----------------------------------<br/>";
+
+            summary += "<div>Your Order Details are:</div>";
+            summary += "-----------------------------------<br/>";
+
+            summary += "-----------------------------------<br/>";
+
             double total = 0;
             foreach ( var f in o.Ordersxmenus)
             {
@@ -198,13 +217,19 @@ namespace DRHC.Controllers
 
             double vat = total * 0.13;
             double grandtotal = vat + total;
-            summary += "<div>Subtotal :: " + total + "</div>";
+            summary += "-----------------------------------<br/>";
+
+            summary += "<div>Subtotal :: $" + total + "</div>";
             summary += "<div>Vat :: 13%</div>";
-            summary += "<div>Total :: "+ grandtotal +"</div>";
-            
-            
+            summary += "-----------------------------------<br/>";
+
+            summary += "<div>Total :: $"+ grandtotal +"</div>";
+            summary += "-----------------------------------<br/>";
+
+
+
             var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress("ram", "rohitinventor2@gmail.com"));
+            msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
             msg.To.Add(new MailboxAddress(o.UserFName,o.Email));
             msg.Subject = "Order Detail";
             msg.Body = new TextPart("html")
@@ -216,7 +241,7 @@ namespace DRHC.Controllers
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("rohitinventor2@gmail.com", "ramkisan");
+                client.Authenticate("wdn01269796@gmail.com", "mailtest1234");
                 client.Send(msg);
                 client.Disconnect(true);
 

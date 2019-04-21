@@ -53,7 +53,7 @@ namespace DRHC.Controllers
             myparams[1] = new SqlParameter("@Type", Type);
             myparams[2] = new SqlParameter("@Price", Price);
             db.Database.ExecuteSqlCommand(query, myparams);
-            return RedirectToAction("New");
+            return RedirectToAction("List", "Order");
         }
     }
 }

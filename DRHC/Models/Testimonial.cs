@@ -21,10 +21,14 @@ namespace DRHC.Models
         public string UserLName { get; set; }
 
         //email
+        [Required, StringLength(255), Display(Name = "Email")]
+        public string Email { get; set; }
+
+        //tilte
         [Required, StringLength(255), Display(Name = "Title")]
         public string Title { get; set; }
 
-        //email
+        //story
         [Required, StringLength(1000), Display(Name = "Story")]
         public string Story { get; set; }
 

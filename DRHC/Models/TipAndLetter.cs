@@ -19,6 +19,9 @@ namespace DRHC.Models
         [Required, StringLength(1000), Display(Name = "Message")]
         public string Message { get; set; }
 
+        [Required,  Display(Name = "Date Created")]
+        public DateTime DateCreated { get; set; }
+
         [ForeignKey("TagID")]
         public int TagID { get; set; }
         public virtual Tag Tag { get; set; }

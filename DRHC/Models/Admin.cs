@@ -19,6 +19,10 @@ namespace DRHC.Models
         [ForeignKey("UserID")]
         public string UserID { get; set; }
 
+        [Required, StringLength(255), Display(Name = "Role")]
+        public string Role { get; set; }
+
+
         public virtual ApplicationUser user { get; set; }
 
     }

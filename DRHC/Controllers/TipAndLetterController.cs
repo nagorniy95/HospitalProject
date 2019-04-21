@@ -246,7 +246,7 @@ namespace DRHC.Controllers
             string title = t.Title;
             string Message = t.Message;
             string status = t.TipStatus.TipStatusName;
-            string subject = t.Tag.TagName;
+            string subject = t.Tag.TagName+" From DRHC Hospital";
             string mailmessage = "<h2 class='text-center'><strong>" + title + "</strong></h2>";
             mailmessage +="<p>"+ Message + "</p>";
             foreach (var user in r)
@@ -256,7 +256,7 @@ namespace DRHC.Controllers
 
                 var msg = new MimeMessage();
                 msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
-                msg.To.Add(new MailboxAddress("username", email));
+                msg.To.Add(new MailboxAddress(username, email));
                 msg.Subject = subject;
                 msg.Body = new TextPart("html")
                 {

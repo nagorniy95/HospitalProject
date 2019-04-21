@@ -11,9 +11,10 @@ using System;
 namespace DRHC.Migrations
 {
     [DbContext(typeof(DrhcCMSContext))]
-    partial class DrhcCMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190421194615_adminroleadded")]
+    partial class adminroleadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

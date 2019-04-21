@@ -162,7 +162,8 @@ namespace DRHC.Controllers
                 ViewData["Total"] = grandtotal;
                 return View(order);
             }
-            else return View("Index", "Home");
+            else  return RedirectToAction("index", "Home");
+
 
 
         }
@@ -186,7 +187,7 @@ namespace DRHC.Controllers
 
             return RedirectToAction("List/?pagenum=" + pagenum);
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
 
         }
@@ -202,10 +203,10 @@ namespace DRHC.Controllers
             summary += "<h2>Thankyou "+o.UserFName+" "+o.UserLName+" for ordering</h2><br/>";
             summary += "-----------------------------------<br/>";
 
-            summary += "<div>Your Order Details are:</div>";
-            summary += "-----------------------------------<br/>";
-
-            summary += "-----------------------------------<br/>";
+            summary += "<h3>:::::::Your Order Details are::::::::</h3>";
+            summary += "<p>Event Date: "+o.Date +"| Event Time: "+o.Time+"</p>";
+            summary += "<p>:::::::Your contact details :: <p/>";
+            summary += "<p>Phone : " + o.Number + "|  Email: " + o.Email + "</p>";
 
             double total = 0;
             foreach ( var f in o.Ordersxmenus)

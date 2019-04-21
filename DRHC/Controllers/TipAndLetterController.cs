@@ -55,7 +55,7 @@ namespace DRHC.Controllers
                 else if (tipstatus == 0) return RedirectToAction("New", "TipStatus");
                 else return View(tagandstatus);
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -67,17 +67,19 @@ namespace DRHC.Controllers
             var userstate = await GetUserDetails(user);
             if (userstate == 2)
             {
+                DateTime d =  DateTime.Now;
+                
+                string query = "insert into TipAndLetters (Title, Message,DateCreated, TagID,TipStatusID) " +
+                "values (@Title, @Message,@DateCreated, @TagID,@TipStatusID)";
 
-                string query = "insert into TipAndLetters (Title, Message, TagID,TipStatusID) " +
-                "values (@Title, @Message, @TagID,@TipStatusID)";
-
-            SqlParameter[] myparams = new SqlParameter[4];
+            SqlParameter[] myparams = new SqlParameter[5];
             myparams[0] = new SqlParameter("@Title", Title);
             myparams[1] = new SqlParameter("@Message", Message);
             myparams[2] = new SqlParameter("@TagID", TagID);
             myparams[3] = new SqlParameter("@TipStatusID", TipStatusID);
+                myparams[4] = new SqlParameter("@DateCreated", d);
 
-            db.Database.ExecuteSqlCommand(query, myparams);
+                db.Database.ExecuteSqlCommand(query, myparams);
             TipStatus ts = db.TipStatuss.Find(TipStatusID);
             if (ts.TipStatusName.Equals("Publish"))
             {
@@ -90,7 +92,7 @@ namespace DRHC.Controllers
 
             return RedirectToAction("List");
         }
-                        else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -124,10 +126,10 @@ namespace DRHC.Controllers
 
             return View(HTL);
         }
-        else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
-    }
-    public async Task<ActionResult> Show(int id)
+        }
+        public async Task<ActionResult> Show(int id)
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
@@ -164,7 +166,7 @@ namespace DRHC.Controllers
             if (htl.TipAndLetter != null) return View(htl);
             else return NotFound();
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -208,7 +210,7 @@ namespace DRHC.Controllers
 
                 //return RedirectToAction("Show/" + id);
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -227,21 +229,23 @@ namespace DRHC.Controllers
 
             return RedirectToAction("List");
         }
-        else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
-    }
-
-
+        }
 
 
-    public async Task<ActionResult> SendLetterAsync(int id)
+
+
+        public async Task<ActionResult> SendLetterAsync(int id)
         {
             var _user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(_user);
             if (userstate == 2)
             {
 
-                List<Registration>  r = db.Registrations.ToList();
+                List<Registration> r = db.Registrations.ToList();
+             if (r.Count() == 0)
+                { return View("List"); } 
             TipAndLetter t = db.TipAndLetters.Include(tl => tl.TipStatus).Include(tl => tl.Tag).SingleOrDefault(tl => tl.TipAndLetterID == id);
             string title = t.Title;
             string Message = t.Message;
@@ -279,7 +283,7 @@ namespace DRHC.Controllers
                 return RedirectToAction("List");
 
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
 
         }

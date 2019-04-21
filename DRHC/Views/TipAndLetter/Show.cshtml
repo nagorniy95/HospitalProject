@@ -15,7 +15,10 @@
         <label class="inplabel ">Message : </label>
         @Model.Message
     </div>
-
+    <div class="inprow">
+        <label class="inplabel ">Date created : </label>
+        @Model.DateCreated.ToString("dd/MMM/yyyy")
+    </div>
     <div class="inprow">
         <label>Type : </label>@Model.Tag.TagName
     </div>

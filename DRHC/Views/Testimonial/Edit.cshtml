@@ -10,11 +10,20 @@
 <form method="POST" action="/Testimonial/Edit/@Model.Testimonial.TestimonialID">
     <div class="row">
         <div class="inprow col-lg-12">
-            <label class="inplabel col-lg-4">Title</label>
+            <div class="inprow col-lg-12">
+                <label class="inplabel col-lg-5">Submitted by</label>
+                <p>@Model.Testimonial.UserFName @Model.Testimonial.UserLName</p>
+            </div>
+            <div class="inprow col-lg-12">
+                <label class="inplabel col-lg-5">Email</label>
+                <p>@Model.Testimonial.Email</p>
+            </div>
+
+            <label class="inplabel col-lg-5">Title</label>
             <p>@Model.Testimonial.Title</p>
         </div>
         <div class="inprow col-lg-12">
-            <label class="col-lg-4">Status</label>
+            <label class="col-lg-5">Status</label>
             <select id="TestimonialStatusID" name="TestimonialStatusID">
                 @foreach (var status in Model.TestimonialStatuss)
                 {
@@ -32,7 +41,7 @@
         </div>
 
         <div class="inprow col-lg-12">
-            <div class="inplabel col-lg-4">Story</div>
+            <label class="inplabel col-lg-5">Story</label>
             <p>@Model.Testimonial.Story</p>
         </div>
 

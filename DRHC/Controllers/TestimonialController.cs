@@ -59,32 +59,33 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string UserFName, string UserLName, string Title, string Story)
+        public ActionResult Create(string UserFName, string UserLName, string Email,string Title, string Story)
         {
 
             if (ModelState.IsValid)
             {
 
-                string query = "insert into Testimonials (UserFName, UserLName, Title,Story,TestimonialStatusID) " +
-                "values (@UserFName, @UserLName, @Title,@Story,@TestimonialStatusID)";
+                string query = "insert into Testimonials (UserFName, UserLName,Email, Title,Story,TestimonialStatusID) " +
+                "values (@UserFName, @UserLName,@Email, @Title,@Story,@TestimonialStatusID)";
 
                 //Making deafult status of testimonial to Pending-Unpublished
                 var Ts = db.TestimonialStatuss.SingleOrDefault(ts => ts.TestimonialStatusID == 3);
                 var tsid = Ts.TestimonialStatusID;
 
-                SqlParameter[] myparams = new SqlParameter[5];
+                SqlParameter[] myparams = new SqlParameter[6];
                 myparams[0] = new SqlParameter("@UserFName", UserFName);
                 myparams[1] = new SqlParameter("@UserLName", UserLName);
                 myparams[2] = new SqlParameter("@Title", Title);
                 myparams[3] = new SqlParameter("@Story", Story);
-                myparams[4] = new SqlParameter("@TestimonialStatusID", tsid);
+                myparams[4] = new SqlParameter("@Email", Email);
+                myparams[5] = new SqlParameter("@TestimonialStatusID", tsid);
 
                 db.Database.ExecuteSqlCommand(query, myparams);
                 List<Testimonial> t = db.Testimonials.ToList();
                 int id = (int)t.Max(testimonial => testimonial.TestimonialID);
                 return RedirectToAction("Sendletter", new { iid = id, tid = tsid });
             }
-            else return View("Index","Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -119,7 +120,7 @@ namespace DRHC.Controllers
 
                 return View(testi);
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -157,7 +158,7 @@ namespace DRHC.Controllers
             if (te.Testimonial != null) return View(te);
             else return NotFound();
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
         }
 
@@ -194,7 +195,7 @@ namespace DRHC.Controllers
 
             }
             }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
 
 
@@ -215,13 +216,13 @@ namespace DRHC.Controllers
            
             return RedirectToAction("List");
         }
-            else return View("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
-    }
+        }
 
 
-    //sending thankyou letter to user
-    public async Task<ActionResult> Sendletter(int iid , int tid)
+        //sending thankyou letter to user
+        public async Task<ActionResult> Sendletter(int iid , int tid)
          {
             int id = iid;
              Testimonial t = db.Testimonials.Find(id);
@@ -239,7 +240,7 @@ namespace DRHC.Controllers
 
             var msg = new MimeMessage();
              msg.From.Add(new MailboxAddress("admin", "wdn01269796@gmail.com"));
-             msg.To.Add(new MailboxAddress(t.UserFName, "rohitinventor1@gmail.com"));
+             msg.To.Add(new MailboxAddress(t.UserFName, t.Email));
              msg.Subject = "Testimonial";
              msg.Body = new TextPart("html")
              {
@@ -265,7 +266,7 @@ namespace DRHC.Controllers
                return RedirectToAction("List");
 
             }
-            else return RedirectToAction("Index", "Home");
+            else return RedirectToAction("index", "Home");
 
 
         }

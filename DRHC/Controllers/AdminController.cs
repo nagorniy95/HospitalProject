@@ -75,6 +75,7 @@ namespace DRHC.Controllers
 
             if (ModelState.IsValid)
             {
+                admin.Role = "super";
                 db.admin.Add(admin);
                 db.SaveChanges();
                 var res = await MapUserToAdmin(admin);

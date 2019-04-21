@@ -7,33 +7,42 @@
 <div id="r_box">
     <h2 class="text-center">@Model.Title</h2>
 
-        <div class="row">
-            <div class="inprow col-lg-12">
-                <label class="inplabel col-lg-4">Title</label>
-                <p>@Model.Title</p>
-            </div>
-            <div class="inprow col-lg-12">
-                <label class="col-lg-4">Status</label>
-                @Model.TestimonialStatus.TestimonialStatusName
-                       
-            </div>
+    <div class="row">
+        <div class="inprow col-lg-12">
+            <label class="inplabel col-lg-5">Submitted by</label>
+            <p>@Model.UserFName @Model.UserLName</p>
+        </div>
+        <div class="inprow col-lg-12">
+            <label class="inplabel col-lg-5">Email</label>
+            <p>@Model.Email</p>
+        </div>
 
-            <div class="inprow col-lg-12">
-                <label class="inplabel col-lg-4">Story</label>
-                <p>@Model.Story</p>
-            </div>
+        <div class="inprow col-lg-12">
+            <label class="inplabel col-lg-5">Title</label>
+            <p>@Model.Title</p>
+        </div>
+        <div class="inprow col-lg-12">
+            <label class="col-lg-5">Status</label>
+            @Model.TestimonialStatus.TestimonialStatusName
 
-            <div class="inprow col-lg-12">
+        </div>
 
-                <div class="inprow text-center">
-                    <span class="btn btn-primary glyphicon glyphicon-pencil" style="background-color:#03a9f5;">
-                        @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Model.TestimonialID })
-                    </span>
+        <div class="inprow col-lg-12">
+            <label class="inplabel col-lg-5">Story</label>
+            <p>@Model.Story</p>
+        </div>
 
-                    <span class="btn btn-primary" style="background-color:#03a9f5;">
-                        @Html.ActionLink("Back To list", "List", "Testimonial")
-                    </span>
-                </div>
+        <div class="inprow col-lg-12">
+
+            <div class="inprow text-center">
+                <span class="btn btn-primary glyphicon glyphicon-pencil" style="background-color:#03a9f5;">
+                    @Html.ActionLink("Edit", "Edit", "Testimonial", new { id = Model.TestimonialID })
+                </span>
+
+                <span class="btn btn-primary" style="background-color:#03a9f5;">
+                    @Html.ActionLink("Back To list", "List", "Testimonial")
+                </span>
             </div>
         </div>
+    </div>
 </div>

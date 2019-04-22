@@ -106,15 +106,15 @@ namespace DRHC.Controllers
         }
 
 
-        public async Task<ActionResult> Edit(int id)
-        {
+        public ActionResult Edit(int id)
+        { /*
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
             if (userstate == 0)
             {
                 return RedirectToAction("Register", "Account");
-            }
+            }*/
 
             Faq faqs = db.Faqs.Find(id);
 
@@ -122,9 +122,9 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, string question, string answer )
+        public ActionResult Edit(int id, string question, string answer )
         {
-
+            /*
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
@@ -138,7 +138,7 @@ namespace DRHC.Controllers
             {
                 return NotFound();
             }
-
+            */
             string query = "UPDATE Faqs SET Questions=@que, Answers=@ans  WHERE FaqID=@id";
 
             SqlParameter[] param = new SqlParameter[3];
@@ -152,8 +152,9 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
+            /*
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
@@ -165,9 +166,9 @@ namespace DRHC.Controllers
             if ((id == null) || (db.Faqs.Find(id) == null))
             {
                 return NotFound();
-            }
+            }*/
 
-            string query = "DELETE from Faq WHERE FaqID=@id";
+            string query = "DELETE from Faqs WHERE FaqID=@id";
             SqlParameter param = new SqlParameter("@id", id);
 
             db.Database.ExecuteSqlCommand(query, param);

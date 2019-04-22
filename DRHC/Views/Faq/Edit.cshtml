@@ -3,26 +3,27 @@
     ViewData["Title"] = "Edit";
 }
 
+<div id="r_box">
+    <h2>Edit Faq</h2>
 
-<h2>Edit Faq</h2>
 
-<form method="POST" action="@Model.FaqID">
+    <form method="POST" action="@Model.FaqID">
 
-    <div class="inputname">
-        <div class="inplabel">Question:</div>
-        <input type="text" id="Question" name="Question" value="@Model.Questions" />
-    </div>
+        <div class="inputname">
+            <div class="inplabel">Question:</div>
+            <input type="text" id="Question" name="Question" value="@Model.Questions" />
+        </div>
 
-    <div class="inputname">
-        <div class="inplabel">Answer:</div>
-        <input type="text" id="Answer" name="Answer" value="@Model.Answers" />
-    </div>
+        <div class="inputname">
+            <div class="inplabel">Answer:</div>
+            <input type="text" id="Answer" name="Answer" value="@Model.Answers" />
+        </div>
 
-    
+
         <input type="submit" value="Submit" />
-    
-
-</form>
 
 
+    </form>
+
+</div>
 

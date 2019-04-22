@@ -2,12 +2,12 @@
 @{
     ViewData["Title"] = "New";
 }
+<div id="r_box">
 
+    <div class="container">
+        <h2 calss="text-center"><span style="color:#03a9f5"> Send Ecards</span></h2>
 
-<div class="container">
-    <h2 calss="text-center"><span style="color:#03a9f5"> Send Ecards</span></h2>
-
-          <form method="post" action="/Ecard/Create">
+        <form method="post" action="/Ecard/Create">
             <div class="inprow">
                 <label class="inplabel">Patient Name</label>
                 <input type="text" id="PatientName_New" name="PatientName_New" />
@@ -42,7 +42,8 @@
                 <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
-    
-</div>
+
+    </div>
+    </div>
 
 

@@ -37,27 +37,23 @@
 
 
 
-@foreach (var Faqs in Model)
-{
-    <div class="test">
-        <div class="row">
-            <div class="col-lg-10">
-                @Faqs.Questions<br />
-                @Faqs.Answers<br />
+<div id="r_box">
+    @foreach (var Faqs in Model)
+    {
+        <div class="test">
+            <div class="row">
+                <div class="col-lg-10">
+                    @Faqs.Questions<br />
+                    @Faqs.Answers<br />
 
-            </div>
-            <div class="col-lg-2">
+                </div>
+                <div class="col-lg-2">
 
-                @Html.ActionLink("Edit", "Edit", "Faq", new { id = Faqs.FaqID })
+                    @Html.ActionLink("Edit", "Edit", "Faq", new { id = Faqs.FaqID })
 
-                <a href="@Url.Action("Delete/"+ Faqs.FaqID  )"><i class="far fa-trash-alt">Delete</i></a>
+                    <a href="@Url.Action("Delete/"+ Faqs.FaqID  )"><i class="far fa-trash-alt">Delete</i></a>
+                </div>
             </div>
         </div>
-    </div>
-}
-
-         
-
-
-
-
+    }
+</div>

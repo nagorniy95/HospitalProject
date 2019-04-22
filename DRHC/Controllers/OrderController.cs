@@ -134,7 +134,7 @@ namespace DRHC.Controllers
 
                 return View(or);
             }
-            else return View("Index", "Home");
+            return RedirectToAction("index", "Home");
 
 
         }

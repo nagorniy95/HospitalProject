@@ -17,9 +17,10 @@
     margin-right: auto;
     border: 1px solid;
     padding: 10px;
-    box-shadow: 5px 5px 10px;
-   //background-color:#03a9f5;
-   //color:white;
+    //box-shadow: 5px 10px #03a9f5;
+     box-shadow: 5px 5px 10px #03a9f5;
+    //background-color:#03a9f5;
+    //color:white;
 }
 #r_box_list {
     width: 70%;
@@ -29,5 +30,5 @@
     margin-right: auto;
     border: 1px solid;
     padding: 10px;
-    box-shadow: 5px 5px 10px;
+    box-shadow: 5px 5px 10px #03a9f5;
 }

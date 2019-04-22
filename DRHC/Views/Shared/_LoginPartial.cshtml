@@ -3,18 +3,16 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
-
 @*if (SignInManager.IsSignedIn(User) && @Model.Admin.roll == "super")
-{
-    @Html.ActionLink("Create new Admin", "Create", "Admin") 
-     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+    {
+        @Html.ActionLink("Create new Admin", "Create", "Admin")
+         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
 
-        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-    </form>
+            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+        </form>
 
 
-}*@
+    }*@
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -23,11 +21,58 @@
 
     @*<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
 
-        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-    </form>*@
+            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+        </form>*@
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Testimonial list", "List", "Testimonial")
+            </li>
+            <li>
+                @Html.ActionLink("Contact List", "List", "ContactForm")
+            </li>
+            <li>
+                @Html.ActionLink("RecRoomBooking List", "List", "RecRoomBooking")
+            </li>
+            <li>
+                @Html.ActionLink("Faq List", "List", "Faq")
+            </li>
+            <li>
+                @Html.ActionLink("ErWaitTime List", "Show", "ErWaitTime")
+            </li>
+        </ul>
+    </div>
+
 }
 else
 {
     @Html.ActionLink("Log in", "Login", "Account")
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Add", "New", "Testimonial")
+            </li>
+            <li>
+                @Html.ActionLink("Add", "Create", "RecRoomBooking")
+            </li>
+            <li>
+                @Html.ActionLink("Show", "Show", "Faq")
+            </li>
+            <li>
+                @Html.ActionLink("Feedback List", "List", "Feedback")
+            </li>
+            <li>
+                @Html.ActionLink("Add Contact ", "Add", "ContactForm")
+            </li>
+        </ul>
+    </div>
+
 
 }

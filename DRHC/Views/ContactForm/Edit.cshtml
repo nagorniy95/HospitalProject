@@ -6,22 +6,24 @@
 
 <h2>Edit</h2>
 
-<form method="POST" action="@Model.ContactID">
-    <div class="inputname">
-        <label class="input-label">Your name:</label>
-        <input id="name" name="name" value="@Model.Name" />
-    </div>
-    <div class="inputname">
-        <label class="input-label">Your email:</label>
-        <input id="email" name="email" value="@Model.Email" />
-    </div>
-    <div class="inputname">
-        <label class="input-label">Your phone number:</label>
-        <input id="phone" name="phone" value="@Model.Phone" />
-    </div>
-    <div class="inputname">
-        <label class="input-label">Your message:</label>
-        <input id="message" name="message" value="@Model.Message" />
-    </div>
-    <input type="submit" value="submit" />
-</form>
+<div id="r_box">
+    <form method="POST" action="@Model.ContactID">
+        <div class="inputname">
+            <label class="input-label">Your name:</label>
+            <input id="name" name="name" value="@Model.Name" />
+        </div>
+        <div class="inputname">
+            <label class="input-label">Your email:</label>
+            <input id="email" name="email" value="@Model.Email" />
+        </div>
+        <div class="inputname">
+            <label class="input-label">Your phone number:</label>
+            <input id="phone" name="phone" value="@Model.Phone" />
+        </div>
+        <div class="inputname">
+            <label class="input-label">Your message:</label>
+            <input id="message" name="message" value="@Model.Message" />
+        </div>
+        <input type="submit" value="submit" />
+    </form>
+</div>

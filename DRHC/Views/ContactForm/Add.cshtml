@@ -2,7 +2,7 @@
     ViewData["Title"] = "Add";
 }
 
-<h2>Contact Us</h2>
+
 
 @if (@TempData["result"] != null)
 {
@@ -10,23 +10,25 @@
         @TempData["result"]
     </p>
 }
-
-<form method="POST" action="Create">
-    <div class="inputname">
-        <label class="input-label">Your name:</label>
-        <input id="name_New" name="name_New" />
+    <div id="r_box">
+        <h2>Contact Us</h2>
+        <form method="POST" action="Create">
+            <div class="inputname">
+                <label class="input-label">Your name:</label>
+                <input id="name_New" name="name_New" />
+            </div>
+            <div class="inputname">
+                <label class="input-label">Your email:</label>
+                <input id="email_New" name="email_New" />
+            </div>
+            <div class="inputname">
+                <label class="input-label">Your phone number:</label>
+                <input id="phone_New" name="phone_New" />
+            </div>
+            <div class="inputname">
+                <label class="input-label">Your message:</label>
+                <input id="message_New" name="message_New" />
+            </div>
+            <input type="submit" value="submit" />
+        </form>
     </div>
-    <div class="inputname">
-        <label class="input-label">Your email:</label>
-        <input id="email_New" name="email_New" />
-    </div>
-    <div class="inputname">
-        <label class="input-label">Your phone number:</label>
-        <input id="phone_New" name="phone_New" />
-    </div>
-    <div class="inputname">
-        <label class="input-label">Your message:</label>
-        <input id="message_New" name="message_New" />
-    </div>
-    <input type="submit" value="submit" />
-</form>

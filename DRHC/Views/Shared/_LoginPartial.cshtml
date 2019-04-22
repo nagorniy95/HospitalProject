@@ -33,10 +33,16 @@
                 @Html.ActionLink("Testimonial list", "List", "Testimonial")
             </li>
             <li>
+                @Html.ActionLink("Feedback List", "List", "Feedback")
+            </li>
+            <li>
                 @Html.ActionLink("Contact List", "List", "ContactForm")
             </li>
             <li>
                 @Html.ActionLink("RecRoomBooking List", "List", "RecRoomBooking")
+            </li>
+            <li>
+                @Html.ActionLink("Add Faq ", "New", "Faq")
             </li>
             <li>
                 @Html.ActionLink("Faq List", "List", "Faq")
@@ -57,17 +63,15 @@ else
         </button>
         <ul class="dropdown-menu">
             <li>
-                @Html.ActionLink("Add", "New", "Testimonial")
+                @Html.ActionLink("Add Testimonial", "New", "Testimonial")
             </li>
             <li>
-                @Html.ActionLink("Add", "Create", "RecRoomBooking")
+                @Html.ActionLink("Add RecRoomBooking", "Create", "RecRoomBooking")
             </li>
             <li>
-                @Html.ActionLink("Show", "Show", "Faq")
+                @Html.ActionLink("Show Faq", "Show", "Faq")
             </li>
-            <li>
-                @Html.ActionLink("Feedback List", "List", "Feedback")
-            </li>
+            
             <li>
                 @Html.ActionLink("Add Contact ", "Add", "ContactForm")
             </li>

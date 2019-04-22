@@ -31,7 +31,12 @@ namespace DRHC.Controllers
         //added this to display ER wait time
         public IActionResult Display()
         {
-            return View();
+            //return View();
+            string query = "select * from ERWaitTimes";
+            IEnumerable<ERWaitTime> eRWaitTimes;
+
+            eRWaitTimes = db.ERWaitTimes.FromSql(query);
+            return View(eRWaitTimes);
         }
 
         public ActionResult List()

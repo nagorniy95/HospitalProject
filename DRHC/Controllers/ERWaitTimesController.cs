@@ -25,7 +25,7 @@ namespace DRHC.Controllers
        
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            return RedirectToAction("Show");
         }
 
         //added this to display ER wait time
@@ -70,7 +70,7 @@ namespace DRHC.Controllers
 
             db.Database.ExecuteSqlCommand(query, myparams);
 
-            return RedirectToAction("List");
+            return RedirectToAction("Show");
         }
 
 
@@ -109,7 +109,7 @@ namespace DRHC.Controllers
 
             db.Database.ExecuteSqlCommand(query, myparams);
 
-            return RedirectToAction("List");
+            return RedirectToAction("Show");
         }
         
         // GET: ERWaitTime/Delete

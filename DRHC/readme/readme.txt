@@ -70,3 +70,32 @@ My Files:
 
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
+Author:Azeb Kalid
+
+Features
+1. Careers
+2. Donations
+3. ER Wait Times
+----------------------------------
+My Files: 
+0) wwwroot/css/azeb.css
+1)  wwwroot/HTML/azeb.html
+2) Wireframes/azeb
+3) Controllers/ERWaitTimesController.cs
+4) Controllers/JobApplicationController.cs
+5) Controllers/JobPostingController.cs
+6) Controllers/DonationController.cs
+7) Models/Donation.cs
+8) Models/ERWaitTime.cs
+9) Models/JobApplication.cs
+10) Models/JobPosting.cs
+13) Models/ViewModels/JobPostingApplicationEdit.cs
+14) Views/ERWaitTime/*
+15) Views/Donation/*
+16) Views/JobPosting/*
+17) Views/JobAppication/*
+
+
+
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------

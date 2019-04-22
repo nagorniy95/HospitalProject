@@ -28,7 +28,7 @@ namespace DRHC.Controllers
         {
 
             db = context;
-            _userManager = usermanager;
+           _userManager = usermanager;
         }
 
         public async Task<int> GetUserDetails(ApplicationUser user)
@@ -36,11 +36,9 @@ namespace DRHC.Controllers
             if (user == null) return 0;
 
             if (user.AdminID == null) return 1; //User is not admin 
-            if (user.AdminID != null) return 2; //User is not admin author
+            else return 2;
 
-            else return -1;
-
-
+            return -1;
         }
 
         public ActionResult Add()
@@ -53,60 +51,35 @@ namespace DRHC.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult Show()
-        {
-
-            return View(db.Faqs);
-
-        }
-
-
         public async Task<ActionResult> List(int pagenum)
         {
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
 
-            if (userstate == 2)
+            /*Faq PAGINATION ALGORITHM*/
+            var _faqs = await db.Faqs.ToListAsync();
+            int faqcount = _faqs.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)faqcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
             {
-
-                var faqs = await db.Faqs.ToListAsync();
-                int count = faqs.Count();
-                int perpage = 3;
-                int maxpage = (int)Math.Ceiling((decimal)count / perpage) - 1;
-                if (maxpage < 0) maxpage = 0;
-                if (pagenum < 0) pagenum = 0;
-                if (pagenum > maxpage) pagenum = maxpage;
-                int start = perpage * pagenum;
-                ViewData["pagenum"] = (int)pagenum;
-                ViewData["PaginationSummary"] = "";
-                if (maxpage > 0)
-                {
-                    ViewData["PaginationSummary"] =
-                        (pagenum + 1).ToString() + " of " +
-                        (maxpage + 1).ToString();
-                }
-
-                List<Faq> faq = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
-
-
-                return View(faq);
-
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
             }
 
+            List<Faq> Faqs = await db.Faqs.Skip(start).Take(perpage).ToListAsync();
+
+            return View(Faqs);
 
 
-            else return RedirectToAction("index", "Home");
 
-
-           /* string query = "select * from Faqs";
-
-                IEnumerable<Faq> faqs = db.Faqs.FromSql(query);
-            
-                return View(faqs);*/
-            
         }
-       
-        
+
         public ActionResult New()
         {
 
@@ -115,110 +88,106 @@ namespace DRHC.Controllers
 
         [HttpPost]
         public ActionResult Create(string Questions_New, string Answers_New)
-        {
+        { 
 
             //Raw Query   
             string query = "insert into Faqs (Questions, Answers) values (@Questions, @Answers)";
 
             SqlParameter[] myparams = new SqlParameter[2];
-
+           
             myparams[0] = new SqlParameter("@Questions", Questions_New);
-
+        
             myparams[1] = new SqlParameter("@Answers", Answers_New);
-
+            
             db.Database.ExecuteSqlCommand(query, myparams);
             Debug.WriteLine(query);
+          
+            return RedirectToAction("List");
+        }
+
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+            Faq faqs = db.Faqs.Find(id);
+
+            return View(faqs);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(int id, string question, string answer )
+        {
+
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+
+            if (userstate == 0)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+
+
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
+                return NotFound();
+            }
+
+            string query = "UPDATE Faqs SET Questions=@que, Answers=@ans  WHERE FaqID=@id";
+
+            SqlParameter[] param = new SqlParameter[3];
+            param[0] = new SqlParameter("@que", question);
+            param[1] = new SqlParameter("@ans", answer);
+            param[2] = new SqlParameter("@id", id);
+
+
+            db.Database.ExecuteSqlCommand(query, param);
 
             return RedirectToAction("List");
         }
 
-        //TODO: EDIT VIEW, EDIT, DELETE, SHOW
-
-
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             var user = await GetCurrentUserAsync();
             var userstate = await GetUserDetails(user);
 
-            if (userstate == 2)
+            if (userstate == 0)
             {
-               // string query = "select * from Faqs where faqid=@id";
-                SqlParameter param = new SqlParameter("@id", id);
-                //Faq myfaq = db.Faqs.FromSql(query, param).FirstOrDefault();
+                return RedirectToAction("Register", "Account");
+            }
 
+            if ((id == null) || (db.Faqs.Find(id) == null))
+            {
                 return NotFound();
             }
-            else return RedirectToAction("Register", "Account");
+
+            string query = "DELETE from Faq WHERE FaqID=@id";
+            SqlParameter param = new SqlParameter("@id", id);
+
+            db.Database.ExecuteSqlCommand(query, param);
+
+            return RedirectToAction("List");
         }
 
-
-
-
-        /* public ActionResult Edit(int? id)
+        /* public async Task<ActionResult> List()
          {
-             if ((id == null) || (db.Faqs.Find(id) == null))
-             {
-                 return NotFound();
-             }
-             string query = "select * from Faqs where faqid=@id";
-             SqlParameter param = new SqlParameter("@id", id);
-             Faq myfaq = db.Faqs.FromSql(query, param).FirstOrDefault();
-             return View(myfaq);
-         }*/
 
+             var user = await GetCurrentUserAsync();
+             var userstate = await GetUserDetails(user);
 
-
-        [HttpPost]
-        public async Task<ActionResult> Edit(int? id, string Question, string Answer)
-        {
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
-
-            /* if (userstate == 0)
+             if (userstate == 0)
              {
                  return RedirectToAction("Register", "Account");
              }
 
-
-             if ((id == null) || (db.Faqs.Find(id) == null))
-             {
-                 return NotFound();
-             }*/
-            if (userstate == 2)
-            {
-                string query = "update faqs set questions=@que, answers=@ans" +
-                    " where FaqID=@id";
-                SqlParameter[] myparams = new SqlParameter[3];
-                myparams[0] = new SqlParameter("@que", Question);
-                myparams[1] = new SqlParameter("@ans", Answer);
-                myparams[2] = new SqlParameter("@id", id);
-
-                db.Database.ExecuteSqlCommand(query, myparams);
-            }
-
-            return RedirectToAction("List");
-        }
-
-
-
-        public async Task<ActionResult> Delete(int? id)
-        {
-
-            var user = await GetCurrentUserAsync();
-            var userstate = await GetUserDetails(user);
-
-            if (userstate == 2)
-            {
-
-                string query = "DELETE from faqs WHERE FaqID=@id";
-                SqlParameter param = new SqlParameter("@id", id);
-
-                db.Database.ExecuteSqlCommand(query, param);
-
-                return RedirectToAction("List");
-            }
-            else return RedirectToAction("index", "Home");
-        }
-
+             return View(db.Faqs.ToList());
+         }*/
     }
+
 }

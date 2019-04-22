@@ -2,10 +2,36 @@
 @{
     ViewData["Title"] = "Display";
 }
+<div class="container">
+    <div class="row">
+        
+            <h1 style="font-family: Verdana,sans-serif;
+    font-size: 20px; padding-left:55px; line-height: 1.5;">Emergency Room Wait Time </h1>
 
-<div class="row">
-    <div class="col-lg-6">
 
-        <p class="text-center"><strong>You are in good hands</strong></p>
+
+
+            @foreach (var item in Model)
+            {
+            <div class="col-md-4">
+                <div class="panel panel-primary" style="text-align:center;margin-left:0;height:250px;width:400px; background-color:#03a9f5;font-size:20px;">
+                    
+                            @Html.DisplayFor(modelItem => item.WaitTimeCat) 
+                        
+                  
+                        
+                    <div class="panel panel-primary" style="height:200px;width:400px;">
+                        @Html.DisplayFor(modelItem => item.Description)
+
+
+                    </div>
+                </div>
+
+                    
+                
+             </div>
+             }
+
+
     </div>
-  </div>
+</div>

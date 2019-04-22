@@ -92,7 +92,7 @@ namespace DRHC.Controllers
 
             }
 
-            string query = "UPDATE RecRoomBookings SET Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone";
+            string query = "UPDATE RecRoomBookings SET Fname=@fname, Lname=@lname, Time=@time, Day=@day, Month=@month, Email=@email, Phone=@phone where BookingID=@id";
 
             SqlParameter[] myparams = new SqlParameter[8];
             myparams[0] = new SqlParameter("@fname", Fname);

@@ -45,7 +45,7 @@ namespace DRHC.Controllers
 
 
         //for user display
-        public ActionResult _userview()
+        public async Task<ActionResult> _userview()
         {
             return View(db.Testimonials);
         }
@@ -59,6 +59,8 @@ namespace DRHC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public ActionResult Create(string UserFName, string UserLName, string Email,string Title, string Story)
         {
 

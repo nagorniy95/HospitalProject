@@ -4,7 +4,6 @@
 }
 >
 <div id="r_box">
-<h2>New</h2>
 Please enter out these three values:Pending-Unpublished ,Approved-Unpublished and Approved-published 
 <form method="POST" action="/TestimonialStatus/Create">
     <div class="inprow">
@@ -12,11 +11,11 @@ Please enter out these three values:Pending-Unpublished ,Approved-Unpublished an
         <input id="TestimonialStatusName" name="TestimonialStatusName" />
     </div>
     <div class="inprow">
-        <input type="submit" value="Submit" />
+        <input class="btn btn-success" type="submit" value="Submit" />
+        <span class="btn btn-default" style="background-color:#03a9f5;"> @Html.ActionLink("Back To List", "List", "Testimonial")</span>
     </div>
 
 
 </form>
 
-@Html.ActionLink("Back To List", "List", "TestimonialStatus");
 </div>

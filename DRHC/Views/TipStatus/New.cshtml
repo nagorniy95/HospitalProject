@@ -2,21 +2,22 @@
 @{
     ViewData["Title"] = "New";
 }
+<div id="r_box">
 
-<h2>New</h2>
 
-Please enter out these three values:Publish or Draft
+    Please enter out these three values:Publish or Draft
 
-<form method="POST" action="/TipStatus/Create">
-    <div class="inprow">
-        <label class="inplabel">Enter Status Type</label>
-        <input id="TipStatusName" name="TipStatusName" />
+    <form method="POST" action="/TipStatus/Create">
+        <div class="inprow">
+            <label class="inplabel">Enter Status Type</label>
+            <input id="TipStatusName" name="TipStatusName" />
+        </div>
+        <div class="inprow">
+            <input class="btn btn-success" type="submit" value="Submit" />
+            <span class="btn btn-default" style="background-color:#03a9f5;"> @Html.ActionLink("Back To List", "List", "TipAndLetter")</span>
+        </div>
+
+
+    </form>
+
     </div>
-    <div class="inprow">
-        <input type="submit" value="Submit" />
-    </div>
-
-
-</form>
-
-@Html.ActionLink("Back To List", "List", "TipStatus");

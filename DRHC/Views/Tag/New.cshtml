@@ -2,19 +2,22 @@
 @{
     ViewData["Title"] = "New";
 }
+<div id="r_box">
 
-<h2>New</h2>
+        Please enter out these two values:Health Tip or Newsletter
 
-<form method="POST" action="/Tag/Create">
-    <div class="inprow">
-        <label class="inplabel">Enter What type of message you want yo send to user</label>
-        <input id="TagName" name="TagName" />
+    <form method="POST" action="/Tag/Create">
+        <div class="inprow">
+            <label class="inplabel">Enter What type of message you want to send to user</label>
+            <input id="TagName" name="TagName" />
+        </div>
+        <div class="inprow">
+            <input  class="btn btn-success" type="submit" value="Submit" />
+            <span class="btn btn-default" style="background-color:#03a9f5;"> @Html.ActionLink("Back To List", "List", "TipAndLetter")</span>
+
+        </div>
+
+
+    </form>
+
     </div>
-    <div class="inprow">
-        <input type="submit" value="Submit" />
-    </div>
-
-
-</form>
-
-@Html.ActionLink("Back To List", "List", "Tag");

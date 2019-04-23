@@ -28,7 +28,11 @@ My Files:
 ----------------------------------------------------------------------------------
 Author:Rohit Arora
 
-
+Features
+1. Catering Services
+2. E-Health tips and newsletter
+3. Testimonials
+---------------------------------------------------------------------------------
 For Login as admin and use below feature:
 Login using click login button and below credential
 username:r@gmail.com
@@ -41,7 +45,41 @@ after registering in browser /admin/create it will give you admin access with 's
 3)E- Health Tip/Newsletter (Add) Page-->/Tipandletter/new
 remember if you are not login as admin with role as 'super'(right now i put it as default) you cannot able to access above pages and festure related to them with admin access
 ----------------------------------------------------------------------------------
+
+My Files: 
+1) wwwroot/css/rohit.css
+2) wwwroot/HTML/rohit.html
+3) Wireframes/Lawrence
+
+4) Controllers/TestimonialController.cs
+5) Controllers/TestimonialStatusController.cs
+
+6) Controllers/TipAndLetterController.cs
+7) Controllers/TipStatusController.cs
+8) Controllers/TagController.cs
+
+9) Controllers/OrderController.cs
+10) Controllers/MenuController.cs
+11) Controllers/GuestController.cs
+
+12) Models/Testimonial.cs (main model)
+13) Models/TestimonialStatus.cs
+14) Models/ViewModels/TestimonialEdit.cs
+
+15) Models/TipAndHealth.cs (main model)
+16) Models/TipStatus.cs
+17) Models/Tag.cs
+18) Models/ViewModels/TipAndHealthEdit.cs
+
+
+19) Models/Order.cs (main model)
+20) Models/Menu.cs
+21) Models/Guest.cs
+22) Models/ViewModels/OrderEdit.cs
+
+----------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
+
 Author:Lawrence Tillson
 
 Features

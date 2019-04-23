@@ -2,12 +2,13 @@
 @{
     ViewData["Title"] = "New";
 }
-
+>
+<div id="r_box">
 <h2>New</h2>
-
+Please enter out these three values:Pending-Unpublished ,Approved-Unpublished and Approved-published 
 <form method="POST" action="/TestimonialStatus/Create">
     <div class="inprow">
-        <label class="inplabel">TestimonialStatusName</label>
+        <label class="inplabel">Testimonial Status Name</label>
         <input id="TestimonialStatusName" name="TestimonialStatusName" />
     </div>
     <div class="inprow">
@@ -18,3 +19,4 @@
 </form>
 
 @Html.ActionLink("Back To List", "List", "TestimonialStatus");
+</div>

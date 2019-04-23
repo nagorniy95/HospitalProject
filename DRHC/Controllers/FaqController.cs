@@ -46,6 +46,11 @@ namespace DRHC.Controllers
             return View();
         }
 
+        public ActionResult Show()
+        {
+            return RedirectToAction("List");
+        }
+
         public ActionResult Index()
         {
             return RedirectToAction("List");

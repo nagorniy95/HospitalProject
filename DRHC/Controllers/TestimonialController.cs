@@ -47,6 +47,8 @@ namespace DRHC.Controllers
         //for user display
         public async Task<ActionResult> _userview()
         {
+            if (db.TestimonialStatuss.ToList().Count() == 0) return RedirectToAction("New", "TestimonialStatus");
+
             return View(db.Testimonials);
         }
 
@@ -71,7 +73,7 @@ namespace DRHC.Controllers
                 "values (@UserFName, @UserLName,@Email, @Title,@Story,@TestimonialStatusID)";
 
                 //Making deafult status of testimonial to Pending-Unpublished
-                var Ts = db.TestimonialStatuss.SingleOrDefault(ts => ts.TestimonialStatusID == 3);
+                var Ts = db.TestimonialStatuss.SingleOrDefault(ts => ts.TestimonialStatusName == "Pending-Unpublished");
                 var tsid = Ts.TestimonialStatusID;
 
                 SqlParameter[] myparams = new SqlParameter[6];

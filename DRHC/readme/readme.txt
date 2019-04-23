@@ -100,3 +100,27 @@ My Files:
 
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
+
+Author:Urvisha Patel
+
+Features
+1. Faq
+2. Ecards
+3. Registration
+----------------------------------
+My Files: 
+0) wwwroot/css/urvisha.css
+1)  wwwroot/HTML/urvisha.html
+2) Wireframes/urvisha_Features
+3) Controllers/FaqController.cs
+4) Controllers/EcardController.cs
+5) Controllers/RegistrationController.cs
+6) Models/Faq.cs
+7) Models/Ecard.cs
+8) Models/Registration.cs
+9) Views/Faq/*
+10) Views/Ecard/*
+11) Views/Registration/*
+
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
